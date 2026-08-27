@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.btn {
+  background: none;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  color: var(--muted);
+}
+
+.btn:hover:not(:disabled) {
+  border-color: rgba(46,139,107,.5);
+  background: var(--green-soft);
+  color: var(--green-deep);
+  transform: scale(1.08);
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.active {
+  border-color: var(--green) !important;
+  background: var(--green-soft) !important;
+  color: var(--green) !important;
+}
+
+.activeNeg {
+  border-color: rgba(192,57,43,.4) !important;
+  background: rgba(192,57,43,.06) !important;
+  color: #c0392b !important;
+}
+
+.thanks {
+  font-size: 0.75rem;
+  color: var(--green);
+  margin-left: 0.3rem;
+}

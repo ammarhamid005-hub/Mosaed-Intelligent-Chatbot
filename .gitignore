@@ -1,0 +1,68 @@
+﻿# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Environment / secrets
+.env
+
+# Databases
+chroma_db/
+
+# Node / frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# Logs and temp output
+*.log
+*.tmp
+out.txt
+err.txt
+temp_out.txt
+postgres_log.txt
+
+# Generated / intermediate files
+regulations_chunks.txt
+
+# Evaluation files
+evaluate_rag.py
+eval_report.html
+eval_charts.html
+eval_results.json
+
+# Planning docs
+Plan.md
+Folder_Feature_Implementation_Plan.md
+RunApp.txt
+docs/
+
+# Legacy / local-only scripts
+app.py
+requirements.txt
+
+# Design handoff files (local reference only)
+design_handoff_chat/
+design_handoff_onboarding/
+
+# Claude Code session files
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/extensions/
+
+# Test scripts
+test_rag.py
+test_groq.py

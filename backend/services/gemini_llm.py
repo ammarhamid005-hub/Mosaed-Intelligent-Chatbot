@@ -35,7 +35,7 @@ def get_gemini_client(temperature=0.2, max_tokens=700):
 
 
 def generate_answer(system_prompt: str, user_prompt: str) -> str:
-    llm = get_gemini_client(temperature=0.2, max_tokens=700)
+    llm = get_gemini_client(temperature=0.2, max_tokens=2048)
     messages = [("system", system_prompt), ("human", user_prompt)]
     response = llm.invoke(messages)
     return _extract_text(response.content)

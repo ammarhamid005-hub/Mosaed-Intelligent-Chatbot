@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import ReactMarkdown from "react-markdown";
 import styles from "./MessageBubble.module.css";
 
 // Typewriter speed: 5 chars every 16 ms ≈ ~300 chars/sec, smooth at 60 fps.
@@ -37,10 +38,14 @@ export default function MessageBubble({ message }) {
       {/* Content */}
       <div className={styles.content}>
         <div className={`${styles.bubble} ${isUser ? styles.userBubble : styles.botBubble}`}>
-          <span className={styles.text}>
-            {displayed}
-            {isTyping && <span className={styles.cursor} aria-hidden="true" />}
-          </span>
+          {isUser ? (
+            <span className={styles.text}>{displayed}</span>
+          ) : (
+            <div className={`${styles.text} ${styles.markdown}`} dir="auto">
+              <ReactMarkdown>{displayed}</ReactMarkdown>
+              {isTyping && <span className={styles.cursor} aria-hidden="true" />}
+            </div>
+          )}
         </div>
       </div>
     </div>

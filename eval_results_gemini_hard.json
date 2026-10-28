@@ -1,0 +1,311 @@
+{
+  "answer_model": "gemini-3.6-flash",
+  "judge_model": "llama3",
+  "summary": {
+    "errors": 0,
+    "error_indexes": [],
+    "median_latency_s": 6.59,
+    "total": 16,
+    "in_scope": 16,
+    "out_scope": 0,
+    "avg_keyword_score": 0.869,
+    "llm_judge_accuracy": 0.938,
+    "refusal_accuracy": null,
+    "avg_latency_s": 6.99,
+    "categories": {
+      "Multi-step Reasoning": {
+        "total": 5,
+        "avg_keyword": 0.833,
+        "judge_accuracy": 1.0
+      },
+      "Conditional & Calculation": {
+        "total": 2,
+        "avg_keyword": 1.0,
+        "judge_accuracy": 1.0
+      },
+      "Cross-document": {
+        "total": 4,
+        "avg_keyword": 1.0,
+        "judge_accuracy": 1.0
+      },
+      "Arabic": {
+        "total": 3,
+        "avg_keyword": 0.667,
+        "judge_accuracy": 0.667
+      },
+      "Hallucination Check": {
+        "total": 2,
+        "avg_keyword": null,
+        "judge_accuracy": 1.0
+      }
+    }
+  },
+  "results": [
+    {
+      "error": false,
+      "index": 1,
+      "category": "Multi-step Reasoning",
+      "question": "I was admitted conditionally with a bachelor's CGPA of 2.7. In my first semester I took two master's courses and got C+ in both. What happens to me now?",
+      "answer": "Since you did not achieve the required GPA of 3.0 in your first semester, you may register for 3 credit hours in your second semester from available courses you have not previously taken. You will be dismissed from the program if you fail to achieve a cumulative GPA of 3.0 by the end of the second semester.",
+      "expected_hint": "C+ is 2.5 points, so the first-semester GPA is 2.5, which does not meet the 3.0 condition. The student may register only 3 credit hours (courses not taken before) in the second semester and will be dismissed if they do not reach a GPA of 3.0 by the end of the second semester.",
+      "keywords": [
+        "2.5",
+        "second semester",
+        "dismissed"
+      ],
+      "should_refuse": false,
+      "keyword_score": 0.667,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 6.69
+    },
+    {
+      "error": false,
+      "index": 2,
+      "category": "Multi-step Reasoning",
+      "question": "A master's student's CGPA fell below 3.0 at the end of semester 1, went above 3.0 in semester 2, and then fell below 3.0 again at the end of semesters 3 and 4. What is the student's status?",
+      "answer": "The student will be dismissed from the program, as students are dismissed after receiving three consecutive or separate academic probations for failing to maintain a minimum CGPA of 3.0 out of 4.0.",
+      "expected_hint": "Each semester ending below 3.0 gives an academic probation; probations count whether consecutive or separate, so semesters 1, 3 and 4 make three probations. The student is dismissed from the program after the third probation if the CGPA is still below 3.0.",
+      "keywords": [
+        "probation",
+        "dismissed"
+      ],
+      "should_refuse": false,
+      "keyword_score": 0.5,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 4.91
+    },
+    {
+      "error": false,
+      "index": 3,
+      "category": "Multi-step Reasoning",
+      "question": "My CGPA is 3.2, I finished all my courses, I registered on ORCID, and my paper was accepted at a peer-reviewed conference where I am the first author and my supervisor is a co-author. My student ID is U23100105. Can I defend my thesis now?",
+      "answer": "You meet several of the requirements (CGPA above 3.0, completed courses, ORCID registration, and an accepted conference paper as primary author with your supervisor as co-author). However, to defend your thesis, you must also ensure the following remaining conditions and administrative procedures are completed:\n\n1. **Scientific Portfolio:** Because your student ID starts after U221 (U23100105), you must complete and submit the scientific portfolio before the defense.\n2. **Timing Requirement:** At least one semester must have passed since your thesis proposal was approved.\n3. **Form G21:** Your supervisor must submit Form G21 following the acceptance/publication of your paper.\n4. **Form G16A:** Your department must submit Form G16A at least 3 weeks prior to your defense date.",
+      "expected_hint": "Not necessarily yet: because the ID starts with U221 or later, the student must also submit the scientific portfolio, and the defense can only happen at least one semester after the thesis proposal was approved. The department must submit form G16A at least 3 weeks before the defense, and the supervisor submits form G21 for the accepted paper.",
+      "keywords": [
+        "portfolio",
+        "semester"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 7.17
+    },
+    {
+      "error": false,
+      "index": 4,
+      "category": "Multi-step Reasoning",
+      "question": "I am a full-time master's student and I have already used all three of my allowed postponement semesters. If I skip next semester without registering and then come back, what happens?",
+      "answer": "If you interrupt your studies for one semester without registering or postponing, you will be withdrawn from the program, but upon returning after that semester, you will be automatically re-admitted; since you have already used your full postponement period, this interruption semester will be deducted from your maximum study duration in the program.",
+      "expected_hint": "Interrupting for one semester without postponement leads to withdrawal, but a student returning after one semester is automatically re-admitted. Because the postponement period is already used up, the interruption semester is deducted from the maximum study duration (8 semesters for full-time students).",
+      "keywords": [
+        "maximum",
+        "deducted"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 5.19
+    },
+    {
+      "error": false,
+      "index": 5,
+      "category": "Multi-step Reasoning",
+      "question": "After my first semester I want to transfer to a different master's program at UoS. I have completed 9 credit hours. Can I transfer, how many credits can count, and does it affect my maximum study duration?",
+      "answer": "1. **Transfer Eligibility:** Yes, Master's students may transfer to another program within the university after completing at least one semester, provided you receive approval from both relevant departments, meet standard admission procedures, and fulfill the target program's admission requirements (including GPA and seat availability).\n2. **Transferred Credits:** A maximum of 12 credit hours of equivalent courses previously completed at UOS can be recommended for transfer, and these credits will be included in your new cumulative GPA.\n3. **Impact on Maximum Study Duration:** Yes, one semester is deducted from the maximum allowed study duration for every 6 to 9 transferred credit hours from your previous program.",
+      "expected_hint": "Transfer is allowed after at least one semester, with approval of both departments, if the student meets the new program's admission requirements. Up to 12 credit hours of equivalent courses may be transferred and included in the new CGPA. One semester is deducted from the maximum study duration for every 6-9 transferred credit hours, so 9 transferred hours means one semester is deducted.",
+      "keywords": [
+        "12",
+        "one semester"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 8.7
+    },
+    {
+      "error": false,
+      "index": 6,
+      "category": "Conditional & Calculation",
+      "question": "I scored 74% in a master's course. What letter grade is that, and did I pass the course?",
+      "answer": "A score of 74% corresponds to a letter grade of **C**. You did not pass if it is a regular master's program course, as the minimum passing grade is **C+**; however, a grade of C is considered passing if it is a remedial course.",
+      "expected_hint": "74% is a C (2 points). The passing grade for master's courses is C+ (75% or more), so the student did not pass and must repeat the course.",
+      "keywords": [
+        "c"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 5.45
+    },
+    {
+      "error": false,
+      "index": 7,
+      "category": "Conditional & Calculation",
+      "question": "I have an IELTS score of 5.5. Does this meet the English requirement for the Master's in Law? What about a master's program taught in English?",
+      "answer": "Yes, an IELTS score of 5.5 meets the English requirement for the Master's in Law, as the required minimum score is 4.5 (or TOEFL 450). However, it does not meet the requirement for master's programs taught in English, which require a minimum IELTS score of 6.0 (or TOEFL 550 / EMSAT 1400).",
+      "expected_hint": "Yes for Law: Law requires TOEFL 450, IELTS 4.5, or ESL completion, so 5.5 is enough. No for English-taught programs: they require IELTS 6 (or TOEFL 550 or EmSAT 1400), so 5.5 is not enough.",
+      "keywords": [
+        "law",
+        "6"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 5.24
+    },
+    {
+      "error": false,
+      "index": 8,
+      "category": "Cross-document",
+      "question": "In Fall 2026, what is the last date I can withdraw from a single course and get a W, and what is the last date to withdraw from the whole semester?",
+      "answer": "In Fall 2026, the last day to drop a course without receiving an 'F' grade (and receive a 'W') is Thursday, October 29, 2026, and the last day to withdraw from the entire semester is Thursday, November 19, 2026.",
+      "expected_hint": "Course withdrawal with a W is allowed from week 2 to week 10; in the Fall 2026 calendar the last day for dropping courses without an F is Thursday 29 October 2026. The last day for withdrawal from the semester is Thursday 19 November 2026.",
+      "keywords": [
+        "29",
+        "october",
+        "19",
+        "november"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 11.36
+    },
+    {
+      "error": false,
+      "index": 9,
+      "category": "Cross-document",
+      "question": "If my thesis proposal is approved in Fall 2026, what is the earliest semester I can defend, and how many thesis credit hours do I register in the approval semester and afterwards?",
+      "answer": "1. **Earliest Defense Semester:** You are eligible to defend your thesis at least one semester after proposal approval (Spring 2027).\n2. **Approval Semester:** 3 credit hours are assigned/registered in the semester the thesis proposal is approved.\n3. **Subsequent Semesters:** You register the remaining thesis credit hours (remaining 6 hours) in the following semester(s) and must continue re-registering the thesis for zero credit hours every semester until the defense is completed.",
+      "expected_hint": "The defense can happen at least one semester after proposal approval, so the earliest is Spring 2027. Three thesis credit hours are registered in the semester the proposal is approved, and the remaining 6 credit hours in the following semester(s); the thesis is then re-registered at zero credit hours each semester until the defense.",
+      "keywords": [
+        "spring",
+        "6"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 7.42
+    },
+    {
+      "error": false,
+      "index": 10,
+      "category": "Cross-document",
+      "question": "If I drop a course during the third week of the Fall semester, do I get my tuition back, and what will appear on my transcript?",
+      "answer": "If you drop a course before the end of the third week of the Fall semester, you will receive a 100% refund of your tuition fees, and a \"Withdrawal without Penalty\" (W) grade will be recorded on your transcript.",
+      "expected_hint": "Dropping after the first week and before the end of the third week of a Fall/Spring semester gives a 100% tuition refund, and a W (withdrawn) is recorded on the transcript. After the third week there is no refund.",
+      "keywords": [
+        "100",
+        "w"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 6.48
+    },
+    {
+      "error": false,
+      "index": 11,
+      "category": "Cross-document",
+      "question": "I think my final exam was marked incorrectly. How long do I have to appeal, how do I submit it, and does it cost anything?",
+      "answer": "1. **Timeframe:** You must submit your appeal within two weeks after grades are posted or receiving your written result. \n2. **Submission Method:** You can apply electronically through the E-Services portal/online system by submitting a petition through the Registrar's Office to the Dean of the College offering the course.\n3. **Cost:** Reviewing a final exam answer sheet carries a fee of 21 Dhs.",
+      "expected_hint": "The appeal or petition must be submitted within two weeks after the result or grades are posted, through the Registration Department / Registrar online system. Most appeals are free, but a review of the final exam costs 21 AED.",
+      "keywords": [
+        "two weeks",
+        "21"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 5.75
+    },
+    {
+      "error": false,
+      "index": 12,
+      "category": "Arabic",
+      "question": "كم عدد المساقات التي يمكنني إعادة دراستها لرفع معدلي التراكمي في برنامج الماجستير؟",
+      "answer": "يمكنك إعادة دراسة ثلاث مساقات كحد أقصى لأغراض رفع المعدل التراكمي طوال مدة دراستك.",
+      "expected_hint": "A maximum of three courses may be retaken to raise the GPA during the whole study period, and the higher grade is counted in the cumulative GPA. (Answer should be in Arabic.)",
+      "keywords": [
+        "ثلاث"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 4.33
+    },
+    {
+      "error": false,
+      "index": 13,
+      "category": "Arabic",
+      "question": "طالب ماجستير سجل مساقا في الفصل الأول وكانت درجته 74%. ماذا يحدث؟",
+      "answer": "علامة النجاح في مساقات الماجستير هي (ج+) وللمساقات الاستدراكية هي (ج)، إلا أن النص المتاح لا يحدد التقدير الحرفي الذي تمثله درجة 74% أو النتيجة المترتبة عليها بشكل مباشر.",
+      "expected_hint": "74% is a C (2 points), below the master's passing grade of C+, so the student did not pass and must repeat the course. (Answer should be in Arabic.)",
+      "keywords": [
+        "إعاد"
+      ],
+      "should_refuse": false,
+      "keyword_score": 0.0,
+      "llm_judge": false,
+      "correct_refusal": null,
+      "elapsed_s": 9.67
+    },
+    {
+      "error": false,
+      "index": 14,
+      "category": "Arabic",
+      "question": "ماذا يحدث إذا انقطعت عن الدراسة لفصلين دراسيين دون أن أقدم طلب تأجيل؟",
+      "answer": "إذا انقطعت عن الدراسة لفصلين دراسيين منفصلين أو متصلين، فيحدث الآتي:\n\n1. تتعرض للسحب الإجباري (الفصل) من البرنامج.\n2. في حال رغبتك بالعودة، يتوجب عليك تقديم طلب التحاق جديد بالبرنامج، وتُطبق عليك شروط وإجراءات القبول العادية ويُدرس طلبك مع المتقدمين الجدد.\n3. في حال قبولك مجدداً وكان معدلك التراكمي لا يقل عن 3 من 4 وقت الانسحاب:\n   - يمكنك تقديم طلب للقسم الأكاديمي لمعادلة/الاعتراف بالمساقات التي درستها سابقاً إذا كانت فترة الانقطاع **3 سنوات أو أقل**.\n   - **إذا كانت فترة الانقطاع أكثر من 3 سنوات**، فلا يتم معادلة أو الاعتراف بأي من المساقات التي درستها سابقاً.\n*(ملاحظة: لا يجوز لمن يقل معدله التراكمي عن 3 من 4 إعادة التسجيل في البرنامج نفسه مرة أخرى).*",
+      "expected_hint": "Interrupting for two consecutive or separate semesters leads to compulsory withdrawal (dismissal) from the program. To return, the student must submit a new admission application under the normal admission rules; previous courses can be recognized only if the interruption was 3 years or less and the CGPA was at least 3.0. (Answer should be in Arabic.)",
+      "keywords": [
+        "سحب",
+        "جديد"
+      ],
+      "should_refuse": false,
+      "keyword_score": 1.0,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 6.72
+    },
+    {
+      "error": false,
+      "index": 15,
+      "category": "Hallucination Check",
+      "question": "What is the tuition fee per credit hour for the Master's in Computer Engineering?",
+      "answer": "The specific tuition fee per credit hour for the Master's in Computer Engineering is not provided in the context; the available information only states that tuition fees may be paid in three installments and refers students to the University's Catalog for a detailed fee breakdown.",
+      "expected_hint": "The documents do not state tuition fees per credit hour. A correct answer says this information is not available (or refers the student to the university fees page) and does NOT invent a fee amount.",
+      "keywords": [],
+      "should_refuse": false,
+      "keyword_score": null,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 13.0
+    },
+    {
+      "error": false,
+      "index": 16,
+      "category": "Hallucination Check",
+      "question": "What is the maximum study duration for a PhD student at UoS?",
+      "answer": "I can only assist with questions related to master's students at the University of Sharjah. Please ask a relevant question.",
+      "expected_hint": "The documents only contain Master's regulations, not PhD study durations. A correct answer says this information is not available and does NOT present the Master's limits (e.g. 8 or 10 semesters) as PhD rules.",
+      "keywords": [],
+      "should_refuse": false,
+      "keyword_score": null,
+      "llm_judge": true,
+      "correct_refusal": null,
+      "elapsed_s": 3.74
+    }
+  ]
+}

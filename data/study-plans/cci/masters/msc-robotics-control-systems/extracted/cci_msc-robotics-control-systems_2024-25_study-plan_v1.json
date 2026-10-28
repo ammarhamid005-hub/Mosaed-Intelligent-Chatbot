@@ -1,0 +1,127 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Robotics and Control Systems",
+  "catalog_year": "2024-25",
+  "source_file": "cci/masters/msc-robotics-control-systems/cci_msc-robotics-control-systems_2024-25_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1502501",
+      "title": "Engineering Research Methodology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1502631",
+      "title": "Autonomous Mobile Robot Navigation",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "0402531",
+      "title": "Control Engineering and Robotic Applications",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502599",
+      "title": "Thesis",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1502599",
+      "title": "Thesis",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "C"
+    }
+  ],
+  "notes": [
+    "Type legend: C = Compulsory Requirements, E = Elective Requirements. No overall credit-hour total is printed; semester totals add up to 33.",
+    "Thesis (1502599) is split 3 (second-year fall) + 6 (second-year spring), as printed.",
+    "Course highlights (from the PDF): Engineering Research Methodology - research methods, experimental design, and communication of findings; Autonomous Mobile Robot Navigation - navigation algorithms for autonomous mobile robots; Control Engineering and Robotic Applications - control systems theory and robotic fundamentals.",
+    "Thesis requirement (from the PDF): in-depth research on a chosen topic, leading to a thesis that contributes to the field of robotics, supervised by a faculty member.",
+    "No prerequisites are given in the PDF."
+  ]
+}

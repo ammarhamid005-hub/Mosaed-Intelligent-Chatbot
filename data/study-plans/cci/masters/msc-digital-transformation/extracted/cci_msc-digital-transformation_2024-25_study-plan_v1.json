@@ -1,0 +1,235 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Digital Transformation",
+  "catalog_year": "2024-25",
+  "source_file": "cci/masters/msc-digital-transformation/cci_msc-digital-transformation_2024-25_study-plan_v1.pdf",
+  "total_credit_hours": 33,
+  "courses": [
+    {
+      "code": "1503630",
+      "title": "Digital Technology, Innovation and Leadership",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 1
+    },
+    {
+      "code": "1503631",
+      "title": "Data Management and Analytics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 1
+    },
+    {
+      "code": "1503635",
+      "title": "Digital Product Development, Compatibility and Compliance",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 1
+    },
+    {
+      "code": "1503637",
+      "title": "Artificial Intelligence for Digital Transformation",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 2
+    },
+    {
+      "code": "1503670",
+      "title": "Research Methods in Digital Transformation",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 2
+    },
+    {
+      "code": null,
+      "title": "One Elective Course 1",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 2
+    },
+    {
+      "code": null,
+      "title": "One Elective 2",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 3
+    },
+    {
+      "code": null,
+      "title": "One Elective 3",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Lecture",
+      "term": 3
+    },
+    {
+      "code": "1503690",
+      "title": "Thesis",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "Minimum 12 Credits hour"
+      ],
+      "track": null,
+      "type_raw": "Practical",
+      "term": 3
+    },
+    {
+      "code": "1503690",
+      "title": "Thesis",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "Minimum 12 Credits hour"
+      ],
+      "track": null,
+      "type_raw": "Practical",
+      "term": 4
+    },
+    {
+      "code": "1503633",
+      "title": "Emerging Digital Technologies and Innovation",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "1503639",
+      "title": "Change Management and Digital Transformation",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "1503641",
+      "title": "Cybersecurity, Privacy, and Data Governance",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "1503643",
+      "title": "Digital Transformation Use Cases in Industry",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "1503660",
+      "title": "Blockchain and Distributed Ledger Technology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "1503665",
+      "title": "Advanced Digital Transformation Tools",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "1503655",
+      "title": "Digital Transformation with Mobile App Development",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null
+    }
+  ],
+  "notes": [
+    "Study plan: compulsory courses 15 credit hours, elective courses 9 credit hours, thesis 9 credit hours = 33 (semester totals also add up to 33).",
+    "The 'Type' column of the distribution tables is the delivery mode (Lecture / Practical) and is kept as type_raw; 'type' (compulsory/elective/thesis) comes from the course list headings.",
+    "Semesters are printed I-IV (Semester I, II = first year; III, IV = second year); fall/spring is not stated, so 'semester' is null and 'term' holds the semester number.",
+    "Rows with year null are the elective course catalogue (course list) and are not placed in a semester. The distribution lists 'One Elective' slots only.",
+    "Thesis (Dissertation) 1503690 is 9 credits (prerequisite: minimum 12 credit hours), split 3 (Semester III) + 6 (Semester IV) in the distribution. Arabic course titles omitted."
+  ]
+}

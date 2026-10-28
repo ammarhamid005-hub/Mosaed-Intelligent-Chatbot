@@ -1,0 +1,383 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Cybersecurity Engineering",
+  "catalog_year": "2024-25",
+  "source_file": "cci/masters/msc-cybersecurity-engineering/cci_msc-cybersecurity-engineering_2024-25_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1502501",
+      "title": "Engineering Research Methodology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1502506",
+      "title": "Foundations of Cryptography & Security",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "15025XX",
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502505",
+      "title": "Information Security Management & Policies",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "15025XX",
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "15025XX",
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "15025XX",
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502590",
+      "title": "Graduate Seminar",
+      "credits": 0,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "Grad Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1502599",
+      "title": "Thesis",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1502599",
+      "title": "Thesis",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "15025XX",
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502502",
+      "title": "Optimization Methods in Engen.",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502503",
+      "title": "Applied Math. for Engineering",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502504",
+      "title": "Modelling and Simulation",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502510",
+      "title": "Network Security",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502511",
+      "title": "Internet, web, and e-business Security",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502512",
+      "title": "Cloud and Data Security",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502513",
+      "title": "Software Security and testing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502514",
+      "title": "Database Security and Privacy",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502515",
+      "title": "Operating System Security",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502517",
+      "title": "Secure Computing Practices",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502518",
+      "title": "Cybercrime Investigation and Digital Forensics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502532",
+      "title": "Performance Evaluation of Computer and Network Systems",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502560",
+      "title": "Security of E-Systems",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502561",
+      "title": "Trusted Computing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502562",
+      "title": "Security Attacks and Defenses",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502563",
+      "title": "Hardware Security",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502580",
+      "title": "Special Topics in Cybersecurity Engineering",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1502589",
+      "title": "Independent Studies in Cybersecurity Engineering",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Grad. Standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    }
+  ],
+  "notes": [
+    "Type legend: C = Compulsory, E = Elective. 'Total years = 2 / Total semesters = 4'. No overall credit-hour total is printed; semester totals add up to 33.",
+    "Rows with year null are the elective course catalogue (course list) and are not placed in a semester. All courses list 'Grad. Standing' as prerequisite ('Grad Standing' for Graduate Seminar).",
+    "Thesis (1502599, 'Master's Thesis' in the course list, 9 credits) is split 3 (second-year fall) + 6 (second-year spring) in the distribution. Graduate Seminar (1502590) is 0 credits.",
+    "Elective slots use the placeholder code 15025XX as printed."
+  ]
+}

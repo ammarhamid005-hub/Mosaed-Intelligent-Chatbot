@@ -1,0 +1,307 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Data Science",
+  "catalog_year": "2026-27",
+  "source_file": "cci/masters/msc-data-science/cci_msc-data-science_2026-27_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1501565",
+      "title": "Data Mining",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "(1501263 or 1501567 or equiv.)"
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": "1440581",
+      "title": "Regression Modelling",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501564",
+      "title": "Foundations of Data Science",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "(1511263 or 1501567 or equiv.) And 1440281."
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": "1501591",
+      "title": "Research Methodology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "(1501215 or 1501501) and Graduate Standing"
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": "1440582",
+      "title": "Introduction to Bayesian Data Analysis",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501696",
+      "title": "Thesis in DS",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "1501591"
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": "1501696",
+      "title": "Thesis in DS",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "1501591"
+      ],
+      "track": null,
+      "type_raw": "Compulsory Courses"
+    },
+    {
+      "code": "1440583",
+      "title": "Graphical data analysis",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Mathematics Electives"
+    },
+    {
+      "code": "1440584",
+      "title": "Applied Time Series Analysis",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Mathematics Electives"
+    },
+    {
+      "code": "1440586",
+      "title": "Design of Experiments",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Mathematics Electives"
+    },
+    {
+      "code": "1440589",
+      "title": "Nonparametric Inference of Statistics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Mathematics Electives"
+    },
+    {
+      "code": "1440590",
+      "title": "Stochastic Processes",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Mathematics Electives"
+    },
+    {
+      "code": "1440593",
+      "title": "Topics in Statistics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440281 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Mathematics Electives"
+    },
+    {
+      "code": "1501668",
+      "title": "Big Data and Data Analytics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501263 or 1501567 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Data-centric Electives"
+    },
+    {
+      "code": "1501661",
+      "title": "Topics in Data Analytics and Cloud Computing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Graduate Standing"
+      ],
+      "track": null,
+      "type_raw": "Data-centric Electives"
+    },
+    {
+      "code": "1501664",
+      "title": "Topics in Data Science",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501263 or 1501567 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Data-centric Electives"
+    },
+    {
+      "code": "1501530",
+      "title": "Advanced Artificial Intelligence",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Graduate standing"
+      ],
+      "track": null,
+      "type_raw": "Machine Intelligence Electives"
+    },
+    {
+      "code": "1501531",
+      "title": "Machine Learning",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440211 + 1501215"
+      ],
+      "track": null,
+      "type_raw": "Machine Intelligence Electives"
+    },
+    {
+      "code": "1501511",
+      "title": "Advanced Programming",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Basic programming course"
+      ],
+      "track": null,
+      "type_raw": "Machine Intelligence Electives"
+    },
+    {
+      "code": "1501663",
+      "title": "Information Retrieval",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501263 or 1501567 or equiv."
+      ],
+      "track": null,
+      "type_raw": "Machine Intelligence Electives"
+    }
+  ],
+  "notes": [
+    "Program Requirements: compulsory courses 15 credit hours, elective courses 9 credit hours, thesis 9 credit hours = 33 (semester totals in the distribution also add up to 33).",
+    "Rows with year null are the elective course catalogue (course list), grouped by category in type_raw; they are not placed in a semester. The distribution lists 'Elective Course' slots only.",
+    "The text layer of the PDF has wrong course codes in places (e.g. 1501566, 1501711); codes were taken from the page image: Foundations of Data Science 1501564, Advanced Programming 1501511, Topics in Data Analytics and Cloud Computing 1501661, Topics in Data Science 1501664, Information Retrieval 1501663.",
+    "Prerequisite codes are as printed (e.g. '(1511263 or 1501567 or equiv.) And 1440281.' for 1501564 and '1501263 or 1501567' in other rows; 1511263 is probably a typo for 1501263).",
+    "Arabic course titles omitted; English titles kept. Thesis in Data Science (1501696, 9 credits) is split 3 (second-year fall) + 6 (second-year spring) as 'Thesis in DS' in the distribution."
+  ]
+}

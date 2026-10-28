@@ -1,0 +1,125 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Artificial Intelligence for Biomedical and Healthcare Applications",
+  "catalog_year": "2025-26",
+  "source_file": "cci/masters/msc-ai-biomedical-healthcare/cci_msc-ai-biomedical-healthcare_2025-26_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1501513",
+      "title": "Essentials of Programming",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    },
+    {
+      "code": "0900770",
+      "title": "Foundations of Computational Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    },
+    {
+      "code": null,
+      "title": "Elective Course 1",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PE"
+    },
+    {
+      "code": "1501531",
+      "title": "Machine Learning",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    },
+    {
+      "code": "1501590",
+      "title": "Research Methodology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    },
+    {
+      "code": null,
+      "title": "Elective Course 2",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PE"
+    },
+    {
+      "code": "1501539",
+      "title": "Application of AI in Biomedical and Healthcare",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    },
+    {
+      "code": null,
+      "title": "Elective Course 3",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PE"
+    },
+    {
+      "code": "1501694",
+      "title": "Thesis in AI for BHA",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    },
+    {
+      "code": "1501694",
+      "title": "Thesis in AI for BHA",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "PC"
+    }
+  ],
+  "notes": [
+    "Type legend: PC = Program Compulsory, PE = Program Elective. No overall credit-hour total is printed (semester totals add up to 33).",
+    "Thesis in AI for BHA (1501694) is listed in both the second-year fall (3 credits) and spring (6 credits) semesters with the same code, as printed.",
+    "No prerequisites are given in the PDF."
+  ]
+}

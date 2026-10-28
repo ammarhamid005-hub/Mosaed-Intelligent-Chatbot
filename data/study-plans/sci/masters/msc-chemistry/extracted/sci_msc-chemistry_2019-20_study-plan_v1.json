@@ -1,0 +1,332 @@
+{
+  "college": "sci",
+  "level": "masters",
+  "program": "Chemistry",
+  "catalog_year": "2019-20",
+  "source_file": "sci/masters/msc-chemistry/sci_msc-chemistry_2019-20_study-plan_v1.pdf",
+  "total_credit_hours": 34,
+  "courses": [
+    {
+      "code": "1420525",
+      "title": "Advanced Analytical Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Two semesters of undergraduate analytical chemistry"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420515",
+      "title": "Advanced Organic Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Two semesters of undergraduate organic chemistry"
+      ],
+      "track": null
+    },
+    {
+      "code": "14205xx",
+      "title": "Chemistry Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420590",
+      "title": "Research Methodology",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Consent of the instructor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420535",
+      "title": "Advanced Inorganic Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "Two semesters of undergraduate inorganic chemistry"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420545",
+      "title": "Advanced Physical Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "Two semesters of undergraduate physical chemistry"
+      ],
+      "track": null
+    },
+    {
+      "code": "14205xx",
+      "title": "Chemistry Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "14205xx",
+      "title": "Chemistry Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "14205xx",
+      "title": "Chemistry Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420595",
+      "title": "Thesis",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "Approval of the academic advisor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420595",
+      "title": "Thesis",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "Approval of the academic advisor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420516",
+      "title": "Advanced Heterocyclic Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420515"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420517",
+      "title": "Special Topics in Organic Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420515 & consent of the instructor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420519",
+      "title": "Physical Organic Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420515 or consent of the instructor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420526",
+      "title": "Special Topics in Analytical Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420525 and consent of the instructor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420527",
+      "title": "Electrochemistry Techniques",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420525"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420536",
+      "title": "Advanced Organometallics",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420535"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420537",
+      "title": "Special Topics in Inorganic Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420535 & consent of the instructor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420538",
+      "title": "Physical Methods in Inorganic Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420535"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420546",
+      "title": "Special Topics in Physical Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420545 & consent of the instructor"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420547",
+      "title": "Advanced Spectroscopy",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420545 & 1420525"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420550",
+      "title": "Special Topics in Applied Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420515 & 1420535"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420551",
+      "title": "Advanced Polymer Science",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420515 & 1420535"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420554",
+      "title": "Green Chemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420525 & 1420535"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420555",
+      "title": "Advanced Biochemistry",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420515"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420556",
+      "title": "Advanced Material Science",
+      "credits": null,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420535 and 1420515"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420591",
+      "title": "Research Project",
+      "credits": null,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Approval of the academic advisor"
+      ],
+      "track": null
+    }
+  ],
+  "notes": [
+    "Master of Science in Chemistry, College of Sciences, Department of Chemistry. Adoption date Fall 2019-2020; Sharjah Main Campus; duration 2-4 years (min.-max.); language English; intake Fall & Spring; full-time and part-time. 'Total years = 2 / Total semesters = 4 / Total weeks = 64; Total number of courses = 10 / Total hours = 34'.",
+    "The plan table prints no type column; elective slots (14205xx 'Chemistry Elective Course') are typed elective and Thesis 'thesis'. Thesis (1420595) is 3 credits in second-year fall and 6 credits in second-year spring, as printed.",
+    "Prerequisites come from the Course Description pages (they do not print credit hours); courses with no description page have null prerequisites.",
+    "Rows with year null are the courses that have a description page but are not in the plan table (elective candidates, plus 1420591 Research Project); their credit hours are not printed, so credits are null and they are not counted in sums. Research Project 1420591 is not labelled elective in the PDF, so its type is null."
+  ]
+}

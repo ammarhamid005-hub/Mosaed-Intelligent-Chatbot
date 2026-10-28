@@ -279,6 +279,15 @@ _CHAR_SPLITTER = RecursiveCharacterTextSplitter(
 )
 
 
+def _breadcrumb(chunk: Document) -> str:
+    """'[From: English Academic Calendar 2026-2027 > Academic Calendar > Fall 2026/ 2027]'"""
+    name = Path(chunk.metadata.get("source", "")).stem
+    if not name:
+        return ""
+    heads = [chunk.metadata[k].strip() for k in ("h1", "h2", "h3") if chunk.metadata.get(k)]
+    return "[From: " + " > ".join([name] + heads) + "]"
+
+
 def split_documents(documents: list[Document]):
     """Split documents semantically by Markdown headers, then by chunk size."""
     result = []
@@ -295,9 +304,12 @@ def split_documents(documents: list[Document]):
             else:
                 result.append(chunk)
 
-    # Put the study-plan label on top of every chunk of that plan
+    # Put a short "where this text comes from" line on top of every chunk.
+    # Study plans get their program label; other files get the file name plus
+    # the section headings, so a piece cut from the middle of a long table
+    # (e.g. the Fall part of the academic calendar) still says which section it is.
     for chunk in result:
-        label = chunk.metadata.get("label")
+        label = chunk.metadata.get("label") or _breadcrumb(chunk)
         if label and not chunk.page_content.startswith(label):
             chunk.page_content = f"{label}\n{chunk.page_content}"
 

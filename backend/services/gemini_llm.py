@@ -6,7 +6,7 @@ load_dotenv()
 
 # Which model answers the questions: "gemini" (default), "deepseek" or "groq".
 # Embeddings are NOT affected by this setting; they always use Gemini.
-LLM_PROVIDER = os.getenv("LLM_PROVIDER", "gemini").strip().lower()
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "deepseek").strip().lower()
 
 api_key = os.getenv("GEMINI_API_KEY")
 model_name = os.getenv("GEMINI_LLM_MODEL", "models/gemini-2.5-flash")

@@ -66,3 +66,4 @@ Thumbs.db
 # Test scripts
 test_rag.py
 test_groq.py
+graph_db/

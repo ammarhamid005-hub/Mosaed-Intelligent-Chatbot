@@ -18,6 +18,11 @@ load_dotenv()
 
 CHROMA_PATH = "./chroma_db"
 
+# Retrieval mode: vector (ChromaDB only, the original behaviour), graph (GraphRAG path for
+# every question) or hybrid (the router picks per question). Set RETRIEVAL_MODE in .env.
+RETRIEVAL_MODE = os.getenv("RETRIEVAL_MODE", "vector").strip().lower()
+LAST_ROUTE = None  # route of the most recent question (read by evaluate_rag.py)
+
 # L2 distance threshold — chunks with score >= this value are too dissimilar
 # and are dropped before the LLM sees them. Lower = stricter.
 SCORE_THRESHOLD = 1.5
@@ -79,6 +84,33 @@ _BROAD_PATTERN = re.compile(
     r'requirements|conditions|procedure|process|guide)\b'
 )
 
+_LABEL_RE = re.compile(r"\[Study plan: (?:BSc|MSc) in (.+?) \((Bachelor's|Master's)\)")
+
+
+def program_hint(query: str, results: list) -> str:
+    """If the retrieved study plans come from programs the user never named,
+    return a note telling the model to ask which program instead of guessing."""
+    programs = {}
+    plan_chunks = 0
+    for doc, _score in results:
+        m = _LABEL_RE.match(doc.metadata.get("label") or "")
+        if m:
+            plan_chunks += 1
+            programs[m.group(1).lower()] = f"{m.group(1)} ({m.group(2)})"
+    if not programs:
+        return ""
+    q = query.lower()
+    if any(name in q for name in programs):
+        return ""  # the user named the program
+    if len(programs) < 2 and plan_chunks < len(results) / 2:
+        return ""  # one stray study-plan chunk, the answer is probably in the regulations
+    names = ", ".join(sorted(programs.values()))
+    return ("\n\nNote: the question does not name a program, and the study plans above belong to: "
+            f"{names}. If the answer depends on the program, do not pick one; ask the user which "
+            "program (and Bachelor's or Master's) they mean, giving a few of these as examples. "
+            "If the answer is the same for all students (for example a general regulation), answer normally.")
+
+
 def is_broad_query(query: str) -> bool:
     return bool(_BROAD_PATTERN.search(query.lower()))
 
@@ -122,7 +154,29 @@ def _select_diverse_chunks(scored_docs: list, max_results: int = 6) -> list:
     return diverse
 
 
-def query_rag(query_text: str, chat_history: list[dict] | None = None):
+def _merge(first: list, second: list, max_results: int = 8) -> list:
+    """Combine two (Document, score) lists, first list first, without duplicate chunks."""
+    seen, out = set(), []
+    for doc, score in first + second:
+        key = doc.metadata.get("id") or doc.page_content[:80]
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append((doc, score))
+        if len(out) >= max_results:
+            break
+    return out
+
+
+def _interleave(a: list, b: list) -> list:
+    out = []
+    for i in range(max(len(a), len(b))):
+        out += a[i:i + 1] + b[i:i + 1]
+    return out
+
+
+def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False):
+    global LAST_ROUTE
     if not os.path.exists(CHROMA_PATH):
         sys.exit(f"Database not found at {CHROMA_PATH}. Run populate_database.py first.")
 
@@ -146,8 +200,10 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None):
 
     # Broad queries fetch fewer candidates (coverage > precision);
     # focused questions fetch more so the threshold filter has room to work.
-    raw_results = db.similarity_search_with_score(
-        standalone_query,
+    # Embed the question once and reuse it for both the vector and the graph path.
+    query_embedding = embedding_function.embed_query(standalone_query)
+    raw_results = db.similarity_search_by_vector_with_relevance_scores(
+        query_embedding,
         k=10 if broad_query else 20
     )
 
@@ -160,17 +216,41 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None):
             filtered = raw_results[:5]
         results = _select_diverse_chunks(filtered, max_results=8)
 
+    # ── hybrid RAG / GraphRAG ─────────────────────────────────────────────
+    route = "vector"
+    if RETRIEVAL_MODE in ("graph", "hybrid"):
+        from . import graph_retriever
+        if not graph_retriever.available():
+            route = "vector (no graph_db yet)"
+        else:
+            if RETRIEVAL_MODE == "graph":
+                route = "multi_step"
+            else:
+                from .router import route as choose_route
+                route, reason = choose_route(standalone_query)
+                print(f"Route: {route} ({reason})")
+            if route in ("multi_step", "unsure"):
+                graph_results = graph_retriever.graph_retrieve(standalone_query, query_embedding, k=6)
+                if route == "multi_step":
+                    # graph passages first, a few vector chunks as a safety net
+                    results = _merge(graph_results, results[:3], max_results=8)
+                else:
+                    results = _merge(_interleave(graph_results, results), [], max_results=8)
+    LAST_ROUTE = route
+
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
 
     user_prompt_formatted = USER_PROMPT.format(
         user_question=standalone_query,
         retrieved_context=context_text
-    )
+    ) + program_hint(standalone_query, results)
 
     response_text = generate_answer(SYSTEM_PROMPT, user_prompt_formatted)
 
     sources = [doc.metadata.get("id", None) for doc, _score in results]
     print(f"Response: {response_text}\nSources: {sources}")
+    if with_route:
+        return response_text, sources, route
     return response_text, sources
 
 

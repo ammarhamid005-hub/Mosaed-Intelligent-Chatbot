@@ -81,7 +81,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 Then install the packages (with `(.venv)` showing in the terminal):
 
 ```
-pip install fastapi uvicorn python-dotenv "sqlalchemy[asyncio]" asyncpg "python-jose[cryptography]" bcrypt python-multipart "pydantic[email]" langchain-core langchain-chroma langchain-google-genai langchain-text-splitters langchain-docling docling pypdfium2
+pip install fastapi uvicorn python-dotenv "sqlalchemy[asyncio]" asyncpg "python-jose[cryptography]" bcrypt python-multipart "pydantic[email]" langchain-core langchain-chroma langchain-google-genai langchain-text-splitters langchain-docling docling pypdfium2 langchain-openai fastembed
 ```
 
 ---

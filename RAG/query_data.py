@@ -175,6 +175,83 @@ def _interleave(a: list, b: list) -> list:
     return out
 
 
+# ── sources shown under the answer ─────────────────────────────────────────
+_FROM_LINE = re.compile(r"^\[From:\s*(.+?)\]\s*$")
+_PLAN_LINE = re.compile(r"^\[Study plan:\s*(.+?)\]\s*$")
+_WORD = re.compile(r"[A-Za-z\u0600-\u06FF]{4,}|\d+(?:\.\d+)?")
+_COMMON = set("""that this with from have will your they their what when which there these those about
+into than then them were been being only also must should would could after before during each other
+student students university course courses program programs semester semesters master masters""".split())
+
+
+def _source_info(doc, answer_words: set | None = None) -> dict:
+    """Readable source for one chunk: document title, section and a short excerpt
+    (the part of the chunk that shares the most words with the answer)."""
+    text = doc.page_content.strip()
+    first, _, rest = text.partition("\n")
+    src = str(doc.metadata.get("source", "")).replace("\\", "/")
+    title = os.path.splitext(os.path.basename(src))[0] or "Document"
+    if "_" in title and " " not in title:  # file names like uos_campus_services
+        title = re.sub(r"\buos\b", "UoS", title.replace("_", " "), flags=re.I)
+        title = title[:1].upper() + title[1:]
+    section, body = "", text
+    m = _FROM_LINE.match(first)
+    if m:
+        parts = [p.strip() for p in m.group(1).split(">") if p.strip()]
+        title = parts[0] if parts else title
+        section = parts[-1] if len(parts) > 1 and parts[-1] != parts[0] else ""
+        body = rest
+    else:
+        m = _PLAN_LINE.match(first)
+        if m:
+            title = "Study plan: " + m.group(1).split(",")[0].strip()
+            body = rest
+            heading = re.search(r"^#+\s*(.+)$", body, re.M)
+            section = heading.group(1).strip() if heading else ""
+    clean = re.sub(r"^#+\s*", "", body, flags=re.M)
+    clean = re.sub(r"[|*_❑•▪●■◆➢✓]+|-{3,}", " ", clean)
+    pieces = [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n+|(?<=[.;])\s+", clean)]
+    pieces = [p.lstrip("-–• ").strip() for p in pieces]
+    pieces = [p for p in pieces if p]
+    start = 0
+    if answer_words and pieces:
+        score = lambda p: len(answer_words & {w.lower() for w in _WORD.findall(p)})
+        start = max(range(len(pieces)), key=lambda i: score(pieces[i]))
+    excerpt = " ".join(pieces[start:])
+    if start > 0:
+        excerpt = "… " + excerpt
+    if len(excerpt) > 280:
+        excerpt = excerpt[:280].rsplit(" ", 1)[0] + " …"
+    return {"id": doc.metadata.get("id"), "title": title, "section": section, "excerpt": excerpt}
+
+
+def _cited_sources(answer: str, results: list, max_sources: int = 3) -> list:
+    """The retrieved chunks the answer draws on most (shared words and numbers),
+    best match first, one per document section, at most 3. No sources for a refusal."""
+    if not answer or answer.strip().startswith("I can only assist"):
+        return []
+    words = lambda t: {w.lower() for w in _WORD.findall(t)} - _COMMON
+    answer_words = words(answer)
+    if not answer_words:
+        return []
+    scored = [(doc, len(answer_words & words(doc.page_content)) / len(answer_words)) for doc, _s in results]
+    scored.sort(key=lambda x: -x[1])  # stable: equal matches keep retrieval order
+    used = [doc for doc, share in scored if share >= 0.15]
+    if not used:  # nothing clearly matches: show the two best matches
+        used = [doc for doc, _ in scored[:2]]
+    out, seen = [], set()
+    for doc in used:
+        info = _source_info(doc, answer_words)
+        key = (info["title"], info["section"])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(info)
+        if len(out) >= max_sources:
+            break
+    return out
+
+
 def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False):
     global LAST_ROUTE
     if not os.path.exists(CHROMA_PATH):
@@ -247,8 +324,9 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None, with_rout
 
     response_text = generate_answer(SYSTEM_PROMPT, user_prompt_formatted)
 
-    sources = [doc.metadata.get("id", None) for doc, _score in results]
-    print(f"Response: {response_text}\nSources: {sources}")
+    # sources = the chunks the answer draws on, as {id, title, section, excerpt}
+    sources = _cited_sources(response_text, results)
+    print(f"Response: {response_text}\nSources: {[s['id'] for s in sources]}")
     if with_route:
         return response_text, sources, route
     return response_text, sources

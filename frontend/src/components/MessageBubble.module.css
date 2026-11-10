@@ -132,3 +132,60 @@
   font-weight: 600;
   margin: 0.8em 0 0.4em;
 }
+
+/* ── Sources (collapsed under a bot answer) ── */
+.sources {
+  margin-top: 0.15rem;
+}
+.sourcesToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.1rem 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.sourcesToggle:hover { color: var(--ink); }
+.sourcesToggle:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.chevron {
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+.chevronOpen { transform: rotate(90deg); }
+.sourcesList {
+  list-style: none;
+  margin: 0.35rem 0 0;
+  padding: 0 0 0 0.75rem;
+  border-left: 2px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.sourceItem { font-size: 0.8rem; }
+.sourceTitle {
+  color: var(--ink);
+  font-weight: 600;
+}
+.sourceSection {
+  color: var(--muted);
+  font-weight: 400;
+}
+.sourceExcerpt {
+  color: var(--muted);
+  margin-top: 0.15rem;
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

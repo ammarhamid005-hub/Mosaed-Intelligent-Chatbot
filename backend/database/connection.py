@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
+from sqlalchemy import text
 from sqlalchemy.orm import DeclarativeBase
 
 DATABASE_URL = os.getenv(
@@ -32,3 +33,5 @@ async def create_tables():
     from backend.database import models  # noqa: F401 – ensure models are registered
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+        # create_all does not add new columns to existing tables
+        await conn.execute(text("ALTER TABLE chat_messages ADD COLUMN IF NOT EXISTS sources TEXT"))

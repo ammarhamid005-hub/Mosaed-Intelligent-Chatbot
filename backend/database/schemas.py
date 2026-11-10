@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import Optional
 from pydantic import BaseModel, EmailStr, field_validator
@@ -54,10 +55,29 @@ class ChatRequest(BaseModel):
     question: str
 
 
+class SourceOut(BaseModel):
+    id: Optional[str] = None
+    title: str
+    section: str = ""
+    excerpt: str = ""
+
+
+def _parse_sources(v):
+    if v is None or v == "":
+        return []
+    if isinstance(v, str):
+        try:
+            return json.loads(v)
+        except ValueError:
+            return []
+    return v
+
+
 class ChatResponse(BaseModel):
     session_id: str
     message_id: str
     answer: str
+    sources: list[SourceOut] = []
 
 
 # ──────────────── Folders ────────────────
@@ -103,7 +123,13 @@ class MessageOut(BaseModel):
     session_id: str
     role: str
     content: str
+    sources: list[SourceOut] = []
     created_at: datetime
+
+    @field_validator("sources", mode="before")
+    @classmethod
+    def _sources(cls, v):
+        return _parse_sources(v)
 
     model_config = {"from_attributes": True}
 

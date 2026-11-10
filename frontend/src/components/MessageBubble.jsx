@@ -6,6 +6,38 @@ import styles from "./MessageBubble.module.css";
 const CHARS_PER_FRAME = 5;
 const FRAME_MS = 16;
 
+// Collapsed "Sources" line under a bot answer; click the arrow to see where it came from.
+function Sources({ sources }) {
+  const [open, setOpen] = useState(false);
+  if (!sources || sources.length === 0) return null;
+  return (
+    <div className={styles.sources}>
+      <button
+        type="button"
+        className={styles.sourcesToggle}
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span>{sources.length === 1 ? "1 source" : `${sources.length} sources`}</span>
+        <span className={`${styles.chevron} ${open ? styles.chevronOpen : ""}`} aria-hidden="true">›</span>
+      </button>
+      {open && (
+        <ol className={styles.sourcesList}>
+          {sources.map((s, i) => (
+            <li key={s.id || i} className={styles.sourceItem}>
+              <div className={styles.sourceTitle} dir="auto">
+                {s.title}
+                {s.section && <span className={styles.sourceSection}> · {s.section}</span>}
+              </div>
+              {s.excerpt && <div className={styles.sourceExcerpt} dir="auto">{s.excerpt}</div>}
+            </li>
+          ))}
+        </ol>
+      )}
+    </div>
+  );
+}
+
 export default function MessageBubble({ message }) {
   const isUser = message.role === "user";
   const shouldAnimate = !isUser && !!message.animate;
@@ -47,6 +79,7 @@ export default function MessageBubble({ message }) {
             </div>
           )}
         </div>
+        {!isUser && !isTyping && <Sources sources={message.sources} />}
       </div>
     </div>
   );

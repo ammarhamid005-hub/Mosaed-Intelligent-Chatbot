@@ -89,6 +89,7 @@ export default function ChatPage() {
         id: result.message_id,
         role: "assistant",
         content: result.answer,
+        sources: result.sources || [],
         animate: true,
       }]);
     } catch (err) {

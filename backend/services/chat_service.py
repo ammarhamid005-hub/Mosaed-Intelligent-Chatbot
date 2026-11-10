@@ -3,6 +3,7 @@ Chat service – business logic for creating sessions, saving messages,
 and orchestrating the RAG call.
 """
 import asyncio
+import json
 import uuid
 from datetime import datetime, timezone
 
@@ -63,6 +64,7 @@ async def handle_chat(db: AsyncSession, session_id: str | None, question: str, u
         session_id=session.id,
         role="assistant",
         content=answer,
+        sources=json.dumps(sources or [], ensure_ascii=False),
         created_at=_utcnow(),
     )
     db.add(assistant_msg)

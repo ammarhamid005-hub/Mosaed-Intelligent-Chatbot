@@ -119,7 +119,7 @@ export default function ChatPage() {
             <div className={`${styles.blob} ${styles.blob2}`} />
             <div className={`${styles.blob} ${styles.blob3}`} />
           </div>
-          <Header />
+          <Header onAsk={handleSend} busy={isLoading} />
           <ChatWindow messages={messages} isLoading={isLoading} isEmpty={isEmpty} />
           <div className={`${styles.inputWrap} ${isEmpty ? styles.inputCentered : styles.inputBottom}`}>
             {error && <div className={styles.error} role="alert">{error}</div>}

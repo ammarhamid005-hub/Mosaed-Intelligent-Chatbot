@@ -1,0 +1,224 @@
+.wrapper {
+  position: relative;
+}
+
+/* ── Trigger button (same look as the calendar button) ── */
+.trigger {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  border: 1px solid rgba(46,139,107,.3);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+.trigger:hover,
+.triggerActive {
+  background: rgba(46,139,107,.18);
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(46,139,107,.1);
+}
+
+/* ── Panel ── */
+.panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(420px, calc(100vw - 32px));
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px -8px rgba(15,20,25,.14), 0 2px 8px rgba(15,20,25,.06);
+  z-index: 1000;
+  animation: slideIn 0.18s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46,139,107,.2) transparent;
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.panelHeader {
+  padding: 0.95rem 1.15rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 1;
+}
+.panelTitle {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.2rem;
+}
+.panelSub {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* ── Steps (a vertical line joins the numbers) ── */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 0.75rem 0.3rem;
+}
+.step {
+  position: relative;
+}
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 34px;
+  bottom: -4px;
+  width: 2px;
+  background: var(--line);
+}
+.stepHead {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 0.45rem 0.4rem;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.stepHead:hover { background: var(--bg-tint); }
+.stepHead:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 1px;
+}
+.num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--bg);
+  border: 2px solid var(--line);
+  color: var(--ink-2);
+  position: relative;
+  z-index: 1;
+}
+.stepOpen .num {
+  border-color: var(--green);
+  background: var(--green-soft);
+  color: var(--green-deep);
+}
+.stepText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-top: 0.15rem;
+}
+.stepTitle {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.stepWhen {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.formTag {
+  flex-shrink: 0;
+  margin-top: 0.2rem;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--green-deep);
+  background: var(--green-soft);
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
+}
+
+.stepBody {
+  padding: 0.1rem 0.4rem 0.7rem 2.6rem;
+  font-size: 0.78rem;
+  color: var(--ink-2);
+}
+.who {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.points {
+  margin: 0;
+  padding-left: 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  line-height: 1.45;
+}
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.55rem;
+}
+.formLink {
+  font-size: 0.72rem;
+  color: var(--green-deep);
+  border: 1px solid rgba(46,139,107,.3);
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  text-decoration: none;
+}
+.formLink:hover { background: var(--green-soft); }
+.askBtn {
+  margin-top: 0.6rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--green);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.askBtn:disabled { color: var(--muted); cursor: default; }
+
+/* ── Info boxes ── */
+.box {
+  margin: 0.35rem 1.15rem 0.6rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-tint);
+  font-size: 0.76rem;
+  color: var(--ink-2);
+}
+.boxTitle {
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+.note {
+  margin: 0.2rem 1.15rem 0.9rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+  line-height: 1.45;
+}

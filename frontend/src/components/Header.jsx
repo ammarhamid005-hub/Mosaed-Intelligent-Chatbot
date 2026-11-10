@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import CalendarWidget from "./CalendarWidget";
+import ThesisRoadmap from "./ThesisRoadmap";
 import styles from "./Header.module.css";
 
 const SunIcon = () => (
@@ -42,7 +43,7 @@ function getInitials(user) {
   return name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
 }
 
-export default function Header() {
+export default function Header({ onAsk, busy }) {
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -66,6 +67,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.right}>
+        <ThesisRoadmap onAsk={onAsk} disabled={busy} />
         <CalendarWidget />
 
         {/* Theme toggle */}

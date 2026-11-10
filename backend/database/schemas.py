@@ -163,3 +163,16 @@ class DocumentOut(BaseModel):
     status: str
 
     model_config = {"from_attributes": True}
+
+
+# ──────────────── Study Plan Progress ────────────────
+
+class StudyProgressIn(BaseModel):
+    completed: list[str] = []
+    track: Optional[str] = None
+
+
+class StudyProgressOut(BaseModel):
+    plan_id: Optional[str] = None
+    completed: list[str] = []
+    track: Optional[str] = None

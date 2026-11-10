@@ -48,6 +48,14 @@ export const api = {
   deleteSession: (sessionId) =>
     request(`/sessions/${sessionId}`, { method: "DELETE" }),
 
+  // Study Plan Progress
+  getStudyPlans: () => request("/study-plans"),
+  getStudyPlan: (planId) => request(`/study-plans/${planId}`),
+  getLastStudyProgress: () => request("/study-plans/progress/last"),
+  getStudyProgress: (planId) => request(`/study-plans/${planId}/progress`),
+  saveStudyProgress: (planId, completed, track) =>
+    request(`/study-plans/${planId}/progress`, { method: "PUT", body: JSON.stringify({ completed, track }) }),
+
   // Feedback
   submitFeedback: (messageId, rating, comment = null) =>
     request("/feedback", { method: "POST", body: JSON.stringify({ message_id: messageId, rating, comment }) }),

@@ -1,0 +1,306 @@
+/* ── Trigger button (same look as the calendar button) ── */
+.trigger {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  border: 1px solid rgba(46,139,107,.3);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+.trigger:hover,
+.triggerActive {
+  background: rgba(46,139,107,.18);
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(46,139,107,.1);
+}
+
+/* ── Drawer ── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15,20,25,.25);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: fade 0.15s ease;
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.drawer {
+  width: min(540px, 100vw);
+  height: 100%;
+  background: var(--bg);
+  border-left: 1px solid var(--line);
+  box-shadow: -8px 0 32px -12px rgba(15,20,25,.25);
+  display: flex;
+  flex-direction: column;
+  animation: slide 0.2s ease;
+}
+.drawerWide { width: min(1400px, 100vw); }
+
+@keyframes slide { from { transform: translateX(24px); } to { transform: translateX(0); } }
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+.title {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+.close {
+  border: 0;
+  background: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 0 0.2rem;
+}
+.close:hover { color: var(--ink); }
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.85rem 1.25rem 0.4rem;
+}
+.select {
+  width: 100%;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-tint);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.82rem;
+}
+.error {
+  margin: 0.4rem 1.25rem;
+  color: #c0392b;
+  font-size: 0.8rem;
+}
+
+/* ── Summary ── */
+.summary {
+  padding: 0.5rem 1.25rem 0.6rem;
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+.summaryTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.summaryTop b { color: var(--ink); }
+.saveState {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.bar {
+  margin-top: 0.45rem;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.bar span {
+  display: block;
+  height: 100%;
+  background: var(--green);
+  border-radius: 999px;
+  transition: width 0.25s ease;
+}
+.counts {
+  margin: 0.45rem 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.warn {
+  margin: 0.5rem 0 0;
+  padding: 0.5rem 0.65rem;
+  border-radius: 8px;
+  background: var(--bg-tint);
+  border: 1px solid var(--line);
+  font-size: 0.74rem;
+  color: var(--ink-2);
+}
+
+/* ── Filters ── */
+.filters {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.2rem 1.25rem 0.55rem;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.filter {
+  border: 1px solid var(--line);
+  background: none;
+  color: var(--ink-2);
+  border-radius: 999px;
+  padding: 0.22rem 0.7rem;
+  font: inherit;
+  font-size: 0.74rem;
+  cursor: pointer;
+}
+.filterActive {
+  background: var(--green-soft);
+  border-color: rgba(46,139,107,.4);
+  color: var(--green-deep);
+  font-weight: 600;
+}
+
+/* ── Course list ── */
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.3rem 1.25rem 0.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46,139,107,.2) transparent;
+}
+.empty {
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin: 1rem 0;
+}
+.groupName {
+  margin: 0.9rem 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.course {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.5rem 0.55rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.course:hover { background: var(--bg-tint); }
+.course input {
+  margin-top: 0.2rem;
+  accent-color: var(--green);
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+.courseText {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.courseName {
+  font-size: 0.82rem;
+  color: var(--ink);
+}
+.done .courseName {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+.code {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.detail {
+  font-size: 0.73rem;
+  color: var(--ink-2);
+}
+.detailQuiet {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+.credits {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.pill {
+  font-size: 0.66rem;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
+  white-space: nowrap;
+}
+.pill_done { background: var(--line); color: var(--ink-2); }
+.pill_available { background: var(--green-soft); color: var(--green-deep); }
+.pill_locked { background: rgba(192,57,43,.1); color: #b03a2e; }
+
+/* ── Footer ── */
+.foot {
+  border-top: 1px solid var(--line);
+  padding: 0.75rem 1.25rem 0.9rem;
+}
+.askBtn {
+  width: 100%;
+  padding: 0.55rem 0.8rem;
+  border: 0;
+  border-radius: 10px;
+  background: var(--ink);
+  color: var(--bg);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.askBtn:disabled { opacity: 0.5; cursor: default; }
+.note {
+  margin: 0.5rem 0 0;
+  font-size: 0.68rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+/* ── View switch (Plan map / List) ── */
+.viewSwitch {
+  display: inline-flex;
+  margin: 0.1rem 1.25rem 0.55rem;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--bg-tint);
+  border: 1px solid var(--line);
+  align-self: flex-start;
+}
+.viewBtn {
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 0.76rem;
+  color: var(--ink-2);
+  padding: 0.25rem 0.8rem;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.viewBtnActive {
+  background: var(--bg);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(15,20,25,.12);
+}

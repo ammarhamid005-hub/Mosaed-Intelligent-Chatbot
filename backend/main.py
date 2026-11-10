@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from backend.database.connection import create_tables
-from backend.routers import chat, sessions, feedback, documents, auth, folders
+from backend.routers import chat, sessions, feedback, documents, auth, folders, study_plans
 
 
 @asynccontextmanager
@@ -35,6 +35,7 @@ app.include_router(sessions.router)
 app.include_router(folders.router)
 app.include_router(feedback.router)
 app.include_router(documents.router)
+app.include_router(study_plans.router)
 
 
 @app.get("/", tags=["Health"])

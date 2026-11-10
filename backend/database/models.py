@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import String, Text, ForeignKey, DateTime, Enum as SAEnum
+from sqlalchemy import String, Text, ForeignKey, DateTime, Enum as SAEnum, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from backend.database.connection import Base
 
@@ -90,3 +90,16 @@ class Document(Base):
     source: Mapped[str | None] = mapped_column(String(500), nullable=True)
     uploaded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow)
     status: Mapped[str] = mapped_column(String(50), default="pending")
+
+
+class StudyProgress(Base):
+    """Courses a user has marked as completed in one study plan (Study Plan Progress)."""
+    __tablename__ = "study_progress"
+    __table_args__ = (UniqueConstraint("user_id", "plan_id", name="uq_study_progress_user_plan"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    plan_id: Mapped[str] = mapped_column(String(120), nullable=False)
+    track: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    completed: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON list of course keys
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow, onupdate=_utcnow)

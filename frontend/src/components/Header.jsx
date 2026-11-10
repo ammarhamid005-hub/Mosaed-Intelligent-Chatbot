@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import CalendarWidget from "./CalendarWidget";
 import ThesisRoadmap from "./ThesisRoadmap";
+import StudyPlanProgress from "./StudyPlanProgress";
 import styles from "./Header.module.css";
 
 const SunIcon = () => (
@@ -67,6 +68,7 @@ export default function Header({ onAsk, busy }) {
   return (
     <header className={styles.header}>
       <div className={styles.right}>
+        <StudyPlanProgress onAsk={onAsk} disabled={busy} />
         <ThesisRoadmap onAsk={onAsk} disabled={busy} />
         <CalendarWidget />
 

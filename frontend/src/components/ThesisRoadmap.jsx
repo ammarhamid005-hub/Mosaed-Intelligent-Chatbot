@@ -1,14 +1,19 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { api } from "../services/api";
 import styles from "./ThesisRoadmap.module.css";
 
 // Thesis Roadmap for thesis-based Master's students.
 // Sources: "Roadmap Master" (College of Graduate Studies, updated 8 January 2026)
 // and the Master's Executive Regulations. Keep this text in line with those documents.
+// Step ids must match backend/services/thesis_roadmap.py: the chatbot reads the student's
+// ticked steps from there to answer "where am I / what is my next step?".
 
 const FORM = "https://forms.office.com/Pages/ResponsePage.aspx?id=ui664CVUm02yS_D0hFvPYvF7omSkzlFDoKOGl9hFtS9";
 
 const STEPS = [
   {
+    id: "courses",
     title: "Register your courses",
     when: "First semester",
     who: "Student",
@@ -19,6 +24,7 @@ const STEPS = [
     ask: "How many credit hours should I register in my first semester of the master's?",
   },
   {
+    id: "proposal",
     title: "Register your thesis proposal",
     when: "Second semester (remedial semesters not counted)",
     who: "Department submits G12A",
@@ -31,6 +37,7 @@ const STEPS = [
     ask: "What are the conditions to register my thesis proposal?",
   },
   {
+    id: "credits",
     title: "Thesis credits are registered",
     when: "Same semester the proposal is approved",
     who: "Registration Department",
@@ -40,6 +47,7 @@ const STEPS = [
     ask: "When are my thesis credit hours registered?",
   },
   {
+    id: "remaining",
     title: "Register the remaining thesis credits",
     when: "Following semester(s)",
     who: "Student",
@@ -50,6 +58,7 @@ const STEPS = [
     ask: "Do I need to register my thesis every semester until the defense?",
   },
   {
+    id: "paper",
     title: "Publish a research paper",
     when: "Before the defense",
     who: "Supervisor submits G21",
@@ -61,6 +70,7 @@ const STEPS = [
     ask: "What are the publication requirements before my thesis defense?",
   },
   {
+    id: "portfolio",
     title: "Complete your scientific portfolio",
     when: "Before the defense",
     who: "Student (IDs starting U221 or later)",
@@ -72,6 +82,7 @@ const STEPS = [
     ask: "Do I need a scientific portfolio before my thesis defense?",
   },
   {
+    id: "defense",
     title: "Defend your thesis",
     when: "At least one semester after proposal approval",
     who: "Department submits G16A",
@@ -83,6 +94,7 @@ const STEPS = [
     ask: "What do I need before I can defend my master's thesis?",
   },
   {
+    id: "decision",
     title: "Defense decision",
     when: "Within 48 hours after the defense",
     who: "Department submits G17",
@@ -98,6 +110,7 @@ const STEPS = [
     ask: "What happens if I get a No Pass in my thesis defense?",
   },
   {
+    id: "graduate",
     title: "Graduate",
     when: "After the examiners' comments are addressed",
     who: "Department submits G23A",
@@ -118,11 +131,43 @@ const RouteIcon = () => (
 export default function ThesisRoadmap({ onAsk, disabled }) {
   const [open, setOpen] = useState(false);
   const [openStep, setOpenStep] = useState(0);
+  const [done, setDone] = useState(new Set());
+  const [saveState, setSaveState] = useState("");
+  const loaded = useRef(false);
   const wrapperRef = useRef(null);
+  const panelRef = useRef(null);
+  const [pos, setPos] = useState({ top: 64, right: 16 });
+
+  // Load the student's saved progress the first time the panel opens.
+  useEffect(() => {
+    if (!open || loaded.current) return;
+    loaded.current = true;
+    api.getThesisProgress()
+      .then((p) => {
+        const s = new Set(p.completed || []);
+        setDone(s);
+        const current = STEPS.findIndex((st) => !s.has(st.id));
+        setOpenStep(current === -1 ? -1 : current);
+      })
+      .catch(() => {});
+  }, [open]);
+
+  const toggleDone = (id) => {
+    const next = new Set(done);
+    next.has(id) ? next.delete(id) : next.add(id);
+    setDone(next);
+    setSaveState("Saving…");
+    api.saveThesisProgress([...next])
+      .then(() => setSaveState("Saved"))
+      .catch(() => setSaveState("Not saved"));
+  };
+
+  const current = STEPS.findIndex((st) => !done.has(st.id));
 
   useEffect(() => {
     function onClickOutside(e) {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) setOpen(false);
+      const inside = (r) => r.current && r.current.contains(e.target);
+      if (!inside(wrapperRef) && !inside(panelRef)) setOpen(false);
     }
     function onEsc(e) {
       if (e.key === "Escape") setOpen(false);
@@ -147,7 +192,12 @@ export default function ThesisRoadmap({ onAsk, disabled }) {
     <div className={styles.wrapper} ref={wrapperRef}>
       <button
         className={`${styles.trigger} ${open ? styles.triggerActive : ""}`}
-        onClick={() => setOpen((v) => !v)}
+        onClick={(e) => {
+          // place the panel under the button; it is drawn in <body> so the chat box cannot cover it
+          const r = e.currentTarget.getBoundingClientRect();
+          setPos({ top: r.bottom + 10, right: Math.max(16, window.innerWidth - r.right) });
+          setOpen((v) => !v);
+        }}
         title="Thesis Roadmap (Master's)"
         aria-label="Open thesis roadmap"
         aria-expanded={open}
@@ -155,34 +205,43 @@ export default function ThesisRoadmap({ onAsk, disabled }) {
         <RouteIcon />
       </button>
 
-      {open && (
-        <div className={styles.panel} role="dialog" aria-label="Thesis Roadmap">
+      {open && createPortal(
+        <div className={styles.panel} role="dialog" aria-label="Thesis Roadmap" ref={panelRef}
+          style={{ top: pos.top, right: pos.right, maxHeight: `calc(100vh - ${pos.top + 16}px)` }}>
           <div className={styles.panelHeader}>
             <span className={styles.panelTitle}>Thesis Roadmap · Master's</span>
-            <span className={styles.panelSub}>9 steps from first semester to graduation</span>
+            <span className={styles.panelSub}>
+              {current === -1 ? "All 9 steps done" : `You are on step ${current + 1} of 9`}
+              {" · tick the steps you have finished"}
+              {saveState && <span className={styles.saveState}> · {saveState}</span>}
+            </span>
           </div>
 
           <ol className={styles.steps}>
             {STEPS.map((s, i) => {
               const isOpen = openStep === i;
               return (
-                <li key={s.title} className={`${styles.step} ${isOpen ? styles.stepOpen : ""}`}>
+                <li key={s.id} className={`${styles.step} ${isOpen ? styles.stepOpen : ""} ${done.has(s.id) ? styles.stepDone : ""} ${i === current ? styles.stepCurrent : ""}`}>
                   <button
                     type="button"
                     className={styles.stepHead}
                     onClick={() => setOpenStep(isOpen ? -1 : i)}
                     aria-expanded={isOpen}
                   >
-                    <span className={styles.num}>{i + 1}</span>
+                    <span className={styles.num}>{done.has(s.id) ? "✓" : i + 1}</span>
                     <span className={styles.stepText}>
                       <span className={styles.stepTitle}>{s.title}</span>
-                      <span className={styles.stepWhen}>{s.when}</span>
+                      <span className={styles.stepWhen}>{i === current ? "You are here · " : ""}{s.when}</span>
                     </span>
                     {s.forms && <span className={styles.formTag}>{s.forms.map((f) => f.code).join(" · ")}</span>}
                   </button>
 
                   {isOpen && (
                     <div className={styles.stepBody}>
+                      <label className={styles.doneCheck}>
+                        <input type="checkbox" checked={done.has(s.id)} onChange={() => toggleDone(s.id)} />
+                        I have completed this step
+                      </label>
                       <p className={styles.who}>Who: {s.who}</p>
                       <ul className={styles.points}>
                         {s.points.map((p) => <li key={p}>{p}</li>)}
@@ -239,7 +298,8 @@ export default function ThesisRoadmap({ onAsk, disabled }) {
             Forms other than G21 can be submitted by the admin assistant, program coordinator or supervisor.
             Source: Roadmap for Master's students (updated 8 Jan 2026) and the Master's Executive Regulations.
           </p>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

@@ -10,8 +10,9 @@ from datetime import datetime, timezone
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.database.models import ChatSession, ChatMessage
+from backend.database.models import ChatSession, ChatMessage, StudyProgress
 from backend.services.rag_service import get_rag_answer
+from backend.services import thesis_roadmap
 
 
 def _utcnow() -> datetime:
@@ -41,12 +42,28 @@ async def load_history(db: AsyncSession, session_id: str) -> list[dict]:
     return [{"role": m.role, "content": m.content} for m in messages]
 
 
+async def load_student_context(db: AsyncSession, user_id: str) -> dict | None:
+    """The student's Thesis Roadmap progress, if they have used the tracker."""
+    if not user_id:
+        return None
+    row = (await db.execute(
+        select(StudyProgress).where(StudyProgress.user_id == user_id,
+                                    StudyProgress.plan_id == thesis_roadmap.PLAN_ID)
+    )).scalar_one_or_none()
+    if row is None:
+        return None
+    completed = json.loads(row.completed or "[]")
+    return {"text": thesis_roadmap.progress_context(completed),
+            "search_hint": thesis_roadmap.search_hint(completed)}
+
+
 async def handle_chat(db: AsyncSession, session_id: str | None, question: str, user_id: str = "") -> dict:
     session = await get_or_create_session(db, session_id, user_id)
     history = await load_history(db, session.id)
+    student = await load_student_context(db, user_id)
 
     # Run the blocking RAG call in a thread pool so we don't block the event loop
-    answer, sources = await asyncio.to_thread(get_rag_answer, question, history)
+    answer, sources = await asyncio.to_thread(get_rag_answer, question, history, student)
 
     # Persist user message
     user_msg = ChatMessage(

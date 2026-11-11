@@ -50,7 +50,8 @@ Response rules:
 - If the answer is not in the context at all, say: "I can only assist with questions related to the University of Sharjah. Please ask a relevant question."
 - Never fabricate policies, deadlines, credit hours, GPA thresholds, procedures, prices, working hours, phone numbers, instructor names, or emails.
 - Respond in the same language the user used (Arabic or English).
-- Format multi-step procedures and requirement lists with numbered points for clarity."""
+- Format multi-step procedures and requirement lists with numbered points for clarity.
+- If a "Student's progress" section is given, it is the student's own record from Mosaed's Thesis Roadmap tracker. Questions about their own progress or next steps are in scope: say which step they are on and what comes next, and explain the requirements of that step using the retrieved context. Do not mention their progress when the question does not need it."""
 
 USER_PROMPT = """Retrieved context:
 -----
@@ -252,7 +253,14 @@ def _cited_sources(answer: str, results: list, max_sources: int = 3) -> list:
     return out
 
 
-def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False):
+# A question about the student's own thesis progress ("what is my next step?")
+_PERSONAL = re.compile(r"\b(my|i|me|am i|next step|where am i)\b|(خطوتي|الخطوة التالية|رسالتي|أين أنا)", re.I)
+_THESIS_WORDS = re.compile(r"thesis|roadmap|defen[cds]|proposal|graduat|\bstep|portfolio|publication|paper|\bG\d{2}|رسال|مناقش|تخرج|خطو", re.I)
+
+
+def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False,
+              student: dict | None = None):
+    """student = the user's Thesis Roadmap progress {"text", "search_hint"} or None."""
     global LAST_ROUTE
     if not os.path.exists(CHROMA_PATH):
         sys.exit(f"Database not found at {CHROMA_PATH}. Run populate_database.py first.")
@@ -273,12 +281,18 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None, with_rout
         rewritten_query = generate_text(rewrite_prompt)
         standalone_query = (rewritten_query or "").strip() or query_text
 
+    # For "what is my next step?" the question alone finds nothing useful: add the
+    # student's next roadmap steps to the search so the rules for them are retrieved.
+    search_query = standalone_query
+    if student and _PERSONAL.search(standalone_query) and _THESIS_WORDS.search(standalone_query):
+        search_query = f"{standalone_query} {student.get('search_hint', '')}".strip()
+
     broad_query = is_broad_query(standalone_query)
 
     # Broad queries fetch fewer candidates (coverage > precision);
     # focused questions fetch more so the threshold filter has room to work.
     # Embed the question once and reuse it for both the vector and the graph path.
-    query_embedding = embedding_function.embed_query(standalone_query)
+    query_embedding = embedding_function.embed_query(search_query)
     raw_results = db.similarity_search_by_vector_with_relevance_scores(
         query_embedding,
         k=10 if broad_query else 20
@@ -304,10 +318,10 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None, with_rout
                 route = "multi_step"
             else:
                 from .router import route as choose_route
-                route, reason = choose_route(standalone_query)
+                route, reason = choose_route(search_query)
                 print(f"Route: {route} ({reason})")
             if route in ("multi_step", "unsure"):
-                graph_results = graph_retriever.graph_retrieve(standalone_query, query_embedding, k=6)
+                graph_results = graph_retriever.graph_retrieve(search_query, query_embedding, k=6)
                 if route == "multi_step":
                     # graph passages first, a few vector chunks as a safety net
                     results = _merge(graph_results, results[:3], max_results=8)
@@ -321,6 +335,8 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None, with_rout
         user_question=standalone_query,
         retrieved_context=context_text
     ) + program_hint(standalone_query, results)
+    if student and student.get("text"):
+        user_prompt_formatted = f"Student's progress:\n{student['text']}\n\n" + user_prompt_formatted
 
     response_text = generate_answer(SYSTEM_PROMPT, user_prompt_formatted)
 

@@ -56,6 +56,11 @@ export const api = {
   saveStudyProgress: (planId, completed, track) =>
     request(`/study-plans/${planId}/progress`, { method: "PUT", body: JSON.stringify({ completed, track }) }),
 
+  // Thesis Roadmap progress (the chatbot uses it for "what is my next step?")
+  getThesisProgress: () => request("/study-plans/thesis/progress"),
+  saveThesisProgress: (completed) =>
+    request("/study-plans/thesis/progress", { method: "PUT", body: JSON.stringify({ completed }) }),
+
   // Feedback
   submitFeedback: (messageId, rating, comment = null) =>
     request("/feedback", { method: "POST", body: JSON.stringify({ message_id: messageId, rating, comment }) }),

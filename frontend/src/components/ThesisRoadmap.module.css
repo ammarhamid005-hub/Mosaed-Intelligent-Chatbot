@@ -26,9 +26,7 @@
 
 /* ── Panel ── */
 .panel {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
+  position: fixed;   /* drawn in <body>, placed under the button by the component */
   width: min(420px, calc(100vw - 32px));
   max-height: calc(100vh - 110px);
   overflow-y: auto;
@@ -222,3 +220,28 @@
   color: var(--muted);
   line-height: 1.45;
 }
+
+/* ── Student progress ── */
+.saveState { color: var(--muted); }
+.stepDone .num {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+.stepDone .stepTitle { color: var(--muted); }
+.stepCurrent .num {
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(46,139,107,.18);
+}
+.stepCurrent .stepWhen { color: var(--green-deep); font-weight: 600; }
+.doneCheck {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.45rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.doneCheck input { accent-color: var(--green); width: 14px; height: 14px; cursor: pointer; }

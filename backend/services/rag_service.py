@@ -13,9 +13,10 @@ if ROOT_DIR not in sys.path:
 from RAG.query_data import query_rag  # noqa: E402
 
 
-def get_rag_answer(question: str, chat_history: list[dict]) -> tuple[str, list]:
+def get_rag_answer(question: str, chat_history: list[dict], student: dict | None = None) -> tuple[str, list]:
     """
     Call the existing query_rag function and return (answer, sources).
+    `student` = the user's Thesis Roadmap progress ({"text", "search_hint"}) or None.
     Runs synchronously – call via asyncio.to_thread() from async routes.
     """
-    return query_rag(question, chat_history)
+    return query_rag(question, chat_history, student=student)

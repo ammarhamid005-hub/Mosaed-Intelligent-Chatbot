@@ -135,6 +135,26 @@ Open http://localhost:5173 and create an account.
 python -m RAG.query_data "What is the minimum GPA to graduate?"
 ```
 
+**Demo students (simulated data, for the agentic mode):**
+
+```
+python -m backend.seed_students
+```
+
+Creates five made-up student accounts with a student record (program, admission, transcript,
+current registration), synced Study Plan Progress and Thesis Roadmap ticks. When one of them
+logs in, Mosaed answers as an agent: it calls tools to read the student's record and to search
+the documents before answering. Running the command again resets the accounts. Set
+`AGENT_MODE=off` in `.env` to use the normal RAG answer for everyone.
+
+| Student | Email | Password | Situation |
+|---|---|---|---|
+| Layla Haddad | layla.haddad@mosaed.example.com | Layla@2026 | MSc Data Science, full-time, thesis step 4 |
+| Khalid Mansour | khalid.mansour@mosaed.example.com | Khalid@2026 | MSc Data Science, part-time, failed Research Methodology |
+| Mariam Al Ali | mariam.alali@mosaed.example.com | Mariam@2026 | MSc Data Science, ready to defend (step 7) |
+| Yousef Karim | yousef.karim@mosaed.example.com | Yousef@2026 | MSc AI, conditional admission, on probation |
+| Sara Nasser | sara.nasser@mosaed.example.com | Sara@2026 | BSc Chemistry, Year 3, retaking a failed course |
+
 ---
 
 ## Troubleshooting

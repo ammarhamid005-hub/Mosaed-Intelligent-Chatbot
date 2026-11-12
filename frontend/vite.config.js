@@ -13,6 +13,7 @@ export default defineConfig({
       "/feedback": "http://localhost:8000",
       "/documents": "http://localhost:8000",
       "/study-plans": "http://localhost:8000",
+      "/students": "http://localhost:8000",
     },
   },
 });

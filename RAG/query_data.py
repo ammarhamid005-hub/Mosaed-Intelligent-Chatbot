@@ -258,35 +258,15 @@ _PERSONAL = re.compile(r"\b(my|i|me|am i|next step|where am i)\b|(خطوتي|ا�
 _THESIS_WORDS = re.compile(r"thesis|roadmap|defen[cds]|proposal|graduat|\bstep|portfolio|publication|paper|\bG\d{2}|رسال|مناقش|تخرج|خطو", re.I)
 
 
-def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False,
-              student: dict | None = None):
-    """student = the user's Thesis Roadmap progress {"text", "search_hint"} or None."""
-    global LAST_ROUTE
-    if not os.path.exists(CHROMA_PATH):
-        sys.exit(f"Database not found at {CHROMA_PATH}. Run populate_database.py first.")
-
-    embedding_function = get_embedding_function()
-    db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
-
-    history_text = _format_chat_history(chat_history or [])
-    standalone_query = query_text
-
-    if history_text:
-        # Resolve pronouns ("it", "that program") using prior turns so the
-        # vector search query is self-contained and hits the right chunks.
-        rewrite_prompt = STANDALONE_QUESTION_TEMPLATE.format(
-            chat_history=history_text,
-            question=query_text
-        )
-        rewritten_query = generate_text(rewrite_prompt)
-        standalone_query = (rewritten_query or "").strip() or query_text
-
-    # For "what is my next step?" the question alone finds nothing useful: add the
-    # student's next roadmap steps to the search so the rules for them are retrieved.
-    search_query = standalone_query
-    if student and _PERSONAL.search(standalone_query) and _THESIS_WORDS.search(standalone_query):
-        search_query = f"{standalone_query} {student.get('search_hint', '')}".strip()
-
+def retrieve(search_query: str, standalone_query: str | None = None,
+             embedding_function=None, db=None) -> tuple[list, str]:
+    """Vector search + (hybrid) graph search. Returns ([(doc, score)], route).
+    Used by query_rag and by the agent's search_regulations tool."""
+    standalone_query = standalone_query or search_query
+    if embedding_function is None:
+        embedding_function = get_embedding_function()
+    if db is None:
+        db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
     broad_query = is_broad_query(standalone_query)
 
     # Broad queries fetch fewer candidates (coverage > precision);
@@ -327,6 +307,39 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None, with_rout
                     results = _merge(graph_results, results[:3], max_results=8)
                 else:
                     results = _merge(_interleave(graph_results, results), [], max_results=8)
+    return results, route
+
+
+def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False,
+              student: dict | None = None):
+    """student = the user's Thesis Roadmap progress {"text", "search_hint"} or None."""
+    global LAST_ROUTE
+    if not os.path.exists(CHROMA_PATH):
+        sys.exit(f"Database not found at {CHROMA_PATH}. Run populate_database.py first.")
+
+    embedding_function = get_embedding_function()
+    db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+
+    history_text = _format_chat_history(chat_history or [])
+    standalone_query = query_text
+
+    if history_text:
+        # Resolve pronouns ("it", "that program") using prior turns so the
+        # vector search query is self-contained and hits the right chunks.
+        rewrite_prompt = STANDALONE_QUESTION_TEMPLATE.format(
+            chat_history=history_text,
+            question=query_text
+        )
+        rewritten_query = generate_text(rewrite_prompt)
+        standalone_query = (rewritten_query or "").strip() or query_text
+
+    # For "what is my next step?" the question alone finds nothing useful: add the
+    # student's next roadmap steps to the search so the rules for them are retrieved.
+    search_query = standalone_query
+    if student and _PERSONAL.search(standalone_query) and _THESIS_WORDS.search(standalone_query):
+        search_query = f"{standalone_query} {student.get('search_hint', '')}".strip()
+
+    results, route = retrieve(search_query, standalone_query, embedding_function, db)
     LAST_ROUTE = route
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])

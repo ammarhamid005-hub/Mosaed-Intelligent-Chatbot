@@ -1,0 +1,172 @@
+/* ── Trigger button (same look as the other header buttons) ── */
+.trigger {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green-soft);
+  border: 1px solid rgba(46,139,107,.3);
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  flex-shrink: 0;
+}
+.trigger:hover,
+.triggerActive {
+  background: rgba(46,139,107,.18);
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(46,139,107,.1);
+}
+
+/* ── Panel (drawn in <body>, placed under the button) ── */
+.panel {
+  position: fixed;
+  width: min(400px, calc(100vw - 32px));
+  overflow-y: auto;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 8px 32px -8px rgba(15,20,25,.14), 0 2px 8px rgba(15,20,25,.06);
+  z-index: 1000;
+  animation: slideIn 0.18s ease;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(46,139,107,.2) transparent;
+  font-size: 0.8rem;
+  color: var(--ink-2);
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.95rem 1.15rem 0.7rem;
+  border-bottom: 1px solid var(--line);
+}
+.name { margin: 0; font-size: 0.92rem; font-weight: 700; color: var(--ink); }
+.sub { margin: 0.15rem 0 0; font-size: 0.72rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.demoTag {
+  flex-shrink: 0;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #8a5a00;
+  background: rgba(230,160,0,.14);
+  border: 1px solid rgba(230,160,0,.35);
+  border-radius: 999px;
+  padding: 0.12rem 0.5rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  padding: 0.8rem 1.15rem 0.3rem;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg-tint);
+}
+.statValue { font-size: 1.25rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.statValue small { font-size: 0.75rem; font-weight: 600; color: var(--muted); }
+.statLabel { font-size: 0.7rem; color: var(--muted); }
+
+.standing {
+  margin: 0.45rem 1.15rem 0.2rem;
+  padding: 0.4rem 0.65rem;
+  border-radius: 8px;
+  background: var(--green-soft);
+  color: var(--green-deep);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.standingWarn { background: rgba(192,57,43,.1); color: #b03a2e; }
+
+.facts { margin: 0.5rem 1.15rem 0.2rem; }
+.fact {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 0.5rem;
+  padding: 0.28rem 0;
+  border-bottom: 1px dashed var(--line);
+}
+.fact:last-child { border-bottom: 0; }
+.fact dt { color: var(--muted); font-size: 0.74rem; }
+.fact dd { margin: 0; color: var(--ink); font-size: 0.76rem; }
+
+.section { padding: 0.55rem 1.15rem 0.2rem; }
+.sectionTitle { margin: 0 0 0.35rem; font-weight: 600; color: var(--ink); font-size: 0.78rem; }
+.muted { margin: 0; color: var(--muted); font-size: 0.75rem; }
+.courses {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.courses li { display: flex; gap: 0.4rem; align-items: baseline; font-size: 0.76rem; color: var(--ink); }
+.code { color: var(--muted); font-variant-numeric: tabular-nums; flex-shrink: 0; }
+.cr, .grade { margin-left: auto; flex-shrink: 0; color: var(--muted); font-size: 0.72rem; }
+.grade { font-weight: 700; color: var(--ink-2); }
+.gradeFail { color: #b03a2e; }
+.term {
+  margin: 0.55rem 0 0.25rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.toggle {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+}
+.notes {
+  margin: 0.55rem 1.15rem 0;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-tint);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+.askBtn {
+  display: block;
+  width: 100%;
+  margin: 0 0 0.35rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid rgba(46,139,107,.3);
+  border-radius: 8px;
+  background: none;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--green-deep);
+  text-align: left;
+  cursor: pointer;
+}
+.askBtn:hover { background: var(--green-soft); }
+.askBtn:disabled { color: var(--muted); cursor: default; }
+.foot {
+  margin: 0.4rem 1.15rem 0.9rem;
+  font-size: 0.68rem;
+  color: var(--muted);
+  line-height: 1.45;
+}

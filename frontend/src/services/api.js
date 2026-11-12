@@ -58,6 +58,8 @@ export const api = {
 
   // Thesis Roadmap progress (the chatbot uses it for "what is my next step?")
   getThesisProgress: () => request("/study-plans/thesis/progress"),
+  // Simulated student record (demo accounts made by backend/seed_students.py)
+  getMyRecord: () => request("/students/me"),
   saveThesisProgress: (completed) =>
     request("/study-plans/thesis/progress", { method: "PUT", body: JSON.stringify({ completed }) }),
 

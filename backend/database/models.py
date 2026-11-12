@@ -103,3 +103,25 @@ class StudyProgress(Base):
     track: Mapped[str | None] = mapped_column(String(120), nullable=True)
     completed: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON list of course keys
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow, onupdate=_utcnow)
+
+
+class StudentRecord(Base):
+    """SIMULATED student record (demo data made by backend/seed_students.py), standing in
+    for the university's student information system so the agent can answer personal questions."""
+    __tablename__ = "student_records"
+
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    student_id: Mapped[str] = mapped_column(String(20), nullable=False)
+    plan_id: Mapped[str] = mapped_column(String(120), nullable=False)      # study plan id, e.g. cci-msc-data-science
+    track: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    level: Mapped[str] = mapped_column(String(20), nullable=False)          # masters / bachelors
+    study_mode: Mapped[str] = mapped_column(String(20), nullable=False)     # full-time / part-time
+    admission: Mapped[str] = mapped_column(String(120), nullable=False)     # e.g. Regular, Conditional (condition B)
+    start_term: Mapped[str] = mapped_column(String(30), nullable=False)
+    current_term: Mapped[str] = mapped_column(String(30), nullable=False)
+    advisor: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    supervisor: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    probations: Mapped[int] = mapped_column(default=0)
+    transcript: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON [{code,title,credits,grade,term}]
+    registered: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON [{code,title,credits}] this term
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)

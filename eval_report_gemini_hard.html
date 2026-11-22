@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RAG Evaluation Report – UOS Masters Chatbot</title>
+<style>
+  :root {
+    --bg: #0f172a; --card: #1e293b; --accent: #6366f1;
+    --green: #22c55e; --red: #ef4444; --yellow: #f59e0b;
+    --text: #e2e8f0; --muted: #94a3b8; --border: #334155;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', sans-serif; padding: 2rem; }
+  h1 { font-size: 1.8rem; color: #a5b4fc; margin-bottom: 0.25rem; }
+  .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.2rem; text-align: center; }
+  .card .val { font-size: 2rem; font-weight: 700; color: var(--accent); }
+  .card .lbl { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: .05em; }
+  h2 { font-size: 1.1rem; color: #c4b5fd; margin: 1.5rem 0 0.75rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.83rem; background: var(--card); border-radius: 10px; overflow: hidden; }
+  th { background: #1a2744; color: var(--muted); text-transform: uppercase; font-size: 0.72rem; letter-spacing: .06em; padding: 0.7rem 0.8rem; text-align: left; }
+  td { padding: 0.65rem 0.8rem; border-top: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(99,102,241,.07); }
+  .good { color: var(--green); font-weight: 600; }
+  .mid  { color: var(--yellow); font-weight: 600; }
+  .bad  { color: var(--red); font-weight: 600; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 0.72rem; font-weight: 700; }
+  .badge.pass { background: rgba(34,197,94,.15); color: var(--green); }
+  .badge.fail { background: rgba(239,68,68,.15); color: var(--red); }
+  .badge.skip { background: rgba(148,163,184,.15); color: var(--muted); }
+  .cat-badge { background: rgba(99,102,241,.18); color: #a5b4fc; padding: 2px 7px; border-radius: 6px; font-size: 0.72rem; white-space: nowrap; }
+  .answer-cell { max-width: 280px; word-break: break-word; color: var(--muted); }
+  .footer { margin-top: 2rem; color: var(--muted); font-size: 0.78rem; text-align: center; }
+</style>
+</head>
+<body>
+<h1>📊 RAG Evaluation Report</h1>
+<p class="subtitle">UOS Masters Chatbot &nbsp;·&nbsp; Generated: 2026-10-24 13:10:29 &nbsp;·&nbsp; Answer model: gemini-3.6-flash &nbsp;·&nbsp; Judge: llama3</p>
+
+<div class="grid">
+  <div class="card"><div class="val">16</div><div class="lbl">Test Cases</div></div>
+  <div class="card"><div class="val" style="color:#22c55e">93.8%</div><div class="lbl">LLM Judge Accuracy</div></div>
+  <div class="card"><div class="val" style="color:#a78bfa">86.9%</div><div class="lbl">Avg Keyword Score</div></div>
+  <div class="card"><div class="val" style="color:#38bdf8">N/A</div><div class="lbl">Refusal Accuracy</div></div>
+  <div class="card"><div class="val" style="color:#fb923c">6.99s</div><div class="lbl">Avg Latency</div></div>
+</div>
+
+<h2>Category Breakdown</h2>
+<table>
+  <thead><tr><th>Category</th><th>Tests</th><th>Avg Keyword</th><th>LLM Judge</th></tr></thead>
+  <tbody>
+        <tr>
+          <td>Multi-step Reasoning</td>
+          <td>5</td>
+          <td>83.3%</td>
+          <td>100.0%</td>
+        </tr>
+        <tr>
+          <td>Conditional & Calculation</td>
+          <td>2</td>
+          <td>100.0%</td>
+          <td>100.0%</td>
+        </tr>
+        <tr>
+          <td>Cross-document</td>
+          <td>4</td>
+          <td>100.0%</td>
+          <td>100.0%</td>
+        </tr>
+        <tr>
+          <td>Arabic</td>
+          <td>3</td>
+          <td>66.7%</td>
+          <td>66.7%</td>
+        </tr>
+        <tr>
+          <td>Hallucination Check</td>
+          <td>2</td>
+          <td>N/A</td>
+          <td>100.0%</td>
+        </tr></tbody>
+</table>
+
+<h2>Detailed Results</h2>
+<table>
+  <thead>
+    <tr>
+      <th>#</th><th>Category</th><th>Question</th><th>Answer (truncated)</th>
+      <th>Keyword %</th><th>LLM Judge</th><th>Latency</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr>
+          <td>1</td>
+          <td><span class="cat-badge">Multi-step Reasoning</span></td>
+          <td>I was admitted conditionally with a bachelor's CGPA of 2.7. In my first semester I took two master's courses and got C+ in both. What happens to me now?</td>
+          <td class="answer-cell" title="Since you did not achieve the required GPA of 3.0 in your first semester, you may register for 3 credit hours in your second semester from available courses you have not previously taken. You will be dismissed from the program if you fail to achieve a cumulative GPA of 3.0 by the end of the second semester.">Since you did not achieve the required GPA of 3.0 in your first semester, you may register for 3 credit hours in your se…</td>
+          <td class="mid">66.7%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>6.69s</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><span class="cat-badge">Multi-step Reasoning</span></td>
+          <td>A master's student's CGPA fell below 3.0 at the end of semester 1, went above 3.0 in semester 2, and then fell below 3.0 again at the end of semesters 3 and 4. What is the student's status?</td>
+          <td class="answer-cell" title="The student will be dismissed from the program, as students are dismissed after receiving three consecutive or separate academic probations for failing to maintain a minimum CGPA of 3.0 out of 4.0.">The student will be dismissed from the program, as students are dismissed after receiving three consecutive or separate …</td>
+          <td class="mid">50.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>4.91s</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><span class="cat-badge">Multi-step Reasoning</span></td>
+          <td>My CGPA is 3.2, I finished all my courses, I registered on ORCID, and my paper was accepted at a peer-reviewed conference where I am the first author and my supervisor is a co-author. My student ID is U23100105. Can I defend my thesis now?</td>
+          <td class="answer-cell" title="You meet several of the requirements (CGPA above 3.0, completed courses, ORCID registration, and an accepted conference paper as primary author with your supervisor as co-author). However, to defend your thesis, you must also ensure the following remaining conditions and administrative procedures are completed:
+
+1. **Scientific Portfolio:** Because your student ID starts after U221 (U23100105), you must complete and submit the scientific portfolio before the defense.
+2. **Timing Requirement:** At least one semester must have passed since your thesis proposal was approved.
+3. **Form G21:** Your supervisor must submit Form G21 following the acceptance/publication of your paper.
+4. **Form G16A:** Your department must submit Form G16A at least 3 weeks prior to your defense date.">You meet several of the requirements (CGPA above 3.0, completed courses, ORCID registration, and an accepted conference …</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>7.17s</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><span class="cat-badge">Multi-step Reasoning</span></td>
+          <td>I am a full-time master's student and I have already used all three of my allowed postponement semesters. If I skip next semester without registering and then come back, what happens?</td>
+          <td class="answer-cell" title="If you interrupt your studies for one semester without registering or postponing, you will be withdrawn from the program, but upon returning after that semester, you will be automatically re-admitted; since you have already used your full postponement period, this interruption semester will be deducted from your maximum study duration in the program.">If you interrupt your studies for one semester without registering or postponing, you will be withdrawn from the program…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>5.19s</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><span class="cat-badge">Multi-step Reasoning</span></td>
+          <td>After my first semester I want to transfer to a different master's program at UoS. I have completed 9 credit hours. Can I transfer, how many credits can count, and does it affect my maximum study duration?</td>
+          <td class="answer-cell" title="1. **Transfer Eligibility:** Yes, Master's students may transfer to another program within the university after completing at least one semester, provided you receive approval from both relevant departments, meet standard admission procedures, and fulfill the target program's admission requirements (including GPA and seat availability).
+2. **Transferred Credits:** A maximum of 12 credit hours of equivalent courses previously completed at UOS can be recommended for transfer, and these credits will be included in your new cumulative GPA.
+3. **Impact on Maximum Study Duration:** Yes, one semester is deducted from the maximum allowed study duration for every 6 to 9 transferred credit hours from your previous program.">1. **Transfer Eligibility:** Yes, Master's students may transfer to another program within the university after completi…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>8.7s</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><span class="cat-badge">Conditional & Calculation</span></td>
+          <td>I scored 74% in a master's course. What letter grade is that, and did I pass the course?</td>
+          <td class="answer-cell" title="A score of 74% corresponds to a letter grade of **C**. You did not pass if it is a regular master's program course, as the minimum passing grade is **C+**; however, a grade of C is considered passing if it is a remedial course.">A score of 74% corresponds to a letter grade of **C**. You did not pass if it is a regular master's program course, as t…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>5.45s</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><span class="cat-badge">Conditional & Calculation</span></td>
+          <td>I have an IELTS score of 5.5. Does this meet the English requirement for the Master's in Law? What about a master's program taught in English?</td>
+          <td class="answer-cell" title="Yes, an IELTS score of 5.5 meets the English requirement for the Master's in Law, as the required minimum score is 4.5 (or TOEFL 450). However, it does not meet the requirement for master's programs taught in English, which require a minimum IELTS score of 6.0 (or TOEFL 550 / EMSAT 1400).">Yes, an IELTS score of 5.5 meets the English requirement for the Master's in Law, as the required minimum score is 4.5 (…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>5.24s</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td><span class="cat-badge">Cross-document</span></td>
+          <td>In Fall 2026, what is the last date I can withdraw from a single course and get a W, and what is the last date to withdraw from the whole semester?</td>
+          <td class="answer-cell" title="In Fall 2026, the last day to drop a course without receiving an 'F' grade (and receive a 'W') is Thursday, October 29, 2026, and the last day to withdraw from the entire semester is Thursday, November 19, 2026.">In Fall 2026, the last day to drop a course without receiving an 'F' grade (and receive a 'W') is Thursday, October 29, …</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>11.36s</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td><span class="cat-badge">Cross-document</span></td>
+          <td>If my thesis proposal is approved in Fall 2026, what is the earliest semester I can defend, and how many thesis credit hours do I register in the approval semester and afterwards?</td>
+          <td class="answer-cell" title="1. **Earliest Defense Semester:** You are eligible to defend your thesis at least one semester after proposal approval (Spring 2027).
+2. **Approval Semester:** 3 credit hours are assigned/registered in the semester the thesis proposal is approved.
+3. **Subsequent Semesters:** You register the remaining thesis credit hours (remaining 6 hours) in the following semester(s) and must continue re-registering the thesis for zero credit hours every semester until the defense is completed.">1. **Earliest Defense Semester:** You are eligible to defend your thesis at least one semester after proposal approval (…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>7.42s</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td><span class="cat-badge">Cross-document</span></td>
+          <td>If I drop a course during the third week of the Fall semester, do I get my tuition back, and what will appear on my transcript?</td>
+          <td class="answer-cell" title="If you drop a course before the end of the third week of the Fall semester, you will receive a 100% refund of your tuition fees, and a "Withdrawal without Penalty" (W) grade will be recorded on your transcript.">If you drop a course before the end of the third week of the Fall semester, you will receive a 100% refund of your tuiti…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>6.48s</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td><span class="cat-badge">Cross-document</span></td>
+          <td>I think my final exam was marked incorrectly. How long do I have to appeal, how do I submit it, and does it cost anything?</td>
+          <td class="answer-cell" title="1. **Timeframe:** You must submit your appeal within two weeks after grades are posted or receiving your written result. 
+2. **Submission Method:** You can apply electronically through the E-Services portal/online system by submitting a petition through the Registrar's Office to the Dean of the College offering the course.
+3. **Cost:** Reviewing a final exam answer sheet carries a fee of 21 Dhs.">1. **Timeframe:** You must submit your appeal within two weeks after grades are posted or receiving your written result.…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>5.75s</td>
+        </tr>
+        <tr>
+          <td>12</td>
+          <td><span class="cat-badge">Arabic</span></td>
+          <td>كم عدد المساقات التي يمكنني إعادة دراستها لرفع معدلي التراكمي في برنامج الماجستير؟</td>
+          <td class="answer-cell" title="يمكنك إعادة دراسة ثلاث مساقات كحد أقصى لأغراض رفع المعدل التراكمي طوال مدة دراستك.">يمكنك إعادة دراسة ثلاث مساقات كحد أقصى لأغراض رفع المعدل التراكمي طوال مدة دراستك.</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>4.33s</td>
+        </tr>
+        <tr>
+          <td>13</td>
+          <td><span class="cat-badge">Arabic</span></td>
+          <td>طالب ماجستير سجل مساقا في الفصل الأول وكانت درجته 74%. ماذا يحدث؟</td>
+          <td class="answer-cell" title="علامة النجاح في مساقات الماجستير هي (ج+) وللمساقات الاستدراكية هي (ج)، إلا أن النص المتاح لا يحدد التقدير الحرفي الذي تمثله درجة 74% أو النتيجة المترتبة عليها بشكل مباشر.">علامة النجاح في مساقات الماجستير هي (ج+) وللمساقات الاستدراكية هي (ج)، إلا أن النص المتاح لا يحدد التقدير الحرفي الذي تم…</td>
+          <td class="bad">0.0%</td>
+          <td><span class="badge fail">FAIL</span></td>
+          <td>9.67s</td>
+        </tr>
+        <tr>
+          <td>14</td>
+          <td><span class="cat-badge">Arabic</span></td>
+          <td>ماذا يحدث إذا انقطعت عن الدراسة لفصلين دراسيين دون أن أقدم طلب تأجيل؟</td>
+          <td class="answer-cell" title="إذا انقطعت عن الدراسة لفصلين دراسيين منفصلين أو متصلين، فيحدث الآتي:
+
+1. تتعرض للسحب الإجباري (الفصل) من البرنامج.
+2. في حال رغبتك بالعودة، يتوجب عليك تقديم طلب التحاق جديد بالبرنامج، وتُطبق عليك شروط وإجراءات القبول العادية ويُدرس طلبك مع المتقدمين الجدد.
+3. في حال قبولك مجدداً وكان معدلك التراكمي لا يقل عن 3 من 4 وقت الانسحاب:
+   - يمكنك تقديم طلب للقسم الأكاديمي لمعادلة/الاعتراف بالمساقات التي درستها سابقاً إذا كانت فترة الانقطاع **3 سنوات أو أقل**.
+   - **إذا كانت فترة الانقطاع أكثر من 3 سنوات**، فلا يتم معادلة أو الاعتراف بأي من المساقات التي درستها سابقاً.
+*(ملاحظة: لا يجوز لمن يقل معدله التراكمي عن 3 من 4 إعادة التسجيل في البرنامج نفسه مرة أخرى).*">إذا انقطعت عن الدراسة لفصلين دراسيين منفصلين أو متصلين، فيحدث الآتي:
+
+1. تتعرض للسحب الإجباري (الفصل) من البرنامج.
+2. في…</td>
+          <td class="good">100.0%</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>6.72s</td>
+        </tr>
+        <tr>
+          <td>15</td>
+          <td><span class="cat-badge">Hallucination Check</span></td>
+          <td>What is the tuition fee per credit hour for the Master's in Computer Engineering?</td>
+          <td class="answer-cell" title="The specific tuition fee per credit hour for the Master's in Computer Engineering is not provided in the context; the available information only states that tuition fees may be paid in three installments and refers students to the University's Catalog for a detailed fee breakdown.">The specific tuition fee per credit hour for the Master's in Computer Engineering is not provided in the context; the av…</td>
+          <td class="">N/A</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>13.0s</td>
+        </tr>
+        <tr>
+          <td>16</td>
+          <td><span class="cat-badge">Hallucination Check</span></td>
+          <td>What is the maximum study duration for a PhD student at UoS?</td>
+          <td class="answer-cell" title="I can only assist with questions related to master's students at the University of Sharjah. Please ask a relevant question.">I can only assist with questions related to master's students at the University of Sharjah. Please ask a relevant questi…</td>
+          <td class="">N/A</td>
+          <td><span class="badge pass">PASS</span></td>
+          <td>3.74s</td>
+        </tr></tbody>
+</table>
+
+<div class="footer">
+  Evaluation by evaluate_rag.py &nbsp;|&nbsp;
+  In-scope tests: 16 &nbsp;|&nbsp; Out-of-scope tests: 0
+</div>
+</body>
+</html>

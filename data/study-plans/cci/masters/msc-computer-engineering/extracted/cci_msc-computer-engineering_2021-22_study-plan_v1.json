@@ -1,0 +1,138 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Computer Engineering",
+  "catalog_year": "2021-22",
+  "source_file": "cci/masters/msc-computer-engineering/cci_msc-computer-engineering_2021-22_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1502503",
+      "title": "Applied Mathematics for Engineering",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Compulsory"
+    },
+    {
+      "code": "1502501",
+      "title": "Engineering Research Methodologies",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Compulsory"
+    },
+    {
+      "code": null,
+      "title": "Elective 1",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective"
+    },
+    {
+      "code": "1502502",
+      "title": "Optimization Methods in Engineering",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Compulsory"
+    },
+    {
+      "code": null,
+      "title": "Elective 2",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective"
+    },
+    {
+      "code": null,
+      "title": "Elective 3",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective"
+    },
+    {
+      "code": null,
+      "title": "Elective 4",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective"
+    },
+    {
+      "code": null,
+      "title": "Elective 5",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective"
+    },
+    {
+      "code": "1502590",
+      "title": "Graduate Seminar",
+      "credits": 0,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Compulsory"
+    },
+    {
+      "code": "1502599",
+      "title": "Master Thesis",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Compulsory"
+    },
+    {
+      "code": "1502599",
+      "title": "Master Thesis*",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Compulsory"
+    }
+  ],
+  "notes": [
+    "The PDF has a text layer (not a scan, contrary to the brief); the transcription was checked against the page image.",
+    "No overall credit-hour total is printed; semester totals add up to 33. Column headers are printed 'Couse Code' in the PDF.",
+    "* Student must have completed all courses (compulsory and electives) before the semester in which the MSc thesis is defended (footnote on Master Thesis, second-year spring).",
+    "Master Thesis (1502599) appears as 3 credits in second-year fall and 6 credits in second-year spring, as printed. Graduate Seminar (1502590) is 0 credits.",
+    "No prerequisites are given in the PDF."
+  ]
+}

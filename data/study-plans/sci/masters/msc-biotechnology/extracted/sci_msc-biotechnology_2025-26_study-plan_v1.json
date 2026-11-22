@@ -1,0 +1,211 @@
+{
+  "college": "sci",
+  "level": "masters",
+  "program": "Biotechnology",
+  "catalog_year": "2025-26",
+  "source_file": "sci/masters/msc-biotechnology/sci_msc-biotechnology_2025-26_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1450502",
+      "title": "Biotechnology & Genetic Engineering",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Biotechnology Compulsory Core Courses"
+    },
+    {
+      "code": "1450552",
+      "title": "Advanced Biochemistry",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Biotechnology Compulsory Core Courses"
+    },
+    {
+      "code": "1450xxx",
+      "title": "Biotechnology Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450xxx",
+      "title": "Biotechnology Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450512",
+      "title": "Advanced Cell Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Biotechnology Compulsory Core Courses"
+    },
+    {
+      "code": "1450553",
+      "title": "Advanced Molecular Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Biotechnology Compulsory Core Courses"
+    },
+    {
+      "code": "1450xxx",
+      "title": "Biotechnology Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450xxx",
+      "title": "Biotechnology Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450501",
+      "title": "Research Methodology",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Biotechnology Compulsory Core Courses"
+    },
+    {
+      "code": "1450599",
+      "title": "Thesis",
+      "credits": 9,
+      "type": "thesis",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Compulsory Core Courses"
+    },
+    {
+      "code": "1450541",
+      "title": "Human Heredity and Molecular Diagnosis of Genetic Diseases",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster I"
+    },
+    {
+      "code": "1450543",
+      "title": "Regulation of Gene Expression",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster I"
+    },
+    {
+      "code": "1450545",
+      "title": "Advanced Molecular Developmental Biology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster II"
+    },
+    {
+      "code": "1450592A",
+      "title": "Selected Topics in Biotechnology A",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster II"
+    },
+    {
+      "code": "1450592B",
+      "title": "Selected Topics in Biotechnology B",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster II"
+    },
+    {
+      "code": "1450531",
+      "title": "Advanced Microbiology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster III"
+    },
+    {
+      "code": "1450532",
+      "title": "Advanced Immunology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster III"
+    },
+    {
+      "code": "1450534",
+      "title": "Virology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Biotechnology Elective Courses - Cluster III"
+    }
+  ],
+  "notes": [
+    "Study plan modified in Spring 24/25 based on accreditation requirements and program reforms, for newly admitted students starting Fall 2025/2026 and onward.",
+    "No overall credit-hour total is printed; the plan tables total 12 + 12 + 10 = 34 (13 compulsory core + 12 elective + 9 thesis).",
+    "The second year is printed as a single table (Research Methodology 1 credit + Thesis 9 credits = 10) without a fall/spring split, so semester is null for those rows.",
+    "Compulsory core: five courses, 13 credits, prerequisites 'None' (empty list). Electives: four Biotechnology elective courses (12 credits) must be selected from Clusters I-III; the cluster course lists are included as catalogue rows (year null, prerequisites not given, so null).",
+    "Elective slots keep the placeholder code 1450xxx as printed."
+  ]
+}

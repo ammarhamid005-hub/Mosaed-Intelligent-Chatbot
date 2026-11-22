@@ -1,0 +1,453 @@
+{
+  "college": "cci",
+  "level": "bachelors",
+  "program": "Science in Biomedical Informatics",
+  "catalog_year": "2025-26",
+  "source_file": "cci/bachelors/bsc-biomedical-informatics/cci_bsc-biomedical-informatics_2025-26_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "0201102",
+      "title": "Arabic Language",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0202112",
+      "title": "English for Academic Purposes",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501100",
+      "title": "Intro. to IT(English)",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1440131",
+      "title": "Calculus I",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450101",
+      "title": "General Biology 1",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450107",
+      "title": "General Biology Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": null,
+      "title": "University Elective 1",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501116",
+      "title": "Programming I",
+      "credits": 4,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1440211",
+      "title": "Linear Algebra I",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420101",
+      "title": "General Chemistry (1)",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420102",
+      "title": "General Chemistry (1) Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0104100",
+      "title": "Islamic Culture",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": null,
+      "title": "University Elective 2",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501211",
+      "title": "Programming II",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450102",
+      "title": "General Biology 2",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501279",
+      "title": "Discrete Structures",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0302200",
+      "title": "Fund. of Innovation & Entrepreneurship",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0204102",
+      "title": "UAE Society",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501318",
+      "title": "Programming for Bioinformatics",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501215",
+      "title": "Data Structures",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1440281",
+      "title": "Intro. Prob. & Stat.",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0900101",
+      "title": "Human Biology 1",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430113",
+      "title": "Physics for Medical Science",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501263",
+      "title": "Intro. to DB Manag. Sys.",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0900324",
+      "title": "Biomedical Ethics",
+      "credits": 1,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501330",
+      "title": "Introduction to Artificial Intelligence",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501332",
+      "title": "ML for Bioinformatics",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450302",
+      "title": "Bioinformatics",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450303",
+      "title": "Bioinformatics lab",
+      "credits": 1,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501250",
+      "title": "Networking Fundamentals",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501364",
+      "title": "Big Data Analytics",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450341",
+      "title": "Molecular Genetics",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501391",
+      "title": "Junior Project in Bioinformatics",
+      "credits": 2,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501371",
+      "title": "Design & Analysis of Algorithms",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501392",
+      "title": "Practical Training - BI",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501497",
+      "title": "Senior Project in Bioinformatics",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501435",
+      "title": "Medical Image Processing",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0900307",
+      "title": "Introduction to Systems Biology Modelling",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": null,
+      "title": "Program Elective 1",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": null,
+      "title": "Program Elective 2",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0900409",
+      "title": "Computational Genomics",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0900412",
+      "title": "Statistical Genomics",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": null,
+      "title": "Program Elective 3",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1450453",
+      "title": "Protein Biochemistry & Eng.",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    }
+  ],
+  "notes": [
+    "The PDF prints per-semester totals but no overall credit-hour total (the semester totals add up to 124)."
+  ]
+}

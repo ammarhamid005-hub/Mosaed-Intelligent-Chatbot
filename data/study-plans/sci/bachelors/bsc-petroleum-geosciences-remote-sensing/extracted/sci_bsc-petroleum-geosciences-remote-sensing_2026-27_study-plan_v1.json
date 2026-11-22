@@ -1,0 +1,742 @@
+{
+  "college": "sci",
+  "level": "bachelors",
+  "program": "Petroleum and Geosciences and Remote Sensing",
+  "catalog_year": "2026-27",
+  "source_file": "sci/bachelors/bsc-petroleum-geosciences-remote-sensing/sci_bsc-petroleum-geosciences-remote-sensing_2026-27_study-plan_v1.pdf",
+  "total_credit_hours": 123,
+  "courses": [
+    {
+      "code": "0201102 / 0201105",
+      "title": "Arabic Language or Arabic for non-Arabic speakers",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "0202112",
+      "title": "English for Academic Purposes",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "0202207",
+      "title": "Technical Writing",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Supportive Core Courses",
+      "term": 1
+    },
+    {
+      "code": "1430110",
+      "title": "Physics I for Sciences",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "1430116",
+      "title": "Physics I Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "1430110 (P/Co)"
+      ],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "1440131",
+      "title": "Calculus I",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "1501110",
+      "title": "AI and Digital Technologies",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "1420101",
+      "title": "General Chemistry I",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "1420102",
+      "title": "General Chemistry I Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "1420101 (P/Co)"
+      ],
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "1430117",
+      "title": "Physics II",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "1440131 (P/Co)",
+        "1430110"
+      ],
+      "track": null,
+      "type_raw": "Supportive Core Courses",
+      "term": 2
+    },
+    {
+      "code": "1430118",
+      "title": "Physics II Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "1430116",
+        "1430117 (P/Co)"
+      ],
+      "track": null,
+      "type_raw": "Supportive Core Courses",
+      "term": 2
+    },
+    {
+      "code": "1440132",
+      "title": "Calculus II",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "1440131"
+      ],
+      "track": null,
+      "type_raw": "Supportive Core Courses",
+      "term": 2
+    },
+    {
+      "code": "1460120",
+      "title": "Physical Geology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Mandatory Core Courses",
+      "term": 2
+    },
+    {
+      "code": "1411116",
+      "title": "Programming I",
+      "credits": 4,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": "1460220",
+      "title": "Sedimentary Rocks and Sedimentology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1460120"
+      ],
+      "track": null,
+      "type_raw": "Mandatory Core Courses",
+      "term": 3
+    },
+    {
+      "code": "1460221",
+      "title": "Stratigraphy and Structural Geology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1460120"
+      ],
+      "track": null,
+      "type_raw": "Mandatory Core Courses",
+      "term": 3
+    },
+    {
+      "code": "0104101",
+      "title": "Islamic Culture",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": "1460230",
+      "title": "Introduction to Geospatial Information System (GIS)",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": "1440241",
+      "title": "Ordinary Differential Equations I",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1440132"
+      ],
+      "track": null,
+      "type_raw": "Supportive Core Courses",
+      "term": 4
+    },
+    {
+      "code": "1460223",
+      "title": "General Geophysics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1460120",
+        "1430117"
+      ],
+      "track": null,
+      "type_raw": "Mandatory Core Courses",
+      "term": 4
+    },
+    {
+      "code": "1460231",
+      "title": "Introduction to Remote Sensing",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1430117"
+      ],
+      "track": null,
+      "term": 4
+    },
+    {
+      "code": "1460224",
+      "title": "Regional Geology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1460220",
+        "1460221"
+      ],
+      "track": null,
+      "type_raw": "Mandatory Core Courses",
+      "term": 4
+    },
+    {
+      "code": "1460xxx",
+      "title": "Specialized Elective -1",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective Courses",
+      "term": 4
+    },
+    {
+      "code": "1460320",
+      "title": "Geologic Remote Sensing",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1460231"
+      ],
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": "1460310",
+      "title": "Petrophysics",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1460220"
+      ],
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": "1460312",
+      "title": "Exploration Geophysics I",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1460223"
+      ],
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": "1460xxx",
+      "title": "Specialized Elective -2",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective Courses",
+      "term": 5
+    },
+    {
+      "code": "1460xxx",
+      "title": "Specialized Elective -3",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective Courses",
+      "term": 5
+    },
+    {
+      "code": "1460313",
+      "title": "Exploration Geophysics II",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1460223"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "1460311",
+      "title": "Petroleum Geology",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1460220",
+        "1460221"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "1460xxx",
+      "title": "Specialized Elective -4",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective Courses",
+      "term": 6
+    },
+    {
+      "code": "1460xxx",
+      "title": "Specialized Elective -5",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Elective Courses",
+      "term": 6
+    },
+    {
+      "code": "0204102",
+      "title": "UAE society",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "1460400",
+      "title": "Training",
+      "credits": 1,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "146311 & 65 credit hours completed"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "1460322",
+      "title": "Seismology and Plate Tectonic",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "1460223",
+        "1440241"
+      ],
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": "1460420",
+      "title": "Well Logging",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "1460310"
+      ],
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": "1460401",
+      "title": "Seminar",
+      "credits": 1,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "Senior Standing"
+      ],
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "University Elective -2",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "University Elective -3",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "General Free Elective -1",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "University Elective -3",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": "1460402",
+      "title": "Graduation Project",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "Department consent"
+      ],
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": "1460413",
+      "title": "Reservoir Characterization",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "1460420"
+      ],
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": null,
+      "title": "General Free Elective -2",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": "1460222",
+      "title": "Paleontology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460220"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460225",
+      "title": "Igneous and Metamorphic Petrology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460120"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460226",
+      "title": "Environmental Geology and Risk Management",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460120"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460300",
+      "title": "Special Topics I",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Departmental approval"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460301",
+      "title": "Special Topics II",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Departmental approval"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460314",
+      "title": "Petroleum Geology of the Middle East",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460220"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460324",
+      "title": "Hydrogeology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460120",
+        "1460220",
+        "1440131"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460326",
+      "title": "Advanced Geographic Information System",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460230",
+        "1411116"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460414",
+      "title": "Petroleum Geochemistry",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460311"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460415",
+      "title": "Basin Analysis",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460420",
+        "1460221"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460421",
+      "title": "Seismic Stratigraphy",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460221",
+        "1460312"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460431",
+      "title": "Environmental Remote Sensing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1460231"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    },
+    {
+      "code": "1460432",
+      "title": "Digital Image Processing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1440132"
+      ],
+      "track": null,
+      "type_raw": "Elective Courses"
+    }
+  ],
+  "notes": [
+    "Bulletin pages for BSc in Petroleum Geosciences and Remote Sensing (PGRS), Department of Applied Physics and Astronomy, College of Sciences. The program encompasses 123 credit hours over eight semesters (four years). Breakdown from the Program Overview table: University requirements 24 (15 compulsory + 9 elective), College requirements 15 compulsory, Program requirements 84 (50 mandatory core + 13 supportive + 15 elective + 6 general free elective); total 123.",
+    "Semesters are printed 'Year n, Semester 1-8'; fall/spring is not stated, so 'semester' is null and 'term' holds the printed semester number.",
+    "Course numbering: 7 digits (college no., dept. no., course level, specialized field, serial); specialized-field digit 1 = Petroleum, 2 = Geology, 3 = Remote Sensing, 0 = General (seminar, training, project).",
+    "The plan tables do not label courses compulsory/elective; type is set only for courses listed in the 'Mandatory Core Courses' and 'Supportive Core Courses' tables (compulsory) and for elective slots (elective). Mandatory Core is stated as 50 credit hours but only 15 credit hours (five courses) are listed in the PDF.",
+    "Rows with year null are the 13 'Elective Courses' (15 credit hours to be chosen) from the program bulletin; they are not placed in a semester. Elective slots keep placeholder codes 1460xxx as printed. The catalogue lists 1460226 Environmental Geology and Risk Management and 1460326 Advanced GIS, while the course-description pages print them as 1460325 and 1460426; codes are kept as in the elective table.",
+    "Prerequisite inconsistencies in the plan tables (Year 1, Semester 2): Physics II is printed with prerequisite '1430117 (P/Co)' (its own code) and Physics II Lab with '1430118(P/Co), 1430211(P/Co)'. The Supportive Core table prints 1440131 (P/Co) and 1430110 for Physics II and 1430116 and 1430117 (P/Co) for Physics II Lab; the supportive-core values are used here. Training (1460400) prerequisite is printed '146311 & 65 credit hours completed' (146311 is probably 1460311); kept as printed. P/Co = prerequisite or co-requisite.",
+    "Training (1460400) is described as eight weeks of internship in industry. Arabic Language is printed with two codes: 0201102, or 0201105 for non-Arabic speakers. Blank prerequisite cells are null."
+  ]
+}

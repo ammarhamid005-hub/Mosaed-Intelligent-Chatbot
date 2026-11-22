@@ -1,0 +1,125 @@
+{
+  "college": "sci",
+  "level": "masters",
+  "program": "Physics",
+  "catalog_year": "2020-21",
+  "source_file": "sci/masters/msc-physics/sci_msc-physics_2020-21_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "courses": [
+    {
+      "code": "1430511",
+      "title": "Methods of mathematical Physics",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430512",
+      "title": "Electromagnetic theory",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430513",
+      "title": "Advanced Quantum mechanics",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430515",
+      "title": "Research methodology",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430514",
+      "title": "Statistical Mechanics",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430521",
+      "title": "Condensed Matter Physics 1",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430531",
+      "title": "Nuclear Physics",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "14306XX",
+      "title": "Elective course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "14306XX",
+      "title": "Elective course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430599",
+      "title": "M.Sc. Thesis proposal",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430599",
+      "title": "M.Sc. Thesis",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    }
+  ],
+  "notes": [
+    "The PDF has a text layer (not a scan, contrary to the brief); the transcription was checked against the page image.",
+    "No overall credit-hour total is printed; semester totals add up to 34 (10 + 12 + 6 + 6). The PDF prints no type column; only 'Elective course' slots (14306XX) are typed elective and the thesis rows 'thesis'. No prerequisites are given in the PDF.",
+    "1430599 appears as 'M.Sc. Thesis proposal' (3 credits, second-year fall) and 'M.Sc. Thesis' (6 credits, second-year spring)."
+  ]
+}

@@ -1,0 +1,1402 @@
+{
+  "college": "sci",
+  "level": "bachelors",
+  "program": "Biotechnology",
+  "catalog_year": "2026-27",
+  "source_file": "sci/bachelors/bsc-biotechnology/sci_bsc-biotechnology_2026-27_study-plan_v1.pdf",
+  "total_credit_hours": null,
+  "tracks": [
+    "forensic-medical-biotechnology",
+    "industrial-biotechnology",
+    "plant-environmental-biotechnology"
+  ],
+  "courses": [
+    {
+      "code": "0104100",
+      "title": "Islamic Culture",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Compulsory)"
+    },
+    {
+      "code": "0201102 / 0201105",
+      "title": "Arabic Language or Arabic Language for non-Arabic Speakers",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Compulsory)"
+    },
+    {
+      "code": "0202112",
+      "title": "English for Academic purpose",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Compulsory)"
+    },
+    {
+      "code": "1426155",
+      "title": "General Chemistry (HS)",
+      "credits": 4,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "College of Sciences Required (Compulsory)"
+    },
+    {
+      "code": "1450101",
+      "title": "General Biology (1)",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450107",
+      "title": "General Biology Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "1450101 or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1501110 (E) / 1501111 (A)",
+      "title": "AI and Digital Technologies",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Compulsory)"
+    },
+    {
+      "code": "1430107",
+      "title": "General Physics for (HS)",
+      "credits": 4,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "College of Sciences Required (Compulsory)"
+    },
+    {
+      "code": "1440163",
+      "title": "Calculus for (HS)",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "College of Sciences Required (Compulsory)"
+    },
+    {
+      "code": "1450102",
+      "title": "General Biology (2)",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "1450101"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "XXXXXX",
+      "title": "University Elective (1) One course from Domain F",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective)"
+    },
+    {
+      "code": "1511116",
+      "title": "Programming",
+      "credits": 4,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "College of Sciences Required (Compulsory)"
+    },
+    {
+      "code": "0504252",
+      "title": "Biostatistics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "Supporting Required (Compulsory)"
+    },
+    {
+      "code": "1426217",
+      "title": "Organic Chemistry (HS)",
+      "credits": 4,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "1426155"
+      ],
+      "track": null,
+      "type_raw": "Supporting Required (Compulsory)"
+    },
+    {
+      "code": "1450202",
+      "title": "Basic Biotechnology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "1450102"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "0204102",
+      "title": "UAE Society",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Compulsory)"
+    },
+    {
+      "code": "0202121",
+      "title": "English for Medical students",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "0202112"
+      ],
+      "track": null,
+      "type_raw": "Supporting Required (Compulsory)"
+    },
+    {
+      "code": "1420225",
+      "title": "Analytical Chemistry",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "1426155"
+      ],
+      "track": null,
+      "type_raw": "Supporting Required (Compulsory)"
+    },
+    {
+      "code": "1420226",
+      "title": "Analytical Chemistry Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "1420225 or Cor"
+      ],
+      "track": null,
+      "type_raw": "Supporting Required (Compulsory)"
+    },
+    {
+      "code": "1450251",
+      "title": "Cell Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "1450102"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "XXXXXXX",
+      "title": "University Elective (2) One course from Domain G",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective)"
+    },
+    {
+      "code": "XXXXXXX",
+      "title": "University Elective (3) One course from Domain H",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective)"
+    },
+    {
+      "code": "1450331",
+      "title": "General Microbiology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1450251"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450332",
+      "title": "General Micro. Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1450331 or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450333",
+      "title": "Immunology & Serology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1450251"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450336",
+      "title": "Immunology and Serology Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1450333 or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450341",
+      "title": "Molecular Genetics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1450251"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450342",
+      "title": "Molecular Genetics Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1450341 or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450XXX",
+      "title": "Departmental Elective (1)",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450302",
+      "title": "Bioinformatics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450303",
+      "title": "Bio-informatics Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1450302"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450351",
+      "title": "General Biochemistry",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1426217+1450251"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450352",
+      "title": "General Biochemistry Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1450351 or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450361",
+      "title": "Tissue Culture & Animal Biotech.",
+      "credits": 2,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1450332+1450333"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450XXX",
+      "title": "Departmental Elective (2)",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450XXX",
+      "title": "Departmental Elective (3)",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450399",
+      "title": "Field training",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 3,
+      "semester": "summer",
+      "prerequisites": [
+        "65 Cr. H +1450361+1450352"
+      ],
+      "track": null,
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1420429",
+      "title": "Forensic Chemistry",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1420225"
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450451",
+      "title": "Molecular Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450341"
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450452",
+      "title": "Molecular Biology Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450451 or Cor."
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450455",
+      "title": "Biotechnology in Medicine",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450341"
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450XXX",
+      "title": "Departmental Elective (4)",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450311",
+      "title": "Introduction to Forensic Sciences",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450102+1426155"
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450441",
+      "title": "Molecular Human Genetics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450341"
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450491",
+      "title": "Seminar",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion 90 C.H."
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450493",
+      "title": "Research Project",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion 99 C.H."
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450496",
+      "title": "Ethics in Biotechnology",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": "forensic-medical-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450431",
+      "title": "Microbial Processing & Biotechnology",
+      "credits": 4,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450202+1450331"
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450451",
+      "title": "Molecular Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450341"
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450452",
+      "title": "Molecular Biology Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450451 or Cor."
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450453",
+      "title": "Protein Biochemistry & Engineering",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450351"
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450XXX",
+      "title": "Departmental Elective (4)",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450461",
+      "title": "Animal Biotechnology",
+      "credits": 2,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450361"
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450471",
+      "title": "Industrial Biotechnology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450331"
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450491",
+      "title": "Seminar",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion 90 C.H."
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450493",
+      "title": "Research Project",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion 99 C.H."
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450496",
+      "title": "Ethics in Biotechnology",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": "industrial-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450421",
+      "title": "Plant Biotechnology",
+      "credits": 4,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450436",
+      "title": "Environmental Biotechnology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450202+ 1450331"
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450451",
+      "title": "Molecular Biology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450341"
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450452",
+      "title": "Molecular Biology Lab",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "1450451 or Cor."
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450XXX",
+      "title": "Departmental Elective (4)",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450433",
+      "title": "Marine Biotechnology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450202+1450331"
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450442",
+      "title": "Genetically Modified Organisms",
+      "credits": 2,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450491",
+      "title": "Seminar",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion 90 C.H."
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450493",
+      "title": "Research Project",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion 99 C.H."
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450496",
+      "title": "Ethics in Biotechnology",
+      "credits": 1,
+      "type": "compulsory",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": "plant-environmental-biotechnology",
+      "type_raw": "Program Compulsory"
+    },
+    {
+      "code": "1450261",
+      "title": "Animal Biology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450102"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450221",
+      "title": "Plant Biology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450102"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450334",
+      "title": "Microbial Genetics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450332+1450341"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450391",
+      "title": "Scientific Writing & Presentation",
+      "credits": 1,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "0202103+1450202"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450437",
+      "title": "Pharmaceutical Biotechnology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450202"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450454",
+      "title": "Molecular Developmental Biology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450451"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450497",
+      "title": "Selected topics in Biotechnology A",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "65 Cr. H"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450498",
+      "title": "Selected topics in Biotechnology B",
+      "credits": 2,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "65 Cr. H"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450499",
+      "title": "Selected topics in Biotechnology C",
+      "credits": 1,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "65 Cr. H"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450422",
+      "title": "Biotechnology for Resources Sustainability",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450202+1450331"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450472",
+      "title": "Food Biotechnology & Analysis",
+      "credits": 4,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450352"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "0501370",
+      "title": "Hematology",
+      "credits": 4,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1450251"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1420103",
+      "title": "General Chemistry II",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "G Chemistry HS (1426155)"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1420104",
+      "title": "General Chemistry II Lab",
+      "credits": 1,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "G Chemistry II (1420103) or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1420217",
+      "title": "Organic Chemistry II",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Org Chemistry HS (1426217)"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1420218",
+      "title": "Organic Chemistry II Lab",
+      "credits": 1,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Org Chemistry II (1420217) or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1430117",
+      "title": "Physics II",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "G Physics HS (1430107)"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1430118",
+      "title": "Physics II Lab",
+      "credits": 1,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Physics II or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "1450252",
+      "title": "Cell Biology Lab",
+      "credits": 1,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Cell Biology (1450251) or Cor"
+      ],
+      "track": null,
+      "type_raw": "Program Elective"
+    },
+    {
+      "code": "0103103",
+      "title": "Islamic System",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0104130",
+      "title": "Analytical Biography of the Prophet",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0201140",
+      "title": "Introduction to Arabic Literature",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0202130",
+      "title": "French Language",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0203100",
+      "title": "Islamic Civilization",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0203102",
+      "title": "History of the Arabian Gulf",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0203200",
+      "title": "History of the Sciences among Muslims",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0204103",
+      "title": "Principles of Sign Language",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0206102",
+      "title": "Fundamentals of Islamic Education",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0206103",
+      "title": "Introduction to Psychology",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0302150",
+      "title": "Introduction to Business Administration",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0308150",
+      "title": "Introduction to Economics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0602246",
+      "title": "Human Rights in Islam and International Declarations",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain F (Humanities, Social & Arts)"
+    },
+    {
+      "code": "0401142",
+      "title": "Man and the Environment",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "0406102",
+      "title": "Introduction to Sustainability",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "0503101",
+      "title": "Health and Safety",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "0505100",
+      "title": "Understanding Disabilities",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "0505101",
+      "title": "Fitness and Wellness",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "0507101",
+      "title": "Health Awareness and Nutrition",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "1430101",
+      "title": "Astronomy and Space Sciences",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "1450100",
+      "title": "Biology and Society",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain G (Sciences and Technology)"
+    },
+    {
+      "code": "0103104",
+      "title": "Professional Ethics in Islamic Sharia",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain H (Life Skills and Personal Development)"
+    },
+    {
+      "code": "0302200",
+      "title": "Fundamentals of Innovation and Entrepreneurship",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain H (Life Skills and Personal Development)"
+    },
+    {
+      "code": "0308131",
+      "title": "Personal Finance",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain H (Life Skills and Personal Development)"
+    },
+    {
+      "code": "0601109",
+      "title": "Legal Culture",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain H (Life Skills and Personal Development)"
+    },
+    {
+      "code": "0800108",
+      "title": "Media Literacy and Digital Society",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain H (Life Skills and Personal Development)"
+    },
+    {
+      "code": "0206100",
+      "title": "Smart and Effective Learning Skills",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "type_raw": "University Required (Elective) - Domain H (Life Skills and Personal Development)"
+    }
+  ],
+  "notes": [
+    "Plan applicable to students who joined the program in Fall 2025 or later (AY 2026/2027), Department of Applied Biology, College of Sciences. Three concentrations in the fourth year (A Forensic & Medical Biotechnology, B Industrial Biotechnology, C Plant & Environmental Biotechnology), tagged in 'track'; courses with track null are common to all concentrations.",
+    "No overall credit-hour total is printed. Semester totals plus the 3-credit Field training add up to 124 for each concentration (years 1-3 = 97, field training 3, fourth year 24).",
+    "type_raw holds the requirement category from the compulsory-courses tables (University Required, College of Sciences Required, Supporting Required, Program Compulsory) or the elective tables (University Required (Elective), Program Elective).",
+    "1450399 Field training: 6 weeks during the summer, 3 credit hours (prerequisite: 65 credit hours + 1450361 + 1450352); placed after the third year.",
+    "AI and Digital Technologies is printed with two codes: 1501110 (E) for the English section and 1501111 (A) for the Arabic section. Arabic Language is 0201102, or 0201105 (Arabic Language for non-Arabic Speakers).",
+    "Courses marked with * in the PDF are required for the Pre-Medical Track (with the core curriculum they satisfy common medical-school prerequisites for the MCAT or equivalent). Starred in the plan: General Physics for (HS), General Chemistry (HS), General Biology (1), General Biology (2), General Biology Lab, Organic Chemistry (HS), Cell Biology, General Biochemistry and General Biochemistry Lab; General Chemistry II, Organic Chemistry II, Physics II (and labs) are starred among the program electives. Non-Biotechnology students on the Pre-Medical Track must complete all starred courses plus Cell Biology Lab (1450252). Introduction to Psychology (0206103) is required for students on the Pre-Medical Track.",
+    "University electives: one course from Domain F, one from Domain G and one from Domain H. Students in programs taught in Arabic cannot register for electives taught in English. The domain course lists are included as catalogue rows (year null).",
+    "Program elective courses: 12 credit hours. Rows with year null are catalogue lists (program electives and university-elective domains) and are not placed in a semester.",
+    "Prerequisite inconsistency in the PDF: in the 'Program Compulsory Courses (For all concentrations)' table (page 4) the prerequisite column of 1450331, 1450332, 1450333, 1450336, 1450341 and 1450342 repeats the course's own code. The study-plan tables (page 1) give the sensible prerequisites (e.g. 1450251 for 1450331) and are used here.",
+    "Prerequisite '-' is an empty list; a blank prerequisite cell (departmental electives) is null. 'Cor' means co-requisite."
+  ]
+}

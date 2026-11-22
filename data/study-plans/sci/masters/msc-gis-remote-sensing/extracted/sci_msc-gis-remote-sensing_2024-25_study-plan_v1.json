@@ -1,0 +1,181 @@
+{
+  "college": "sci",
+  "level": "masters",
+  "program": "Geographic Information Systems and Remote Sensing",
+  "catalog_year": "2024-25",
+  "source_file": "sci/masters/msc-gis-remote-sensing/sci_msc-gis-remote-sensing_2024-25_study-plan_v1.pdf",
+  "total_credit_hours": 33,
+  "courses": [
+    {
+      "code": "0401581",
+      "title": "GIS and RS for Env. Studies",
+      "credits": 3,
+      "type": "compulsory",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Compulsory Courses"
+    },
+    {
+      "code": "0401583",
+      "title": "Spatial Statistics",
+      "credits": 3,
+      "type": "compulsory",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Compulsory Courses"
+    },
+    {
+      "code": "1460513",
+      "title": "GIS Digital Carto. & Visual.",
+      "credits": 3,
+      "type": "compulsory",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Compulsory Courses"
+    },
+    {
+      "code": "1460599",
+      "title": "Master's Thesis",
+      "credits": 9,
+      "type": "thesis",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Compulsory Courses"
+    },
+    {
+      "code": "1501532",
+      "title": "GIS Programming Fundamentals",
+      "credits": 3,
+      "type": "compulsory",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Compulsory Courses"
+    },
+    {
+      "code": "1501566",
+      "title": "Database Design & Development",
+      "credits": 3,
+      "type": "compulsory",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Compulsory Courses"
+    },
+    {
+      "code": "0401582",
+      "title": "GIS for Transportation",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "0401584",
+      "title": "Geospatial Project Management",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1460521",
+      "title": "Geodesy & Photogrammetry",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1460522",
+      "title": "Digital Terrain Modeling",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1460523",
+      "title": "GIS for Geosciences",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1460530",
+      "title": "Special Topics 1 in GIS",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1501533",
+      "title": "Web and Mobile GIS Application",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1501553",
+      "title": "Spatial Algorithm & Program.",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    },
+    {
+      "code": "1501568",
+      "title": "Big Data and Data Analytics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "Major Elective Courses"
+    }
+  ],
+  "notes": [
+    "Image-only scan (no text layer). Transcribed from the page image and cross-checked with an OCR pass (RapidOCR); all course codes, titles and credits agreed.",
+    "The PDF is a course list, not a semester-by-semester plan: area 'GR-MSC-GISR-Thesis', 33 credits, 9 courses. Major Compulsory Courses: 24 credits, 6 courses; Major Elective Courses: 9 credits (3 courses) to be chosen from the 8 listed. year and semester are null because the PDF gives no placement.",
+    "Validation: compulsory courses 3+3+3+9+3+3 = 24, plus 9 elective credits (3 of the 8 listed courses) = 33, matching the printed totals. The 8 listed electives add up to 24 credits, of which only 9 are required.",
+    "No prerequisites are given in the PDF. Course titles are as printed (abbreviated, e.g. 'GIS Digital Carto. & Visual.')."
+  ]
+}

@@ -18,41 +18,50 @@ load_dotenv()
 
 CHROMA_PATH = "./chroma_db"
 
+# Retrieval mode: vector (ChromaDB only, the original behaviour), graph (GraphRAG path for
+# every question) or hybrid (the router picks per question). Set RETRIEVAL_MODE in .env.
+RETRIEVAL_MODE = os.getenv("RETRIEVAL_MODE", "vector").strip().lower()
+LAST_ROUTE = None  # route of the most recent question (read by evaluate_rag.py)
+
 # L2 distance threshold — chunks with score >= this value are too dissimilar
 # and are dropped before the LLM sees them. Lower = stricter.
 SCORE_THRESHOLD = 1.5
 
-SYSTEM_PROMPT = """You are an academic advisor chatbot for Master’s students at the University of Sharjah (UOS).
+SYSTEM_PROMPT = """You are Mosaed, an assistant for the University of Sharjah (UOS) community: undergraduate and graduate students, faculty and staff. Master's students remain the main audience, but answer any UOS question the documents cover.
 
-You assist students with any topic that may help them, including:
+You assist with any topic that may help them, including:
 - Academic regulations, GPA rules, graduation and admission requirements
-- Thesis, research procedures, and official forms
-- Registration, deadlines, withdrawals, and study plans
-- Master’s programs offered by each college at UOS (Master’s programs only)
-- College names and departments within the university
-- Building names and campus locations
-- Instructor information such as names and email addresses
-- Any other information relevant to a Master’s student at UOS
+- Thesis, research procedures, and official forms (graduate students)
+- Registration, deadlines, withdrawals, and the academic calendar
+- Study plans for Bachelor's and Master's programs: courses, credit hours, prerequisites and semester order
+- Colleges, departments and programs at UOS
+- Campus services and facilities: offices (Finance, Registration, Admissions, IT), libraries, study rooms, printers, restaurants, cafes, shops, pharmacy, prayer rooms, mosques, sports complex, hospitals, ATMs, parking, gates, housing, security, lost and found, clubs, labs
+- Building names, campus locations, working hours and contact details
 
 Response rules:
 - Answer using only the retrieved context. Do not use outside knowledge.
 - Do NOT add greetings, self-introductions, or pleasantries before your answer. Get straight to the point.
-- If the student sends only a greeting or small talk (no actual question), respond briefly and invite them to ask their question.
+- When the answer gives a place on campus, write its building code and full room number exactly as in the context (e.g. "Building A9, room A9-109"), so the app can show it on the campus map.
+- If the user sends only a greeting, thanks or small talk (no actual question), reply in one short, natural sentence in their language and greeting style, like a person would (e.g. "Wa alaykum assalam! How can I help?", "You're welcome!", "Hi! What would you like to know?"). Do NOT list topics or describe what you can help with.
 - Match the length of your answer to the question: simple factual questions (a single number, name, or requirement) get a single sentence. Only use more detail if the question asks for a process, list, or explanation.
-- If the context only partially covers the question, share what is available and note what is missing.
-- If the answer is not in the context at all, say: "I can only assist with questions related to master's students at the University of Sharjah. Please ask a relevant question."
-- Never fabricate policies, deadlines, credit hours, GPA thresholds, procedures, instructor names, or emails.
-- Respond in the same language the student used (Arabic or English).
-- Format multi-step procedures and requirement lists with numbered points for clarity."""
+- Study plans differ by program and level. If the question does not say which program (or Bachelor's vs Master's) and the answer differs between programs, ask which program they mean instead of guessing. If the context contains plans from different catalog years, say which year you used.
+- If a rule differs for undergraduate and graduate students, answer for the level the user asked about; if they did not say, give both or ask.
+- If the context only partially covers the question, share what is available and note what is missing. Never present a partial list as complete.
+- Never mention "the context" or "the documents" in your answer; just answer.
+- If the answer is not in the context at all, say: "I can only assist with questions related to the University of Sharjah. Please ask a relevant question."
+- Never fabricate policies, deadlines, credit hours, GPA thresholds, procedures, prices, working hours, phone numbers, instructor names, or emails.
+- Respond in the same language the user used (Arabic or English).
+- Format multi-step procedures and requirement lists with numbered points for clarity.
+- If a "Student's progress" section is given, it is the student's own record from Mosaed's Thesis Roadmap tracker. Questions about their own progress or next steps are in scope: say which step they are on and what comes next, and explain the requirements of that step using the retrieved context. Do not mention their progress when the question does not need it."""
 
 USER_PROMPT = """Retrieved context:
 -----
 {retrieved_context}
 -----
 
-Student question: {user_question}
+Question: {user_question}
 
-Using only the context above, answer the student’s question."""
+Using only the context above, answer the question."""
 
 STANDALONE_QUESTION_TEMPLATE = """
 Rewrite the follow-up question into a standalone question using the conversation history.
@@ -76,6 +85,33 @@ _BROAD_PATTERN = re.compile(
     r'\b(list|summarize|summary|overview|complete|full|steps|roadmap|'
     r'requirements|conditions|procedure|process|guide)\b'
 )
+
+_LABEL_RE = re.compile(r"\[Study plan: (?:BSc|MSc) in (.+?) \((Bachelor's|Master's)\)")
+
+
+def program_hint(query: str, results: list) -> str:
+    """If the retrieved study plans come from programs the user never named,
+    return a note telling the model to ask which program instead of guessing."""
+    programs = {}
+    plan_chunks = 0
+    for doc, _score in results:
+        m = _LABEL_RE.match(doc.metadata.get("label") or "")
+        if m:
+            plan_chunks += 1
+            programs[m.group(1).lower()] = f"{m.group(1)} ({m.group(2)})"
+    if not programs:
+        return ""
+    q = query.lower()
+    if any(name in q for name in programs):
+        return ""  # the user named the program
+    if len(programs) < 2 and plan_chunks < len(results) / 2:
+        return ""  # one stray study-plan chunk, the answer is probably in the regulations
+    names = ", ".join(sorted(programs.values()))
+    return ("\n\nNote: the question does not name a program, and the study plans above belong to: "
+            f"{names}. If the answer depends on the program, do not pick one; ask the user which "
+            "program (and Bachelor's or Master's) they mean, giving a few of these as examples. "
+            "If the answer is the same for all students (for example a general regulation), answer normally.")
+
 
 def is_broad_query(query: str) -> bool:
     return bool(_BROAD_PATTERN.search(query.lower()))
@@ -120,7 +156,185 @@ def _select_diverse_chunks(scored_docs: list, max_results: int = 6) -> list:
     return diverse
 
 
-def query_rag(query_text: str, chat_history: list[dict] | None = None):
+def _merge(first: list, second: list, max_results: int = 8) -> list:
+    """Combine two (Document, score) lists, first list first, without duplicate chunks."""
+    seen, out = set(), []
+    for doc, score in first + second:
+        key = doc.metadata.get("id") or doc.page_content[:80]
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append((doc, score))
+        if len(out) >= max_results:
+            break
+    return out
+
+
+def _interleave(a: list, b: list) -> list:
+    out = []
+    for i in range(max(len(a), len(b))):
+        out += a[i:i + 1] + b[i:i + 1]
+    return out
+
+
+# ── sources shown under the answer ─────────────────────────────────────────
+_FROM_LINE = re.compile(r"^\[From:\s*(.+?)\]\s*$")
+_PLAN_LINE = re.compile(r"^\[Study plan:\s*(.+?)\]\s*$")
+_WORD = re.compile(r"[A-Za-z\u0600-\u06FF]{4,}|\d+(?:\.\d+)?")
+_COMMON = set("""that this with from have will your they their what when which there these those about
+into than then them were been being only also must should would could after before during each other
+student students university course courses program programs semester semesters master masters
+sharjah here help like question questions answer please hello thank thanks need know""".split())
+# Markdown links "[text](url)" and bare web links, removed from source titles/excerpts
+_MD_LINK = re.compile(r"\[([^\]]*)\]\((?:https?://)[^)]*\)")
+_URL = re.compile(r"https?://\S+")
+
+
+def _strip_links(text: str) -> str:
+    text = _MD_LINK.sub(lambda m: m.group(1), text)
+    text = _URL.sub("", text)
+    return re.sub(r"\s{2,}", " ", text).strip()
+
+
+def _source_info(doc, answer_words: set | None = None) -> dict:
+    """Readable source for one chunk: document title, section and a short excerpt
+    (the part of the chunk that shares the most words with the answer)."""
+    text = doc.page_content.strip()
+    first, _, rest = text.partition("\n")
+    src = str(doc.metadata.get("source", "")).replace("\\", "/")
+    title = os.path.splitext(os.path.basename(src))[0] or "Document"
+    if "_" in title and " " not in title:  # file names like uos_campus_services
+        title = re.sub(r"\buos\b", "UoS", title.replace("_", " "), flags=re.I)
+        title = title[:1].upper() + title[1:]
+    section, body = "", text
+    m = _FROM_LINE.match(first)
+    if m:
+        parts = [p.strip() for p in m.group(1).split(">") if p.strip()]
+        title = parts[0] if parts else title
+        section = parts[-1] if len(parts) > 1 and parts[-1] != parts[0] else ""
+        body = rest
+    else:
+        m = _PLAN_LINE.match(first)
+        if m:
+            title = "Study plan: " + m.group(1).split(",")[0].strip()
+            body = rest
+            heading = re.search(r"^#+\s*(.+)$", body, re.M)
+            section = heading.group(1).strip() if heading else ""
+    section = _strip_links(section)
+    if (len(section) > 80 or not re.search(r"[A-Za-z\u0600-\u06FF]{3,}", section)
+            or re.search(r"\S{20,}", section)):
+        section = ""  # headings that were really a long link or form id
+    clean = re.sub(r"^#+\s*", "", _strip_links(body), flags=re.M)
+    clean = re.sub(r"[|*_❑•▪●■◆➢✓]+|-{3,}", " ", clean)
+    pieces = [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n+|(?<=[.;])\s+", clean)]
+    pieces = [p.lstrip("-–• ").strip() for p in pieces]
+    pieces = [p for p in pieces if p]
+    start = 0
+    if answer_words and pieces:
+        score = lambda p: len(answer_words & {w.lower() for w in _WORD.findall(p)})
+        start = max(range(len(pieces)), key=lambda i: score(pieces[i]))
+    excerpt = " ".join(pieces[start:])
+    if start > 0:
+        excerpt = "… " + excerpt
+    if len(excerpt) > 280:
+        excerpt = excerpt[:280].rsplit(" ", 1)[0] + " …"
+    return {"id": doc.metadata.get("id"), "title": title, "section": section, "excerpt": excerpt}
+
+
+def _cited_sources(answer: str, results: list, max_sources: int = 3, question: str = "") -> list:
+    """The retrieved chunks the answer draws on (shared words and numbers), best match first,
+    one per document section, at most 3. No sources when nothing clearly supports the answer:
+    refusals, greetings / small talk, and answers whose words do not appear in any chunk."""
+    if not answer or answer.strip().startswith("I can only assist"):
+        return []
+    words = lambda t: {w.lower() for w in _WORD.findall(t)} - _COMMON
+    # words the answer only repeats from the question are no evidence of a source
+    answer_words = words(answer) - words(question)
+    if len(answer_words) < 5:  # "Hello! What would you like to ask?" and similar
+        return []
+    scored = []
+    for doc, _s in results:
+        shared = answer_words & words(doc.page_content)
+        has_number = any(w[0].isdigit() and len(w) >= 2 for w in shared)
+        share = len(shared) / len(answer_words)
+        # a real source shares several specific words (or a number such as a date or code)
+        if share >= 0.15 and (len(shared) >= 4 or (has_number and len(shared) >= 2)):
+            scored.append((doc, share))
+    scored.sort(key=lambda x: -x[1])  # stable: equal matches keep retrieval order
+    out, seen = [], set()
+    for doc, _share in scored:
+        info = _source_info(doc, answer_words)
+        key = (info["title"], info["section"])
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(info)
+        if len(out) >= max_sources:
+            break
+    return out
+
+
+# A question about the student's own thesis progress ("what is my next step?")
+_PERSONAL = re.compile(r"\b(my|i|me|am i|next step|where am i)\b|(خطوتي|الخطوة التالية|رسالتي|أين أنا)", re.I)
+_THESIS_WORDS = re.compile(r"thesis|roadmap|defen[cds]|proposal|graduat|\bstep|portfolio|publication|paper|\bG\d{2}|رسال|مناقش|تخرج|خطو", re.I)
+
+
+def retrieve(search_query: str, standalone_query: str | None = None,
+             embedding_function=None, db=None) -> tuple[list, str]:
+    """Vector search + (hybrid) graph search. Returns ([(doc, score)], route).
+    Used by query_rag and by the agent's search_regulations tool."""
+    standalone_query = standalone_query or search_query
+    if embedding_function is None:
+        embedding_function = get_embedding_function()
+    if db is None:
+        db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+    broad_query = is_broad_query(standalone_query)
+
+    # Broad queries fetch fewer candidates (coverage > precision);
+    # focused questions fetch more so the threshold filter has room to work.
+    # Embed the question once and reuse it for both the vector and the graph path.
+    query_embedding = embedding_function.embed_query(search_query)
+    raw_results = db.similarity_search_by_vector_with_relevance_scores(
+        query_embedding,
+        k=10 if broad_query else 20
+    )
+
+    if broad_query:
+        results = raw_results[:10]
+    else:
+        filtered = [(doc, score) for doc, score in raw_results if score < SCORE_THRESHOLD]
+        # Fallback: always show something rather than returning nothing.
+        if not filtered:
+            filtered = raw_results[:5]
+        results = _select_diverse_chunks(filtered, max_results=8)
+
+    # ── hybrid RAG / GraphRAG ─────────────────────────────────────────────
+    route = "vector"
+    if RETRIEVAL_MODE in ("graph", "hybrid"):
+        from . import graph_retriever
+        if not graph_retriever.available():
+            route = "vector (no graph_db yet)"
+        else:
+            if RETRIEVAL_MODE == "graph":
+                route = "multi_step"
+            else:
+                from .router import route as choose_route
+                route, reason = choose_route(search_query)
+                print(f"Route: {route} ({reason})")
+            if route in ("multi_step", "unsure"):
+                graph_results = graph_retriever.graph_retrieve(search_query, query_embedding, k=6)
+                if route == "multi_step":
+                    # graph passages first, a few vector chunks as a safety net
+                    results = _merge(graph_results, results[:3], max_results=8)
+                else:
+                    results = _merge(_interleave(graph_results, results), [], max_results=8)
+    return results, route
+
+
+def query_rag(query_text: str, chat_history: list[dict] | None = None, with_route: bool = False,
+              student: dict | None = None):
+    """student = the user's Thesis Roadmap progress {"text", "search_hint"} or None."""
+    global LAST_ROUTE
     if not os.path.exists(CHROMA_PATH):
         sys.exit(f"Database not found at {CHROMA_PATH}. Run populate_database.py first.")
 
@@ -140,35 +354,31 @@ def query_rag(query_text: str, chat_history: list[dict] | None = None):
         rewritten_query = generate_text(rewrite_prompt)
         standalone_query = (rewritten_query or "").strip() or query_text
 
-    broad_query = is_broad_query(standalone_query)
+    # For "what is my next step?" the question alone finds nothing useful: add the
+    # student's next roadmap steps to the search so the rules for them are retrieved.
+    search_query = standalone_query
+    if student and _PERSONAL.search(standalone_query) and _THESIS_WORDS.search(standalone_query):
+        search_query = f"{standalone_query} {student.get('search_hint', '')}".strip()
 
-    # Broad queries fetch fewer candidates (coverage > precision);
-    # focused questions fetch more so the threshold filter has room to work.
-    raw_results = db.similarity_search_with_score(
-        standalone_query,
-        k=10 if broad_query else 20
-    )
-
-    if broad_query:
-        results = raw_results[:10]
-    else:
-        filtered = [(doc, score) for doc, score in raw_results if score < SCORE_THRESHOLD]
-        # Fallback: always show something rather than returning nothing.
-        if not filtered:
-            filtered = raw_results[:5]
-        results = _select_diverse_chunks(filtered, max_results=8)
+    results, route = retrieve(search_query, standalone_query, embedding_function, db)
+    LAST_ROUTE = route
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
 
     user_prompt_formatted = USER_PROMPT.format(
         user_question=standalone_query,
         retrieved_context=context_text
-    )
+    ) + program_hint(standalone_query, results)
+    if student and student.get("text"):
+        user_prompt_formatted = f"Student's progress:\n{student['text']}\n\n" + user_prompt_formatted
 
     response_text = generate_answer(SYSTEM_PROMPT, user_prompt_formatted)
 
-    sources = [doc.metadata.get("id", None) for doc, _score in results]
-    print(f"Response: {response_text}\nSources: {sources}")
+    # sources = the chunks the answer draws on, as {id, title, section, excerpt}
+    sources = _cited_sources(response_text, results, question=standalone_query)
+    print(f"Response: {response_text}\nSources: {[s['id'] for s in sources]}")
+    if with_route:
+        return response_text, sources, route
     return response_text, sources
 
 

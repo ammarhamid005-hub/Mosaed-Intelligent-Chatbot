@@ -1,0 +1,278 @@
+{
+  "A9-1-PRAYER": {
+    "number": "A9-116",
+    "name": "Men Prayer Room"
+  },
+  "A9-1-RM-LIFT": {
+    "number": null,
+    "name": "Small room"
+  },
+  "A9-1-U05": {
+    "number": "A9-117"
+  },
+  "A9-1-WC-2": {
+    "number": null,
+    "name": "Womens Washroom"
+  },
+  "A9-1-WC-STAFF": {
+    "number": "A9-124",
+    "name": "Male Staff Washroom"
+  },
+  "A9-1-X01": {
+    "number": null,
+    "name": "Unknown room (louvred door)"
+  },
+  "A9-1-X02": {
+    "number": "A9-119B"
+  },
+  "A9-126": {
+    "number": "A9-101"
+  },
+  "A9-128": {
+    "number": "A9-102"
+  },
+  "A9-130": {
+    "number": null,
+    "name": "NOT MAPPED"
+  },
+  "A9-132": {
+    "number": "A9-106"
+  },
+  "A9-134": {
+    "number": "A9-107"
+  },
+  "A9-136": {
+    "number": "A9-108"
+  },
+  "A9-138": {
+    "number": "A9-109"
+  },
+  "A9-140": {
+    "number": "A9-110"
+  },
+  "A9-142": {
+    "number": "A9-111"
+  },
+  "A9-144": {
+    "number": "A9-112"
+  },
+  "A9-146": {
+    "number": "A9-113"
+  },
+  "A9-148": {
+    "number": "A9-114"
+  },
+  "A9-150": {
+    "number": "A9-115"
+  },
+  "A9-152": {
+    "number": "A9-118"
+  },
+  "A9-154": {
+    "number": "A9-119A"
+  },
+  "A9-156": {
+    "number": "A9-120"
+  },
+  "A9-158": {
+    "number": "A9-121"
+  },
+  "A9-160": {
+    "number": "A9-122"
+  },
+  "A9-162": {
+    "number": "A9-123"
+  },
+  "A9-164": {
+    "number": "A9-125"
+  },
+  "A9-166": {
+    "number": "A9-126"
+  },
+  "A9-168": {
+    "number": "A9-127"
+  },
+  "A9-170": {
+    "number": "A9-128"
+  },
+  "A9-172": {
+    "number": "A9-129"
+  },
+  "A9-174": {
+    "number": "A9-130",
+    "name": "Women's Prayer Room"
+  },
+  "A9-176": {
+    "number": "A9-132"
+  },
+  "A9-178": {
+    "number": "A9-133",
+    "inside": [
+      "A9-133C",
+      "A9-133D"
+    ]
+  },
+  "A9-178B": {
+    "number": "A9-133",
+    "inside": [
+      "A9-133A",
+      "A9-133B"
+    ]
+  },
+  "A9-180": {
+    "number": "A9-135"
+  },
+  "A9-180B": {
+    "number": "A9-136"
+  },
+  "A9-182": {
+    "number": "A9-134"
+  },
+  "A9-184": {
+    "number": "A9-138"
+  },
+  "A9-186": {
+    "number": "A9-136B"
+  },
+  "A9-188": {
+    "number": "A9-137"
+  },
+  "A9-190": {
+    "number": "A9-139"
+  },
+  "A9-2-IDF": {
+    "number": null,
+    "name": "IDF Room"
+  },
+  "A9-2-RM-LIFT": {
+    "number": null,
+    "name": "Small room"
+  },
+  "A9-2-WC": {
+    "number": "A9-224",
+    "name": "Male Washroom"
+  },
+  "A9-2-WC-2": {
+    "number": null,
+    "name": "Female Washroom"
+  },
+  "A9-201": {
+    "number": "A9-239A"
+  },
+  "A9-202": {
+    "number": null,
+    "name": "NOT MAPPED 1"
+  },
+  "A9-203": {
+    "number": "A9-206"
+  },
+  "A9-204": {
+    "number": "A9-207"
+  },
+  "A9-205": {
+    "number": "A9-208"
+  },
+  "A9-206A": {
+    "number": "A9-209A"
+  },
+  "A9-206B": {
+    "number": "A9-209B"
+  },
+  "A9-207": {
+    "number": "A9-210"
+  },
+  "A9-208": {
+    "number": "A9-212A"
+  },
+  "A9-209": {
+    "number": "A9-211"
+  },
+  "A9-210": {
+    "number": "A9-212"
+  },
+  "A9-211": {
+    "number": "A9-213"
+  },
+  "A9-212": {
+    "number": "A9-214"
+  },
+  "A9-213": {
+    "number": "A9-215"
+  },
+  "A9-214": {
+    "number": null,
+    "name": "NOT MAPPED 2"
+  },
+  "A9-215": {
+    "number": "A9-217"
+  },
+  "A9-216": {
+    "number": null,
+    "name": "NOT MAPPED 4"
+  },
+  "A9-217A": {
+    "number": "A9-219B"
+  },
+  "A9-217B": {
+    "number": "A9-219A"
+  },
+  "A9-218": {
+    "number": "A9-220"
+  },
+  "A9-219": {
+    "number": "A9-221"
+  },
+  "A9-220": {
+    "number": "A9-222"
+  },
+  "A9-222": {
+    "number": "A9-223"
+  },
+  "A9-223": {
+    "number": "A9-225"
+  },
+  "A9-224": {
+    "number": "A9-226"
+  },
+  "A9-225": {
+    "number": "A9-227"
+  },
+  "A9-226": {
+    "number": "A9-228"
+  },
+  "A9-227A": {
+    "number": "A9-229A"
+  },
+  "A9-227B": {
+    "number": "A9-229B"
+  },
+  "A9-228": {
+    "number": "A9-230"
+  },
+  "A9-229": {
+    "number": "A9-233"
+  },
+  "A9-230": {
+    "number": null,
+    "name": "NOT MAPPED 5"
+  },
+  "A9-231": {
+    "number": "A9-234"
+  },
+  "A9-232": {
+    "number": "A9-235"
+  },
+  "A9-233": {
+    "number": "A9-236"
+  },
+  "A9-234": {
+    "number": "A9-238"
+  },
+  "A9-235": {
+    "number": null,
+    "name": "NOT MAPPED 6"
+  },
+  "A9-236": {
+    "number": "A9-239"
+  }
+}

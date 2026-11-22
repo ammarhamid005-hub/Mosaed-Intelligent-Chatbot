@@ -1,0 +1,297 @@
+{
+  "college": "cci",
+  "level": "masters",
+  "program": "Artificial Intelligence",
+  "catalog_year": "2021-22",
+  "source_file": "cci/masters/msc-artificial-intelligence/cci_msc-artificial-intelligence_2021-22_study-plan_v1.pdf",
+  "total_credit_hours": 33,
+  "courses": [
+    {
+      "code": "1501511",
+      "title": "Advanced Programming",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Basic programming course"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1501530",
+      "title": "Advanced Artificial Intelligence",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Graduate standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1501566",
+      "title": "Foundations of Data Science",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "(1511263 or 1501567 or equiv.) And 1440281."
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1501531",
+      "title": "Machine Learning",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "(1440211 + 1501215) or equiv"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1501590",
+      "title": "Research Methodology",
+      "credits": 3,
+      "type": "compulsory",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "(1501215 or 1501501) and Graduate Standing"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": null,
+      "title": "Elective Course",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501692",
+      "title": "Thesis in AI",
+      "credits": 3,
+      "type": "thesis",
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "Completion of 12 credit hours"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1501692",
+      "title": "Thesis in AI",
+      "credits": 6,
+      "type": "thesis",
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "Completion of 12 credit hours"
+      ],
+      "track": null,
+      "type_raw": "C"
+    },
+    {
+      "code": "1501533",
+      "title": "Evolutionary Computing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501530"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501535",
+      "title": "Computer Vision & Image Processing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501511"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501565",
+      "title": "Data Mining",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "(1501263 or 1501567 or equiv.)"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501572",
+      "title": "Computational Geometry",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501372/1501511"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501630",
+      "title": "Natural Language Processing",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501531"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501631",
+      "title": "Directed Studies",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Graduate standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501635",
+      "title": "Computational Robotics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501372/1501511"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501636",
+      "title": "Applications of Deep Learning Networks",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501531"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501638",
+      "title": "Topics in Machine Learning",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501531"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501639",
+      "title": "Topics in AI",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501530"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501641",
+      "title": "Applied Human Computer Interaction",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "Graduate standing"
+      ],
+      "track": null,
+      "type_raw": "E"
+    },
+    {
+      "code": "1501668",
+      "title": "Big data & Data Analytics",
+      "credits": 3,
+      "type": "elective",
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1501263 or 1501567 or equiv."
+      ],
+      "track": null,
+      "type_raw": "E"
+    }
+  ],
+  "notes": [
+    "Course List (page 1 top): compulsory courses 15 credit hours, elective courses 9 credit hours, thesis 9 credit hours = 33.",
+    "Rows with year null are the elective course catalogue (course list) and are not placed in a semester; they are excluded from credit sums. Elective slots in the study plan are 'Elective Course' (E, 3).",
+    "Type legend in the study plan: C = compulsory, E = elective. Thesis in AI (1501692) is 9 credit hours, split 3 (second-year fall) + 6 (second-year spring) in the study plan.",
+    "Arabic course titles in the PDF were omitted; English titles kept. The plan table abbreviates some titles (e.g. 'Advanced Prog.'); the full titles from the course list are used.",
+    "Prerequisite '(1511263 or 1501567 or equiv.) And 1440281.' for 1501566 is printed with code 1511263 (likely a typo for 1501263 as used in other rows); kept as printed."
+  ]
+}

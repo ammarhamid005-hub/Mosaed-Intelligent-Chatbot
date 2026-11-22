@@ -1,0 +1,429 @@
+/* Floating glass card, same family as the sidebar */
+.panel {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 18px 16px;
+  background: var(--glass-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: var(--glass-shadow);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+/* ── Header ── */
+.head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.who {
+  flex: 1;
+  min-width: 0;
+}
+
+/* The name reads like the plate on an office door: Fraunces, a scholarly serif at its
+   display optical size, against the Inter UI around it. The title sits smaller and lighter. */
+.name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-optical-sizing: auto;
+  font-size: 1.7rem;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+
+.honorific {
+  margin-right: 0.3em;
+  font-size: 0.62em;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
+/* Details as labelled facts, not one run-on line */
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 0;
+  margin-top: 10px;
+}
+
+.facts > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding: 0 14px;
+  border-left: 1px solid var(--line);
+}
+
+.facts > div:first-child {
+  padding-left: 0;
+  border-left: none;
+}
+
+.facts dt {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.facts dd {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Close: quiet ghost button that also teaches the Esc shortcut */
+.closeBtn {
+  align-self: flex-start;
+  height: 30px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 7px 0 6px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.closeKey {
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 3px 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.closeBtn:active {
+  transform: scale(0.95);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .closeBtn:hover {
+    background: var(--hover);
+    color: var(--ink);
+  }
+
+  .closeBtn:hover .closeKey {
+    color: var(--ink-2);
+    border-color: color-mix(in srgb, var(--ink) 20%, transparent);
+  }
+}
+
+.closeBtn:focus-visible,
+.action:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.action:active {
+  transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .action:hover {
+    background: var(--hover);
+    color: var(--ink);
+    border-color: color-mix(in srgb, var(--ink) 18%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action:active,
+  .closeBtn:active { transform: none; }
+}
+
+/* ── Office hours summary ── */
+.sectionTitle {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.officeWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.office {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* Status line: in office hours now / next office hours */
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.statusText {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.statusRange {
+  margin-left: auto;
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.statusNow .statusText {
+  color: var(--green);
+}
+
+.liveDot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 3px rgba(96, 182, 143, 0.25);
+}
+
+/* One aligned row per day */
+.days {
+  list-style: none;
+}
+
+.days li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 14px;
+  border-top: 1px solid var(--line);
+}
+
+.dayName {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.slots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.slot {
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: var(--hover);
+  color: var(--ink-2);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Today: green bar on the left edge, green day name */
+.dayToday::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--brand);
+}
+
+.dayToday .dayName {
+  color: var(--green);
+}
+
+.todayTag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* ── Weekly grid ── */
+.weekWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weekHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.legend {
+  display: flex;
+  gap: 14px;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--selected);
+  border-left: 3px solid var(--ink);
+}
+
+.swatchOffice {
+  background: rgba(96, 182, 143, 0.25);
+  border-left-color: var(--brand);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 44px repeat(var(--days), minmax(0, 1fr));
+  column-gap: 4px;
+}
+
+.corner {
+  height: 28px;
+}
+
+.dayHead {
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.times {
+  position: relative;
+}
+
+.times span {
+  position: absolute;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.times span:first-child {
+  transform: none;
+}
+
+.dayCol {
+  position: relative;
+  border-radius: 10px;
+  background: var(--hover);
+}
+
+.hourLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.hourLine:first-child {
+  display: none;
+}
+
+.event {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 5px 6px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--surface);
+  border-left: 3px solid var(--ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  font-size: 0.68rem;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.eventOffice {
+  background: rgba(96, 182, 143, 0.22);
+  border-left-color: var(--brand);
+  box-shadow: none;
+}
+
+.eventTitle {
+  font-weight: 600;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.eventTime {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.note {
+  margin-top: auto;
+  font-size: 0.72rem;
+  color: var(--muted);
+}

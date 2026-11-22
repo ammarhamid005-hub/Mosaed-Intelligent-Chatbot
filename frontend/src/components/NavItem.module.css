@@ -1,0 +1,118 @@
+.item {
+  position: relative; /* anchor for the green side bar */
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+
+.icon {
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+
+.label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badge {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 7px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.kbd {
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1px 6px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.item:hover .kbd,
+.item:focus-visible .kbd {
+  opacity: 1;
+}
+
+/* Hover and the open tool: the label and icon turn green and a green bar appears on the
+   sidebar's right edge (the box itself stays clear). The icon and bar are #60B68F; the label
+   uses --green, which is #60B68F in dark mode and a darker shade of it in light mode so the
+   text stays readable on white. Listed last so it wins over the resting styles above. */
+.item::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  right: -12px;            /* the sidebar's inner padding: sits on its right edge */
+  width: 3px;
+  border-radius: 3px 0 0 3px;
+  background: var(--brand);
+  transform: scaleY(0);
+  transition: transform 0.18s ease;
+}
+
+.item:hover,
+.item.active {
+  color: var(--green);
+}
+
+.item.active {
+  font-weight: 600;
+}
+
+.item:hover .icon,
+.item.active .icon {
+  color: var(--brand);
+}
+
+.item:hover::after,
+.item.active::after {
+  transform: scaleY(1);
+}
+
+/* Icon rail */
+.collapsed {
+  width: 40px;
+  padding: 0;
+  justify-content: center;
+}
+
+.collapsed .label,
+.collapsed .badge,
+.collapsed .kbd {
+  display: none;
+}

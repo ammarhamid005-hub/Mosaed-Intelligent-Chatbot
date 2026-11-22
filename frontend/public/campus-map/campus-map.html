@@ -1,0 +1,1421 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>UOS Campus Map</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: full-screen 3D campus (the Blender model), search panel top-left, room/building card below it,
+   level switcher on the right edge, category filters bottom-left, camera tools bottom-right. */
+/* Mosaed's design language (the chatbot this map lives in): Inter, black and white for about 80% of the UI,
+   the University of Sharjah green #60B68F for the rest, and floating glass panels over the map.
+   --accent is the green itself (fills, with black text on top); --accent-ink is a deeper shade for green text and
+   thin icons so they stay readable on white; --ink is black (white in dark mode) for primary buttons and the
+   selected level. */
+:root{
+  --bg:#f1f2f1; --scene:#e8ebe9; --fade:#eceeec; --fade-edge:#d4d8d5; --surface:#ffffff; --surface-2:rgba(0,0,0,.05);
+  --fg:#000000; --fg-2:#3a3a3a; --muted:#767676; --line:rgba(0,0,0,.08); --ink:#000000; --ink-fg:#ffffff;
+  --accent:#60b68f; --accent-fg:#000000; --accent-ink:#2f7f5b; --accent-soft:rgba(96,182,143,.16);
+  /* glass panels, the same as the chatbot's sidebar */
+  --glass:rgba(255,255,255,.85); --glass-border:rgba(255,255,255,.9); --glass-blur:blur(22px) saturate(170%);
+  --shadow:0 0 0 1px rgba(0,0,0,.05),0 18px 50px -16px rgba(0,0,0,.18);
+  --shadow-sm:0 0 0 1px rgba(0,0,0,.05),0 4px 14px -6px rgba(0,0,0,.16);
+  --r:20px; --ease-out:cubic-bezier(.23,1,.32,1);
+  --f-ui:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:var(--f-ui);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#000000; --scene:#0f1110; --fade:#1d201e; --fade-edge:#2b2f2d; --surface:#0d0d0d; --surface-2:rgba(255,255,255,.06);
+  --fg:#ffffff; --fg-2:#d0d0d0; --muted:#8a8a8a; --line:rgba(255,255,255,.09); --ink:#ffffff; --ink-fg:#000000;
+  --accent:#60b68f; --accent-fg:#000000; --accent-ink:#60b68f; --accent-soft:rgba(96,182,143,.16);
+  --glass:rgba(22,22,22,.85); --glass-border:rgba(255,255,255,.1); --glass-blur:blur(22px) saturate(150%);
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 20px 60px -16px rgba(0,0,0,.9);
+  --shadow-sm:0 0 0 1px rgba(255,255,255,.06),0 6px 18px -6px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#000000; --scene:#0f1110; --fade:#1d201e; --fade-edge:#2b2f2d; --surface:#0d0d0d; --surface-2:rgba(255,255,255,.06);
+  --fg:#ffffff; --fg-2:#d0d0d0; --muted:#8a8a8a; --line:rgba(255,255,255,.09); --ink:#ffffff; --ink-fg:#000000;
+  --accent:#60b68f; --accent-fg:#000000; --accent-ink:#60b68f; --accent-soft:rgba(96,182,143,.16);
+  --glass:rgba(22,22,22,.85); --glass-border:rgba(255,255,255,.1); --glass-blur:blur(22px) saturate(150%);
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 20px 60px -16px rgba(0,0,0,.9);
+  --shadow-sm:0 0 0 1px rgba(255,255,255,.06),0 6px 18px -6px rgba(0,0,0,.7); color-scheme:dark}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#app{position:fixed;inset:0;-webkit-tap-highlight-color:transparent}
+#gl,#labels{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}   /* long-press on the map: no text selection or iOS callout */
+#gl{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none;outline:none}
+#labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+/* floating glass panels; the border is the glass edge, and becomes a real outline in Windows high-contrast (forced colours) */
+.card{background:var(--glass);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border);border-radius:var(--r);box-shadow:var(--shadow)}
+button,input{font-family:inherit}
+[hidden]{display:none!important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+::selection{background:var(--accent-soft)}
+/* times, levels and counts line up in columns */
+.tm,.wd>b,.res .lv,.grid .tc,.sum b,.fchip em{font-variant-numeric:tabular-nums}
+
+/* loading */
+#load{position:absolute;inset:0;display:grid;place-items:center;background:var(--bg);z-index:20;transition:opacity .4s}
+#load.done{opacity:0;pointer-events:none}
+#load .box{width:min(280px,calc(100% - 48px));display:grid;gap:12px;text-align:center}
+#load b{font-size:15px;font-weight:600}
+#load span{font-size:12.5px;color:var(--muted)}
+#bar{height:4px;border-radius:99px;background:var(--line);overflow:hidden}
+#bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+/* inside the chatbot the sidebar already carries the brand, so the map drops its own mark */
+.embedded .mark{display:none}
+.embedded .bar{padding-left:10px}
+
+/* left column */
+#side{position:absolute;z-index:5;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));bottom:max(60px,env(safe-area-inset-bottom,0px));
+  width:min(320px,calc(100% - 24px));display:flex;flex-direction:column;gap:8px;pointer-events:none;min-height:0}
+#side>*{pointer-events:auto}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#panel{display:flex;flex-direction:column;min-height:0;flex:0 1 auto;overflow:hidden}
+.bar{display:flex;align-items:center;gap:6px;padding:8px}
+.mark{width:30px;height:30px;border-radius:10px;background:var(--ink);color:var(--ink-fg);display:grid;place-items:center;font-weight:700;font-size:10px;flex:none;position:relative;overflow:hidden;padding-bottom:3px;box-sizing:border-box}
+.mark::after{content:"";position:absolute;left:4px;right:4px;bottom:4px;height:3px;border-radius:50% 50% 0 0/100% 100% 0 0;background:var(--accent)}   /* the logo's green arc */
+.search{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:0 6px;color:var(--muted);border-radius:12px}   /* 12 + the bar's 8px padding = the card's 20px: concentric corners */
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:400 14px var(--f-ui);padding:8px 0;outline:none}
+.search input::placeholder{color:var(--muted)}
+.search input::-webkit-search-cancel-button{filter:grayscale(1)}
+.ib{width:32px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;flex:none;padding:0}
+@media (hover:hover){.ib:hover{background:var(--surface-2);color:var(--fg)}}
+/* Directions: the map's own route mark (green start A, black end B, the walk between them), not a generic arrow tile */
+.vsep{width:1px;height:20px;background:var(--line);flex:none}
+.ib.route{width:36px;height:34px;color:var(--fg-2)}
+.ib.route .rp{stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-dasharray:.1 3;transition:stroke-dashoffset .5s var(--ease-out)}
+.ib.route .ra{fill:var(--route)}
+.ib.route .rb{fill:var(--route-b)}
+@media (hover:hover){.ib.route:hover{color:var(--fg)}.ib.route:hover .rp{stroke-dashoffset:-6.6}}   /* the dots walk along the path on hover */
+.ib.route[aria-pressed="true"]{background:var(--surface-2);color:var(--fg)}
+.crumbs{display:flex;align-items:center;gap:6px;padding:0 14px 10px;font-size:12px;color:var(--muted);flex-wrap:wrap;line-height:1.3}
+.crumbs button{all:unset;cursor:pointer;color:var(--accent-ink);font-weight:500}
+@media (hover:hover){.crumbs button:hover{text-decoration:underline;text-underline-offset:3px}}
+.crumbs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+.crumbs span:last-child{color:var(--fg);font-weight:600}
+#results{overflow:auto;border-top:1px solid var(--line);min-height:0;max-height:46vh;padding:4px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.res{display:flex;gap:10px;align-items:center;padding:8px 10px;cursor:pointer;border:0;border-radius:12px;background:transparent;width:100%;text-align:left;font:inherit;color:inherit}
+.res:focus-visible{background:var(--surface-2);outline:none}
+@media (hover:hover){.res:hover{background:var(--surface-2)}}
+.res>span{min-width:0}
+.res .t{font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res .s{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res .lv{margin-left:auto;font:500 11px var(--f-ui);color:var(--muted);flex:none}
+.dot{width:10px;height:10px;border-radius:3px;flex:none;display:inline-block}
+/* info card: title, one muted subtitle line, one main action, then plain sections */
+#info{padding:16px 16px 18px;display:grid;gap:14px;overflow:auto;min-height:0;flex:0 1 auto;position:relative;align-content:start;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+#info>*{min-width:0}
+.ihead{display:flex;gap:8px;align-items:flex-start}
+.itx{flex:1;min-width:0;display:grid;gap:4px}
+#info h2{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em;line-height:1.25;text-wrap:balance}
+.ibtns{display:flex;gap:2px;flex:none;margin:-4px -6px 0 0}
+.sub{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:12.5px;color:var(--muted)}
+.sub .sep{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6}
+#info p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.5}
+.sec{display:grid;gap:8px;min-width:0}
+.sec h3{margin:0;font-size:13px;font-weight:600;color:var(--fg)}
+.sec h3 span{font-weight:500;color:var(--muted);font-size:12px}
+.who{display:grid;gap:2px;padding-top:14px;border-top:1px solid var(--line)}
+.who b{font-size:14px;font-weight:600}
+.who span{font-size:12px;color:var(--muted)}
+.ct{display:flex;align-items:baseline;gap:8px;font-size:12.5px;min-width:0}
+.ct a{color:var(--fg);font-weight:500;text-decoration:none;overflow-wrap:anywhere;min-width:0}
+@media (hover:hover){.ct a:hover{text-decoration:underline;text-underline-offset:3px}}
+.copy{all:unset;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--accent-ink);flex:none}
+@media (hover:hover){.copy:hover{text-decoration:underline;text-underline-offset:3px}}
+.wk{display:grid;gap:6px}
+.wd{display:grid;grid-template-columns:32px 1fr;gap:8px;font-size:12px;align-items:start}
+.wd>b{font:600 11.5px var(--f-ui);color:var(--muted);padding-top:1px}
+.ws{display:grid;gap:4px;min-width:0}
+.wi{display:flex;flex-wrap:wrap;gap:0 8px;align-items:baseline;min-width:0;padding:2px 8px;border-radius:7px;background:var(--surface-2)}
+.wi.office{background:var(--accent-soft)}
+.wi.class{background:rgba(91,143,214,.14)}
+.tm{font:500 11.5px var(--f-ui);color:var(--fg)}
+.wt{color:var(--muted);overflow-wrap:anywhere;min-width:0}
+.free{font-size:12px;color:var(--muted);margin:0}
+/* weekly schedule button in the card */
+.sbtn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);color:var(--fg);font-size:13px;font-weight:600}
+@media (hover:hover){.sbtn:hover{background:var(--surface-2)}}
+.sbtn>svg:first-child{color:var(--accent-ink);flex:none}
+.sbtn span{flex:1;display:grid;gap:1px}
+.sbtn small{font-size:11.5px;font-weight:500;color:var(--muted)}
+.sbtn .chev{color:var(--muted);flex:none}
+/* weekly schedule dialog: a clear day × time grid over the map */
+#sched{padding:0;margin:auto;width:min(880px,calc(100% - 24px));max-width:none;max-height:calc(100% - 48px);color:var(--fg);background:var(--surface);overflow:hidden}   /* solid: the timetable's sticky headers sit on it */
+#sched[open]{display:flex;flex-direction:column}
+#sched::backdrop{background:rgba(10,14,12,.38)}
+.shead{display:flex;align-items:flex-start;gap:12px;padding:16px 16px 14px;border-bottom:1px solid var(--line)}
+.shead h2{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em}
+.legend{display:flex;gap:12px;font-size:11.5px;color:var(--muted);align-self:center;margin-left:auto}
+.legend span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.lg{width:10px;height:10px;border-radius:3px;background:rgba(91,143,214,.45)}
+.lg.office{background:var(--accent)}
+.sbody{overflow:auto;min-height:0}
+.grid{border-collapse:separate;border-spacing:0;width:100%;min-width:600px;table-layout:fixed;font-size:12.5px}
+.grid th,.grid td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:6px;vertical-align:top;text-align:left}
+.grid tr>:last-child{border-right:0}
+.grid tbody tr:last-child>*{border-bottom:0}
+.grid thead th{position:sticky;top:0;z-index:2;background:var(--surface);font-weight:600;font-size:12.5px;padding:10px 8px}
+.grid thead th span{font-size:11px;font-weight:600;color:var(--accent-ink);margin-left:4px}
+.grid .tc{width:104px;position:sticky;left:0;z-index:1;background:var(--surface);font:500 11.5px var(--f-ui);color:var(--muted);padding:8px}
+.grid thead .tc{z-index:3;font:600 12.5px var(--f-ui);color:var(--muted)}
+.grid td.today{background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+.blk{border-radius:8px;padding:6px 8px;background:rgba(91,143,214,.14);font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.blk small{display:block;margin-top:2px;font-weight:500;color:var(--muted);font-size:11px}
+.blk.office{background:color-mix(in srgb,var(--accent) 26%,var(--surface))}
+.blk+.blk{margin-top:4px}
+/* buttons: the chatbot's black pill for the main action, a quiet outlined pill beside it */
+.btn{all:unset;box-sizing:border-box;cursor:pointer;background:var(--ink);color:var(--ink-fg);font-weight:600;font-size:13px;height:36px;padding:0 16px;border-radius:999px;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.list{display:grid;gap:2px}
+.list button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:center;font-size:12.5px;font-weight:500;padding:6px 8px;border-radius:8px}
+@media (hover:hover){.list button:hover{background:var(--surface-2)}}
+
+/* levels, tools, filters: small floating glass pills */
+#levels{position:absolute;z-index:5;right:max(12px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:4px;align-items:center;border-radius:14px}
+#levels .cap{display:none}
+.lvbtn{width:34px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--fg-2);font:600 13px var(--f-ui);cursor:pointer}
+@media (hover:hover){.lvbtn:hover{background:var(--surface-2);color:var(--fg)}}
+.lvbtn[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg)}
+.lvbtn.all{font-size:11px}
+#tools{position:absolute;z-index:5;right:max(12px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));display:flex;gap:2px;padding:4px;border-radius:14px}
+#tools button{width:32px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--fg-2);cursor:pointer;display:grid;place-items:center;padding:0}
+@media (hover:hover){#tools button:hover{background:var(--surface-2);color:var(--fg)}}
+#filters{position:absolute;z-index:5;left:max(12px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:2px;max-width:calc(100% - 200px)}
+#filters::-webkit-scrollbar{display:none}
+.fchip{display:flex;align-items:center;gap:6px;border:1px solid var(--glass-border);background:var(--glass);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);color:var(--fg);border-radius:999px;height:30px;padding:0 12px 0 10px;font:500 12px var(--f-ui);cursor:pointer;white-space:nowrap;box-shadow:var(--shadow-sm);flex:none}
+.fchip .dot{width:8px;height:8px;border-radius:50%}
+.fchip[aria-pressed="true"]{border-color:color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--accent) 18%,var(--surface));color:var(--accent-ink);font-weight:600}
+.fchip em{font-style:normal;color:var(--muted);font-weight:500}
+.fchip[aria-pressed="true"] em{color:inherit}
+/* surroundings from OpenStreetMap */
+:root{--road:#ffffff;--road-edge:#d5dad5;--osm-bld:#dde1dc;--park:#d4e7cd;--pitch:#c6e0bd}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--road:#2b322e;--road-edge:#1f2522;--osm-bld:#252b28;--park:#1e3125;--pitch:#213a28}}
+:root[data-theme="dark"]{--road:#2b322e;--road-edge:#1f2522;--osm-bld:#252b28;--park:#1e3125;--pitch:#213a28}
+.lbl.st{background:none;border:0;box-shadow:none;padding:0;font:700 10px var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);pointer-events:none;
+  text-shadow:0 0 3px var(--scene),0 0 3px var(--scene),0 0 2px var(--scene),0 0 1px var(--scene)}
+.lbl.st.major{font-size:11px;color:color-mix(in srgb,var(--fg) 70%,var(--muted))}
+.lbl.poi{font-size:10.5px;font-weight:600;padding:2px 7px 2px 5px;color:var(--muted);pointer-events:none;background:color-mix(in srgb,var(--surface) 85%,transparent)}
+.lbl.poi i{width:8px;height:8px}
+#osmcredit{position:absolute;z-index:5;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(max(12px,env(safe-area-inset-bottom,0px)) + 46px);font-size:10px;color:var(--muted);text-decoration:none;
+  background:color-mix(in srgb,var(--surface) 80%,transparent);padding:2px 6px;border-radius:6px}
+@media (hover:hover){#osmcredit:hover{color:var(--fg);text-decoration:underline}}
+/* toast: the chatbot's black pill (white in dark mode) */
+#toast{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);padding:9px 16px;font-size:12.5px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:8;max-width:calc(100% - 32px);text-align:center;
+  background:var(--ink);color:var(--ink-fg);border:0;border-radius:999px;-webkit-backdrop-filter:none;backdrop-filter:none}
+#toast.on{opacity:1}
+
+/* map labels */
+.lbl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font-size:11px;font-weight:600;color:var(--fg);
+  background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);padding:2px 8px;border-radius:999px;
+  pointer-events:auto;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;align-items:center;gap:5px;will-change:translate}
+.lbl i{width:7px;height:7px;border-radius:50%;flex:none}
+.lbl.bld{font-size:12px;font-weight:700;padding:3px 10px;gap:6px}
+.lbl.bld small{font-weight:500;font-size:10.5px;color:var(--muted);max-width:130px;overflow:hidden;text-overflow:ellipsis}
+.lbl.bld.has{border-color:var(--accent);border-width:1.5px}   /* green outline = has floor plans */
+.lbl.lvl{font-size:11.5px;font-weight:600;background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.lbl.sel{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);z-index:3}
+/* hover look for an ordinary room label; a selected room keeps its green label (its dark text would vanish on the dark-mode surface) */
+.lbl.hov:not(.sel){border-color:var(--accent);background:var(--surface);color:var(--fg)}
+.lbl.hov{z-index:4;transform:translate(-50%,-50%) scale(1.1);box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.lbl.sel i{background:var(--accent-fg)!important}
+.lbl.pending{color:var(--muted);font-weight:500;pointer-events:none;cursor:default}   /* unknown rooms: label only, not a button */
+.lbl.off{display:none}
+
+/* directions */
+/* route = the logo green (a touch deeper in light mode so the line and white text on the A pin stay readable on pale floors);
+   start A = green, destination B = the logo black (white in dark mode) */
+:root{--route:#2e8a61;--route-fg:#ffffff;--route-b:var(--ink);--route-b-fg:var(--ink-fg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--route:#61b68f;--route-fg:#0d1f16}}
+:root[data-theme="dark"]{--route:#61b68f;--route-fg:#0d1f16}
+#dir{padding:14px;display:flex;flex-direction:column;gap:12px;min-height:0;flex:0 1 auto;overflow:hidden;position:relative}
+#dir .dhead{display:flex;align-items:center;gap:8px}
+#dir .dhead b{font-size:15px;font-weight:650;flex:1}
+.ends{display:grid;grid-template-columns:1fr 34px;gap:6px 6px;align-items:center}
+.end{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid transparent;border-radius:12px;padding:0 6px 0 10px;grid-column:1;transition:border-color .15s ease,background-color .15s ease}
+.end:focus-within{border-color:color-mix(in srgb,var(--accent) 60%,transparent);background:var(--surface)}
+.end input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:500 13px var(--f-ui);padding:9px 0;outline:none}
+.end input::placeholder{color:var(--muted);font-weight:400}
+.end .clr{all:unset;cursor:pointer;color:var(--muted);font-size:15px;padding:0 4px;border-radius:6px}
+@media (hover:hover){.end .clr:hover{color:var(--fg)}}
+.pin{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font:700 10px var(--f-ui);font-style:normal;color:#fff;flex:none}
+.pin.a{background:var(--route);color:var(--route-fg)} .pin.b{background:var(--route-b);color:var(--route-b-fg)}
+.swap{grid-column:2;grid-row:1/3;width:34px;height:34px;border-radius:10px;border:0;background:transparent;color:var(--fg-2);font:600 16px var(--f-ui);cursor:pointer}
+.sug{border:1px solid var(--line);border-radius:12px;max-height:34vh;overflow:auto;margin-top:-4px;padding:4px;background:var(--surface)}
+.sf{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--fg-2);cursor:pointer;user-select:none}
+.sf input{width:16px;height:16px;accent-color:var(--accent);margin:0}
+.sum{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.sum b{font-size:20px;font-weight:650;letter-spacing:-.01em}
+.sum span{font-size:12.5px;color:var(--muted)}
+.sum.err{color:var(--muted);font-size:12.5px;line-height:1.45}
+.steps{list-style:none;margin:0 -4px;padding:0;display:grid;gap:2px;overflow:auto;min-height:0;flex:0 1 auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.steps button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;width:100%;padding:8px;border-radius:12px;font-size:12.5px;line-height:1.4}
+@media (hover:hover){.steps button:hover{background:var(--surface-2)}}
+.steps button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.steps button[aria-current="step"]{background:var(--accent-soft)}
+.steps .ic{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:var(--surface-2);font:700 11px var(--f-ui);color:var(--muted)}
+.steps .ic.go{background:var(--route);color:var(--route-fg)}
+.steps .ic.fin{background:var(--route-b);color:var(--route-b-fg)}
+.steps small{display:block;color:var(--muted);font-size:11.5px}
+.dnav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.dnav .btn{height:34px;padding:0 8px;font-size:12.5px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.acts{display:flex;gap:6px}
+.acts .btn:first-child{flex:1}
+.lbl.rpin{font-weight:700;color:#fff;border-color:transparent;z-index:4;gap:6px}
+.lbl.rpin.a{background:var(--route);color:var(--route-fg)} .lbl.rpin.b{background:var(--route-b);color:var(--route-b-fg)}
+.lbl.rpin.transfer{background:var(--surface);color:var(--fg);border-color:var(--route);pointer-events:none}
+.lbl.rpin em{font-style:normal;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;font-size:10px}
+
+@media (max-width:760px){
+  #side{bottom:calc(max(12px,env(safe-area-inset-bottom,0px)) + 52px);max-height:none}
+  #dir{position:static;flex:0 1 35%;max-height:none;overflow:auto}
+  #dir .steps{max-height:22vh}
+  #dir.compact .ends,#dir.compact .sf,#dir.compact #dsug{display:none}
+  #dir.compact{flex-basis:25%}
+  #results{max-height:34vh}
+  .search input,.end input{font-size:16px}   /* iPhone zooms the page into any text field under 16px */
+  #info{position:relative;flex:0 1 auto;max-height:none}
+  #sched{width:calc(100% - 16px);max-height:calc(100% - 32px)}
+  .legend{display:none}
+  .grid{min-width:520px;font-size:12px}
+  .grid .tc{width:84px}
+  #filters{display:none}
+  #levels{top:auto;bottom:max(12px,env(safe-area-inset-bottom,0px));right:auto;left:max(12px,env(safe-area-inset-left,0px));transform:none;flex-direction:row}
+  #tools{flex-direction:row}
+  #tools #zin,#tools #zout{display:none}
+}
+/* ---- interaction polish ---- */
+/* scroll areas inside panels and the dialog don't pass their scroll on to the map/page behind */
+#results,#info,#dir,.steps,.sug,.sbody{overscroll-behavior:contain}
+/* hover and press: colour changes are quick (120ms) and named explicitly, never "all" */
+.ib,.btn,.sbtn,.lvbtn,#tools button,.fchip,.swap,.res,.list button,.steps button,.copy,.crumbs button{
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .16s var(--ease-out)}
+/* press feedback: a small squeeze so taps feel registered (disabled buttons already ignore the pointer) */
+.ib:active,.btn:active,.sbtn:active,.lvbtn:active,#tools button:active,.fchip:active,.swap:active{transform:scale(.97)}
+.ib,.btn,.sbtn,.lvbtn,#tools button,.fchip,.swap{-webkit-tap-highlight-color:transparent}
+@media (hover:hover){
+  .btn:hover{background:color-mix(in srgb,var(--ink) 82%,var(--ink-fg))}
+  .btn.ghost:hover{background:var(--surface-2);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 16%,transparent)}
+  .swap:hover{background:var(--surface-2);color:var(--fg)}
+  .fchip:hover{border-color:color-mix(in srgb,var(--fg) 14%,transparent)}
+}
+/* the weekly schedule opens with a short fade-and-rise (a one-time entrance, so a keyframe) */
+#sched[open]{animation:pop .2s var(--ease-out)}
+#sched[open]::backdrop{animation:fade .18s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}}
+@keyframes fade{from{opacity:0}}
+/* toast rises a few pixels as it fades in */
+#toast{transition:opacity .2s ease,translate .2s ease;translate:0 4px}
+#toast.on{translate:0 0}
+@media (prefers-reduced-motion:reduce){
+  #load,#bar i{transition:none}
+  #toast{transition:opacity .2s ease;translate:none}
+  .ib,.btn,.sbtn,.lvbtn,#tools button,.fchip,.swap{transition:background-color .12s ease,color .12s ease,border-color .12s ease}
+  .ib:active,.btn:active,.sbtn:active,.lvbtn:active,#tools button:active,.fchip:active,.swap:active{transform:none}
+  #sched[open]{animation:fade .15s ease}
+  .lbl.hov{transform:translate(-50%,-50%)}
+}
+@media (forced-colors:active){.lbl,.fchip,.card{border-color:CanvasText}}
+</style>
+
+<div id="app">
+  <canvas id="gl" tabindex="0" aria-label="3D map of the University of Sharjah campus"></canvas>
+  <div id="labels"></div>
+
+  <div id="side">
+    <section class="card" id="panel" aria-label="Search and location">
+      <h1 class="vh">University of Sharjah campus map</h1>
+      <div class="bar">
+        <div class="mark" aria-hidden="true">UOS</div>
+        <label class="search" for="q">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Search rooms, instructors…" autocomplete="off" aria-label="Search buildings, rooms and instructors">
+        </label>
+        <span class="vsep" aria-hidden="true"></span>
+        <button class="ib route" id="opendir" aria-label="Directions" title="Directions"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="rp" d="M7.2 8.6c0 5.6 9.6 1.2 9.6 6.8"/><circle class="ra" cx="7" cy="6" r="2.6"/><circle class="rb" cx="17" cy="18" r="2.6"/></svg></button>
+      </div>
+      <nav class="crumbs" id="crumbs" aria-label="Location" hidden></nav>
+      <div id="results" hidden></div>
+    </section>
+    <section class="card" id="dir" hidden aria-label="Directions">
+      <div class="dhead"><b>Directions</b><button class="ib" id="dirx" aria-label="Close directions"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+      <div class="ends">
+        <div class="end"><i class="pin a">A</i><input id="dfrom" placeholder="Start: room, office or building" autocomplete="off" aria-label="Start"><button class="clr" data-clr="from" aria-label="Clear start">×</button></div>
+        <div class="end"><i class="pin b">B</i><input id="dto" placeholder="Destination" autocomplete="off" aria-label="Destination"><button class="clr" data-clr="to" aria-label="Clear destination">×</button></div>
+        <button class="swap" id="dswap" aria-label="Swap start and destination" title="Swap">⇅</button>
+      </div>
+      <div class="sug" id="dsug" hidden></div>
+      <label class="sf"><input type="checkbox" id="dsf"> Step-free route (lifts only, no stairs)</label>
+      <div class="sum" id="dsum"></div>
+      <ol class="steps" id="dsteps"></ol>
+      <div class="dnav" id="dnav" hidden><button class="btn ghost" id="dprev">Back</button><button class="btn ghost" id="dall">Overview</button><button class="btn" id="dnext">Next</button></div>
+    </section>
+    <section class="card" id="info" hidden aria-live="polite"></section>
+  </div>
+
+  <div class="card" id="levels" hidden>
+    <div class="cap">Level</div>
+    <div id="lvbtns" style="display:contents"></div>
+    <button class="lvbtn all" data-lv="all" aria-pressed="true">All</button>
+  </div>
+  <div id="filters" hidden role="group" aria-label="Show only"></div>
+  <div class="card" id="tools">
+    <button id="zin" aria-label="Zoom in" title="Zoom in"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button id="zout" aria-label="Zoom out" title="Zoom out"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+    <button id="north" aria-label="Reset rotation" title="Reset rotation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l5 18-5-4-5 4z" fill="currentColor" fill-opacity=".25"/></svg></button>
+    <button id="home" aria-label="Whole campus" title="Whole campus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7M6 9.5V20h12V9.5"/></svg></button>
+  </div>
+  <dialog class="card" id="sched" aria-labelledby="schedttl">
+    <div class="shead">
+      <div class="itx"><h2 id="schedttl">Weekly schedule</h2><div class="sub" id="schedwho"></div></div>
+      <div class="legend"><span><i class="lg class"></i>Class</span><span><i class="lg office"></i>Office hours</span></div>
+      <button class="ib" id="schedx" aria-label="Close schedule" title="Close"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="sbody" id="schedbody" tabindex="0"></div>
+  </dialog>
+  <a id="osmcredit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" hidden>© OpenStreetMap contributors</a>
+  <div class="card" id="toast" role="status"></div>
+  <div id="load"><div class="box"><b>UOS Campus Map</b><div id="bar"><i></i></div><span id="loadmsg">Loading the 3D model…</span></div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script>
+// Inside the Mosaed chatbot (a frame on the same site): follow the chatbot's light/dark theme instead of the
+// system one, drop the map's own brand mark, and hand Esc back to the chatbot once nothing in the map is
+// left to close (search results, suggestions, directions), so Esc returns to the chat.
+(() => {
+  let host = null;
+  try { if (window.parent !== window && window.parent.location.origin === location.origin) host = window.parent; } catch(e){}
+  if (!host) return;
+  const root = document.documentElement, hostRoot = host.document.documentElement;
+  root.classList.add("embedded");
+  const sync = () => root.setAttribute("data-theme", hostRoot.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  sync(); new MutationObserver(sync).observe(hostRoot, {attributes:true, attributeFilter:["data-theme"]});
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape" || e.defaultPrevented || document.querySelector("dialog[open]")) return;
+    const shown = id => { const el = document.getElementById(id); return el && !el.hidden; };
+    if (shown("results")){ const q = document.getElementById("q"); q.value = ""; q.dispatchEvent(new Event("input")); return; }
+    if (shown("dsug")) return;                                    // the directions field closes its own suggestions
+    if (shown("dir")){ document.getElementById("dirx").click(); return; }
+    host.postMessage({type:"mosaed:map-escape"}, location.origin);
+  }, true);   // capture: look before the directions field's own Esc handler hides its suggestions
+})();
+(() => {
+const $ = id => document.getElementById(id);
+const HASH0 = location.hash;
+const V3 = THREE.Vector3;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const CAT = {
+  office:{n:"Offices",one:"Office",c:"#7fa7d9"}, classroom:{n:"Classrooms",one:"Classroom",c:"#f0b35c"}, lab:{n:"Labs",one:"Lab",c:"#9c8ad8"},
+  washroom:{n:"Washrooms",one:"Washroom",c:"#5cc0b5"}, stairs:{n:"Stairs",one:"Stairs",c:"#e2a64b"}, elevator:{n:"Elevators",one:"Elevator",c:"#b08ad6"},
+  prayer:{n:"Prayer rooms",one:"Prayer room",c:"#8b5e3c"}, service:{n:"Services",one:"Service room",c:"#b9b3a2"},
+  circulation:{n:"Corridors",one:"Lobby / corridor",c:"#ece6d6"}, pending:{n:"Not mapped yet",one:"Not mapped yet",c:"#cfd3cf"},
+};
+// washrooms are split by gender from their names (staff ones included); a washroom with no gender in its name keeps the teal above
+const TONE = {"wc-m":{one:"Men's washroom", c:"#2f6fd1"}, "wc-f":{one:"Women's washroom", c:"#e46aa0"}};
+const washTone = r => r.cat !== "washroom" ? null : /\b(wom[ae]n'?s?|female|ladies)\b/i.test(r.name) ? "wc-f" : /\b(m[ae]n'?s?|male|gents)\b/i.test(r.name) ? "wc-m" : null;
+const matKey = r => r.tone || r.cat, tint = r => (TONE[r.tone] || CAT[r.cat]).c, oneOf = r => (TONE[r.tone] || CAT[r.cat]).one;
+// A9/A11 blocks are drawn as pale versions of these colours; the landmark colours (prayer, gendered washrooms) stay stronger so they read at a glance
+const paleMix = k => k === "prayer" || TONE[k] ? .25 : .55;
+const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], WEEK = ["Mon","Tue","Wed","Thu"];   // UOS teaching week
+const GAP = 9, CUT = 2.1;            // metres between spread floors; slice height above each floor (below door heads)
+const P = p => new V3(p[0], p[2] ?? 0, -p[1]);      // Blender (x, y, z-up) -> three (x, y-up, -y)
+
+// ---------- scene ----------
+const canvas = $("gl");
+const renderer = new THREE.WebGLRenderer({canvas, antialias:true});
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio||1));
+renderer.outputEncoding = THREE.sRGBEncoding; renderer.localClippingEnabled = true;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(38, 1, 1, 6000);
+const controls = new THREE.OrbitControls(camera, canvas);
+controls.enableDamping = true; controls.dampingFactor = .09; controls.maxPolarAngle = Math.PI*.48; controls.minDistance = 6; controls.maxDistance = 1400;
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8d968f, .62));
+const sun = new THREE.DirectionalLight(0xffffff, .5); sun.position.set(-200,400,300); scene.add(sun);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const applyTheme = () => { scene.background = new THREE.Color(css("--scene")); if (scene.fog) scene.fog.color.set(css("--scene")); accentMats.forEach(m => m.color.set(css("--accent"))); fadeMats.forEach(m => m.color.set(css(m.userData.tok))); };
+const fadeMats = [];
+// "fade the shell": while inside a faded building, the rest of the campus turns one light grey
+const FADE = new Set(["A11", "A9"]);
+let fadeMat = null, fadeOn = false;
+function setCampusFade(on){ if (on === fadeOn || !campus) return; fadeOn = on;
+  if (!fadeMat){ fadeMat = new THREE.MeshLambertMaterial({color:css("--fade")}); fadeMat.userData.tok = "--fade"; fadeMats.push(fadeMat); }
+  campus.traverse(o => { if (!o.isMesh) return; if (on){ o.userData.mat0 = o.material; o.material = fadeMat; } else if (o.userData.mat0){ o.material = o.userData.mat0; delete o.userData.mat0; } }); }
+const hasName = (o, re) => { for (let x = o; x; x = x.parent) if (x.name && re.test(x.name)) return true; return false; };
+// "solid blocks": a room's flat floor plate becomes one low block (top + sides), so walls and doors can be hidden
+const BLOCK_H = 1.0;
+function blockGeo(src, h){
+  const g0 = src.index ? src.toNonIndexed() : src, a0 = g0.attributes.position.array, keep = [];
+  for (let t = 0; t < a0.length; t += 9){   // footprint = upward-facing triangles only (closed boxes such as the lifts have a bottom and sides too)
+    const ux = a0[t+3]-a0[t], uy = a0[t+4]-a0[t+1], uz = a0[t+5]-a0[t+2], vx = a0[t+6]-a0[t], vy = a0[t+7]-a0[t+1], vz = a0[t+8]-a0[t+2];
+    const nx = uy*vz-uz*vy, ny = uz*vx-ux*vz, nz = ux*vy-uy*vx, l = Math.hypot(nx, ny, nz);
+    if (l > 1e-9 && ny/l > .5) for (let k = 0; k < 9; k++) keep.push(a0[t+k]); }
+  const a = keep.length ? keep : Array.from(a0), n = a.length/3, out = [];
+  const key = i => a[i*3].toFixed(3)+","+a[i*3+2].toFixed(3), cnt = new Map(), edges = [];
+  for (let t = 0; t < n; t += 3) for (let e = 0; e < 3; e++){ const i = t+e, j = t+(e+1)%3, k1 = key(i), k2 = key(j), k = k1 < k2 ? k1+"|"+k2 : k2+"|"+k1;
+    cnt.set(k, (cnt.get(k)||0)+1); edges.push([i, j, k]); }
+  const v = (i, dy) => out.push(a[i*3], a[i*3+1]+dy, a[i*3+2]);
+  for (let i = 0; i < n; i++) v(i, h);
+  for (const [i, j, k] of edges) if (cnt.get(k) === 1){ v(i, 0); v(j, 0); v(j, h); v(i, 0); v(j, h); v(i, h); }
+  const r = new THREE.BufferGeometry(); r.setAttribute("position", new THREE.Float32BufferAttribute(out, 3)); r.computeVertexNormals(); return r;
+}
+// a flat floor/passage keeps only its upward-facing top: its thin sides and underside would sit coplanar with the neighbouring blocks' walls
+function plateGeo(src){ const g0 = src.index ? src.toNonIndexed() : src, a0 = g0.attributes.position.array, out = [];
+  for (let t = 0; t < a0.length; t += 9){
+    const ux = a0[t+3]-a0[t], uy = a0[t+4]-a0[t+1], uz = a0[t+5]-a0[t+2], vx = a0[t+6]-a0[t], vy = a0[t+7]-a0[t+1], vz = a0[t+8]-a0[t+2];
+    const nx = uy*vz-uz*vy, ny = uz*vx-ux*vz, nz = ux*vy-uy*vx, l = Math.hypot(nx, ny, nz);
+    if (l > 1e-9 && ny/l > .5) for (let k = 0; k < 9; k++) out.push(a0[t+k]); }
+  if (!out.length) return src;
+  const r = new THREE.BufferGeometry(); r.setAttribute("position", new THREE.Float32BufferAttribute(out, 3)); r.computeVertexNormals(); return r; }
+const FLAT = /-OPEN-|-SHALL-|-FLOOR/;   // open areas and stair halls stay flat floor
+function hull2(p){ p = p.map(q => [+q[0].toFixed(2), +q[1].toFixed(2)]).sort((a, b) => a[0]-b[0] || a[1]-b[1]);
+  const cr = (o, a, b) => (a[0]-o[0])*(b[1]-o[1]) - (a[1]-o[1])*(b[0]-o[0]), lo = [], up = [];
+  for (const q of p){ while (lo.length > 1 && cr(lo[lo.length-2], lo[lo.length-1], q) <= 0) lo.pop(); lo.push(q); }
+  for (let i = p.length-1; i >= 0; i--){ const q = p[i]; while (up.length > 1 && cr(up[up.length-2], up[up.length-1], q) <= 0) up.pop(); up.push(q); }
+  return lo.slice(0, -1).concat(up.slice(0, -1)); }
+const KEEP = /Staircase|Stair_2/;
+const SHELL = /Shell_Walls|UOS_A11_Walls|UOS_A9_Walls|Portico|Towers|Sign_Text|_Roof|Parapet/;
+const isShell = o => hasName(o, SHELL);
+
+const accentMats = [];
+
+let BLD = [], ROOMS = [], OFF = {}, byId = {}, bById = {}, A9_DIRECTORY = null, A11_DIRECTORY = null;
+const state = {mode:"campus", b:null, level:"all", sel:null, selB:null, filter:null, spread:0};
+const DIR = {open:false, from:null, to:null, sf:false, res:null, step:-1, field:"from", hi:new Set()};
+let tween = null;
+
+// ---------- load ----------
+const getJSON = (u, fb) => fetch(u, { cache: "no-cache" }).then(r => r.ok ? r.json() : fb).catch(() => fb);
+Promise.all([
+  getJSON("data.json", null), getJSON("offices.json", {}),
+  loadModel("model.json"), getJSON("nav.json", null),
+  getJSON("A9-office-directory.json", null), getJSON("A9-room-mapping.json", {}),
+  getJSON("surroundings.json", null),
+  getJSON("A11-office-directory.json", null), getJSON("A11-room-mapping.json", {}),
+]).then(([data, off, gltf, navData, directory, roomMapping, surroundings, a11Directory, a11Mapping]) => {
+  SURR = surroundings;
+  if (!data) throw new Error("data");
+  BLD = data.buildings; ROOMS = data.rooms; OFF = off || {};
+  A9_DIRECTORY = directory; A11_DIRECTORY = a11Directory;
+  applyDirectory("A9", A9_DIRECTORY, roomMapping, [1, 2]);
+  applyDirectory("A11", A11_DIRECTORY, a11Mapping, [0, 1, 2]);
+  BLD.forEach(b => bById[b.id] = b); ROOMS.forEach(r => { byId[r.id] = r; r.B = bById[r.b]; });
+  navInit(navData);
+  init(gltf.scene);
+  $("load").classList.add("done");
+}).catch(e => { console.error(e);
+  // show the reason too, so a failure on someone's phone can be reported and fixed
+  const why = (e && (e.message || e.type || String(e)) || "unknown error").toString().slice(0, 160);
+  $("loadmsg").textContent = "The map could not be loaded. Reload the page to try again. (" + why + ")"; });
+
+// photographed office directories (A9, A11): mapping[meshId] gives the real room number, the directory gives its occupants and timetables
+function applyDirectory(bid, DIRECTORY, mapping, levels){
+  if (!DIRECTORY || !mapping) return;
+  const categories = {
+    "Office":"office", "Office Suite":"office", "Lab":"lab", "Classroom":"classroom",
+    "Washroom":"washroom", "Prayer Room":"prayer", "Pantry":"service",
+    "Mail Room":"service", "Conference Room":"service",
+  };
+  for (const r of ROOMS){
+    if (r.b !== bid || !levels.includes(r.lv) ||
+        ["stairs", "elevator", "circulation"].includes(r.cat)) continue;
+    // Mesh IDs are provisional. Only an explicit room-position match is valid.
+    const match = mapping[r.id];
+    if (!match) continue;
+    const number = typeof match === "string" ? match : match.number;
+    if (!number){
+      r.name = match.name;
+      r.directoryInfo = {number:null};
+      if (r.name.startsWith("NOT MAPPED")) r.cat = "pending";
+      continue;
+    }
+    const entry = DIRECTORY.rooms[number];
+    if (!entry || entry.level !== r.lv || entry.roomNumberConflict){
+      console.warn(bid + " directory match needs review", r.id, number);
+      continue;
+    }
+    const inside = (match.inside || []).map(id => DIRECTORY.rooms[id]).filter(Boolean);
+    const people = entry.people || [];
+    const occupants = [...people, ...inside.flatMap(room => room.people || [])];
+    r.directoryInfo = {
+      number, people, inside,
+      instructor:occupants.map(p => p.name).filter(Boolean).join(" / "),
+      email:occupants.map(p => p.email).filter(Boolean).join(" "),
+      department:[...new Set(occupants.map(p => p.department).filter(Boolean))].join(" / "),
+    };
+    r.name = match.name || entry.roomName || number;
+    if (categories[entry.roomType]) r.cat = categories[entry.roomType];
+  }
+}
+
+function nineDigitPhone(value){
+  const phone = String(value || "").trim();
+  return /^\d{9}$/.test(phone) ? phone : "";
+}
+
+function directoryDetails(people){
+  return people.map(person => {
+    const schedule = person.schedule;
+    let html = personBlock(person.name || "Office occupant", [person.role, person.department], person.email, nineDigitPhone(person.phone));
+    if (!schedule) return html + '<p class="free">No timetable posted.</p>';
+    const period = [schedule.term, schedule.academicYear].filter(Boolean).join(" ");
+    html += '<div class="sec"><h3>Office hours' + (period ? ' <span>· ' + esc(period) + '</span>' : '') + '</h3>' +
+      week(schedule.officeHours, "office", "None listed.") + '</div>';
+    html += schedBtn(schedule.activities, person.name, period);
+    if (schedule.notes) html += '<p>' + esc(schedule.notes) + '</p>';
+    return html;
+  }).join("");
+}
+
+// the GLB exported from Blender is published as base64 inside a JSON file
+async function loadModel(url){
+  const res = await fetch(url); if (!res.ok) throw new Error("model "+res.status);
+  const total = +res.headers.get("content-length") || 11.8e6, bar = $("bar").firstElementChild; let text;
+  if (res.body && res.body.getReader){ const rd = res.body.getReader(), dec = new TextDecoder(), parts = []; let got = 0;
+    for (;;){ const {done, value} = await rd.read(); if (done) break; got += value.length; parts.push(dec.decode(value, {stream:true})); bar.style.width = Math.min(96, got/total*100).toFixed(0)+"%"; }
+    parts.push(dec.decode()); text = parts.join(""); } else text = await res.text();
+  const b64 = JSON.parse(text).glb, bin = atob(b64), buf = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+  bar.style.width = "100%";
+  // The GLTF loader picks ImageBitmapLoader when createImageBitmap exists and the browser name lacks "Safari". Inside the Claude
+  // iPhone app (and some sandboxed frames) that path fails for the model's texture, and one failed texture rejects the whole model.
+  // Hiding createImageBitmap while the parser is created makes it use the plain <img> TextureLoader, which works everywhere.
+  const cib = window.createImageBitmap;
+  try { window.createImageBitmap = undefined; } catch(e){}
+  try { return await new Promise((ok, no) => new THREE.GLTFLoader().parse(buf.buffer, "", ok, no)); }
+  finally { try { window.createImageBitmap = cib; } catch(e){} }
+}
+let campus;
+function init(root){
+  campus = root; scene.add(root);
+  root.traverse(o => { if (o.isMesh){ const ms = Array.isArray(o.material)?o.material:[o.material]; ms.forEach(m => { m.metalness = 0; m.roughness = .95; }); } });
+  root.updateMatrixWorld(true);
+  for (const b of BLD){
+    b.root = root.getObjectByName(b.node) || root.getObjectByName(b.node.replace(/[^\w-]/g,""));
+    if (b.root) b.root.traverse(o => o.userData.bid = b.id);
+    b.center = new V3(b.c[0], 0, -b.c[1]); b.rad = Math.max(b.s[0], b.s[1])/2;
+    b.label = mkLabel(`${esc(b.id)}<small>${esc(b.name)}</small>`, "bld"+(b.floors?" has":""));
+    b.label.onclick = () => { if (!dirPick(b.id)) pickBuilding(b); };
+    b.rooms = ROOMS.filter(r => r.b === b.id);
+  }
+  for (const r of ROOMS){
+    r.info = r.directoryInfo || OFF[r.id] || null;
+    const short = r.cat==="pending" && !r.directoryInfo ? "Not mapped" : rName(r);
+    r.tone = washTone(r);
+    r.label = r.cat === "circulation" ? Object.assign(document.createElement("div"), {_on:false}) : mkLabel(`<i style="background:${tint(r)}"></i>${esc(short.length>26?short.slice(0,25)+"…":short)}`, r.cat==="pending"?"pending":"");
+    if (!unknownRoom(r)) r.label.onclick = e => { e.stopPropagation(); if (!dirPick(r.id)) selectRoom(r, true); };
+    r.pos = P(r.p);
+    if (roomNumber(r) && r.name !== short) r.label.title = r.name;
+  }
+  try { buildSurroundings(SURR); } catch(e){ console.warn("Surroundings skipped:", e); }   // the campus map works without them
+  applyTheme(); resize();
+  const v = viewCampus(); camera.position.copy(v.p); controls.target.copy(v.t);
+  ui(); if (HASH0) try { history.replaceState(null, "", HASH0); } catch(e){}   // the first ui() pass must not wipe a shared link
+  route(); requestAnimationFrame(frame);
+  window.__map = {camera, controls, state, scene, showLevel: li => showLevel(li)};
+  window.__navIds = () => ({rooms:Object.keys(NAV.rooms).filter(id => byId[id]), blds:BLD.filter(b => endpoint(b.id)).map(b => b.id)});
+  window.__nav = {plan, go:(a, b, sf) => { openDir(); DIR.sf = !!sf; $("dsf").checked = DIR.sf; setEnd("from", a, true); setEnd("to", b); return DIR.res; }, DIR, focusStep:i => focusStep(i), fit:(p, y) => { const v = fitView(p, y); return [v.p.toArray(), v.t.toArray()]; }};
+}
+
+// ---------- level slices: each floor is a clipped copy of the real building model ----------
+function buildSlices(b){
+  if (b.slices) return;
+  b.slices = b.floors.map((fz, li) => {
+    const wrap = new THREE.Group(), hold = new THREE.Group();
+    b.root.parent.matrixWorld.decompose(hold.position, hold.quaternion, hold.scale);
+    const g = b.root.clone(true); hold.add(g); wrap.add(hold);
+    const lo = new THREE.Plane(new V3(0,1,0), 0), hi = new THREE.Plane(new V3(0,-1,0), 0), planes = [lo, hi];
+    const cache = new Map(), cm = m => { if (!cache.has(m)){ const c = m.clone(); c.clippingPlanes = planes; c.side = THREE.DoubleSide; c.polygonOffset = true; c.polygonOffsetFactor = c.polygonOffsetUnits = 3; /* gallery slab lies 3 cm under the corridor floors: always behind them */ cache.set(m, c); } return cache.get(m); };
+    // depth layering (z-fight guard): edge lines draw on top of block faces; coloured blocks beat flat floors and passages; both beat the translucent shell/rail wherever their faces are coplanar
+    const lay = (m, f) => { m.polygonOffset = true; m.polygonOffsetFactor = f; m.polygonOffsetUnits = f; return m; };
+    const catMat = {}, mk = (c, op, f = 1) => lay(new THREE.MeshLambertMaterial({color:c, clippingPlanes:planes, side:THREE.DoubleSide, transparent:op<1, opacity:op}), f);
+    const blk = FADE.has(b.id), white = new THREE.Color("#ffffff");
+    for (const k of [...Object.keys(CAT), ...Object.keys(TONE)]){ const c = (CAT[k] || TONE[k]).c;
+      catMat[k] = mk(blk && k !== "circulation" ? new THREE.Color(c).lerp(white, paleMix(k)) : c, 1, k === "circulation" ? 2 : 1); }
+    const plain = mk("#f4f5f3", 1, 1), edgeMat = new THREE.LineBasicMaterial({color:css("--fade-edge"), clippingPlanes:planes}); edgeMat.userData.tok = "--fade-edge"; fadeMats.push(edgeMat);
+    const toBlock = o => { o.geometry = blockGeo(o.geometry, BLOCK_H); o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 30), edgeMat)); };
+    const dim = mk("#d9dcd9", .55), sel = mk(css("--accent"), 1); accentMats.push(sel);
+    const shellMat = new THREE.MeshLambertMaterial({color:css("--fade-edge"), clippingPlanes:planes, side:THREE.FrontSide, transparent:true, opacity:.28, depthWrite:false}); lay(shellMat, 4); shellMat.userData.tok = "--fade-edge"; fadeMats.push(shellMat);
+    const picks = [], stairs = [];
+    g.traverse(o => { if (!o.isMesh) return;
+      const r = byId[o.userData.room_id];
+      if (r && r.mesh){ o.userData.room = r; o.material = catMat[matKey(r)]; o.position.y += .02; if (blk && r.cat !== "circulation") toBlock(o); else if (blk) o.geometry = plateGeo(o.geometry); if (r.lv === li && r.cat !== "circulation"){ if (!unknownRoom(r)) picks.push(o); (r.objs ||= []).push(o); } }   // corridors: one floor, not clickable; unknown rooms: drawn, not clickable
+      else if (blk && o.userData.room_id){ o.position.y += .02; if (FLAT.test(o.userData.room_id)){ o.material = catMat.circulation; o.geometry = plateGeo(o.geometry); } else { o.material = plain; toBlock(o); } }
+      else if (blk && hasName(o, KEEP)){ if (/Step/i.test((Array.isArray(o.material) ? o.material[0] : o.material).name || "")) stairs.push(o); o.visible = false; }   // block from the steps only, not the stair hall floor
+      else if (blk && isShell(o)) o.material = shellMat;
+      else if (blk && hasName(o, /Entry_\d/)){ o.material = catMat.circulation; o.geometry = plateGeo(o.geometry); o.position.y += .02; }   // passage floors join the corridor
+      else if (blk && hasName(o, /Atrium_Rail/)) o.material = shellMat;   // A9: light balustrade round the opening
+      else if (blk && hasName(o, /Atrium_Galleries/)) o.material = Array.isArray(o.material) ? o.material.map(cm) : cm(o.material);   // low railing at the atrium edge
+      else if (blk) o.visible = false;
+      else o.material = Array.isArray(o.material) ? o.material.map(cm) : cm(o.material);
+    });
+    if (blk && stairs.length){ wrap.updateMatrixWorld(true); const v = new V3();
+      const srs = b.rooms.filter(r => r.cat === "stairs" && r.lv === li);
+      for (const o of stairs){ const pa = o.geometry.attributes.position, pts = [];
+        const grab = (a, z) => { for (let i = 0; i < pa.count; i++){ v.fromBufferAttribute(pa, i).applyMatrix4(o.matrixWorld); if (v.y >= a && v.y <= z) pts.push([v.x, v.z]); } };
+        if (li === b.floors.length - 1){ grab(fz - 4.6, fz + .3); } else { grab(fz - .3, fz + 4.6); if (pts.length < 12) grab(fz - 4.6, fz + .3); }   // the flight that leaves this floor; top floor: the flight that arrives
+        if (pts.length < 3) continue; let hull = hull2(pts); if (hull.length < 3) continue;
+        { const mx = hull.reduce((a, q) => a + q[0], 0)/hull.length, mz = hull.reduce((a, q) => a + q[1], 0)/hull.length;   // pull in 0.35 m so it stands apart from the rooms next to it
+          hull = hull.map(q => { const dx = q[0]-mx, dz = q[1]-mz, d = Math.hypot(dx, dz) || 1, k = Math.max(0, d-.35)/d; return [mx+dx*k, mz+dz*k]; }); }
+        const geo = new THREE.ExtrudeGeometry(new THREE.Shape(hull.map(q => new THREE.Vector2(q[0], -q[1]))), {depth:BLOCK_H, bevelEnabled:false});
+        const m = new THREE.Mesh(geo, catMat.stairs); m.rotation.x = -Math.PI/2; m.position.y = fz + .02;
+        m.add(new THREE.LineSegments(new THREE.EdgesGeometry(geo, 30), edgeMat)); wrap.add(m);
+        const cx = hull.reduce((a, q) => a + q[0], 0)/hull.length, cz = hull.reduce((a, q) => a + q[1], 0)/hull.length;
+        const r = srs.sort((x, y) => Math.hypot(x.pos.x-cx, x.pos.z-cz) - Math.hypot(y.pos.x-cx, y.pos.z-cz))[0];
+        if (r){ m.userData.room = r; picks.push(m); (r.objs ||= []).push(m); r.blocked = true; } } }
+    // rooms that exist only as points in the model (A11): a coloured floor marker each
+    for (const r of b.rooms) if (!r.mesh && !r.blocked && r.lv === li && r.cat !== "circulation"){
+      const d = new THREE.Mesh(new THREE.CircleGeometry(r.cat==="pending"?.55:.8, 28), catMat[matKey(r)]); d.rotation.x = -Math.PI/2;
+      d.position.set(r.pos.x, b.floors[li] + .06, r.pos.z); d.userData.room = r; wrap.add(d); if (!unknownRoom(r)) picks.push(d); (r.objs ||= []).push(d);
+    }
+    wrap.visible = false; scene.add(wrap);
+    const lab = mkLabel(esc(b.levels[li]), "lvl"); lab.onclick = () => showLevel(li);
+    // hover: the room's own colour mixed halfway toward the logo green, so it reads as "this one" without losing what kind of room it is
+    // (clone() copies the clipping planes; share the slice's live planes instead, or the copy clips the whole room away)
+    const hov = {}; for (const k in catMat){ hov[k] = catMat[k].clone(); hov[k].clippingPlanes = planes; hov[k].color = catMat[k].color.clone().lerp(new THREE.Color("#61b68f"), .5); }
+    return {wrap, lo, hi, picks, catMat, dim, sel, hov, lab, fz, low:b.low[li], op:0};
+  });
+}
+function paint(b){ if (!b || !b.slices) return;
+  for (const r of b.rooms) if (r.objs){ const s = b.slices[r.lv];
+    const m = state.sel === r || DIR.hi.has(r) ? s.sel : state.hover === r ? s.hov[matKey(r)] : (state.filter && r.cat !== state.filter ? s.dim : s.catMat[matKey(r)]);
+    r.objs.forEach(o => { o.material = m; if (!r.mesh && !r.blocked) o.scale.setScalar(state.sel === r ? 1.5 : 1); }); } }
+
+// ---------- views ----------
+const fitK = () => { const a = canvas.clientWidth/Math.max(1,canvas.clientHeight); return a < 1 ? Math.min(2.2, .85/a) : 1; };
+function viewCampus(){ const k = fitK(); return {p:new V3(40, 230*k, 250*k), t:new V3(140, 0, -30)}; }
+function viewBuilding(b, all){ const k = fitK(), r = Math.max(b.rad, 14), y = all && b.floors ? GAP*1.2 + 6 : b.h*.4;
+  const m = all && b.floors ? 1.45 : 1; return {p:b.center.clone().add(new V3(r*1.25*k*m, y + r*1.7*k*m, r*2.0*k*m)), t:b.center.clone().setY(y)}; }
+function viewLevel(b, li){ const k = fitK(), y = b.floors[li] + li*GAP, r = b.rad;
+  return {p:b.center.clone().add(new V3(r*.12, y + r*2.5*k, r*1.15*k)), t:b.center.clone().setY(y)}; }
+function viewRoom(r){ const y = r.B.floors[r.lv] + r.lv*GAP; return {p:new V3(r.pos.x + 3, y + 24, r.pos.z + 15), t:new V3(r.pos.x, y, r.pos.z)}; }
+function flyTo(v, dur=1.1){ tween = {p0:camera.position.clone(), t0:controls.target.clone(), p1:v.p, t1:v.t, t:0, dur};
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) tween.t = dur; }
+const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+
+// ---------- navigation ----------
+function leave(){ setCampusFade(false); if (state.b){ state.b.root.visible = true; state.b.slices.forEach(s => { s.wrap.visible = false; s.op = 0; }); } state.b = null; }
+function campusView(){ clearSel(); leave(); state.mode = "campus"; state.level = "all"; state.selB = null; state.filter = null; state.spread = 0; flyTo(viewCampus()); ui(); }
+function pickBuilding(b){ b.floors ? enterBuilding(b) : focusBuilding(b); }
+function focusBuilding(b){ clearSel(); leave(); state.mode = "campus"; state.selB = b; flyTo(viewBuilding(b, false)); ui(); }
+function enterBuilding(b){
+  clearSel(); if (state.b !== b){ leave(); buildSlices(b); state.spread = 0; state.filter = null; }
+  state.mode = "building"; state.b = b; state.selB = null; state.level = "all"; b.root.visible = false; paint(b); setCampusFade(FADE.has(b.id));
+  flyTo(viewBuilding(b, true)); ui();
+}
+function showLevel(li){ clearSel(); state.level = li; flyTo(viewLevel(state.b, li)); ui(); }
+// rooms not identified yet ("Not mapped yet": unknown, unmapped or unconfirmed doors) are drawn but never clickable,
+// hoverable, linkable or usable as a Directions start/end
+const unknownRoom = r => r.cat === "pending";
+function selectRoom(r, fly){
+  if (unknownRoom(r)) return;
+  if (state.b !== r.B) enterBuilding(r.B);
+  const prev = state.sel; state.sel = r; state.level = r.lv; if (prev) prev.label.classList.remove("sel");
+  r.label.classList.add("sel"); paint(r.B);
+  if (fly) flyTo(viewRoom(r)); ui();
+}
+function clearSel(){ if (state.sel){ state.sel.label.classList.remove("sel"); const b = state.sel.B; state.sel = null; paint(b); } }
+function route(){ const h = decodeURIComponent(location.hash.slice(1)); if (!h) return;
+  if (/^(from|to)=/.test(h)){ const q = new URLSearchParams(h); if (DIR.open && q.get("from") === DIR.from && q.get("to") === DIR.to && (q.get("sf") === "1") === DIR.sf) return;
+    openDir(); DIR.sf = q.get("sf") === "1"; $("dsf").checked = DIR.sf; setEnd("from", q.get("from") || null, true); setEnd("to", q.get("to") || null); return; }
+  if (byId[h]) selectRoom(byId[h], true); else if (bById[h]) pickBuilding(bById[h]); }
+window.addEventListener("hashchange", route);
+function setHash(){ const h = DIR.open && (DIR.from || DIR.to) ? [DIR.from && "from="+DIR.from, DIR.to && "to="+DIR.to, DIR.sf && "sf=1"].filter(Boolean).join("&")
+    : state.sel ? state.sel.id : state.b ? state.b.id : state.selB ? state.selB.id : "";
+  if (decodeURIComponent(location.hash.slice(1)) !== h) try { history.replaceState(null, "", h ? "#"+h : location.pathname+location.search); } catch(e){} }
+
+// ---------- UI ----------
+function mkLabel(html, cls){ const d = document.createElement("div"); d.className = "lbl off "+(cls||""); d.innerHTML = html; $("labels").appendChild(d); return d; }
+function toast(t, ms = 2600){ const el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove("on"), ms); }
+const ICON = {
+  share:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg>',
+  x:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  // the same route mark as the search bar's Directions button, in one colour for the black pill
+  nav:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7.2 8.6c0 5.6 9.6 1.2 9.6 6.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray=".1 3.2"/><circle cx="7" cy="6" r="2.6" fill="currentColor"/><circle cx="17" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+};
+const LVS = ["G","1","2","3","4"];
+function ui(){
+  const b = state.b, c = $("crumbs"); c.innerHTML = "";
+  const zb = b || state.selB;       // the zone is the building code's letter (A9 → A, B1 → B, C13 → C)
+  const parts = [["Zone " + (zb ? zb.id[0] : "A"), zb ? campusView : null]];
+  if (state.selB) parts.push([state.selB.id, null]);
+  if (b){ parts.push([b.id, state.level !== "all" ? () => enterBuilding(b) : null]);
+    if (state.level !== "all") parts.push([b.levels[state.level], state.sel ? () => showLevel(state.level) : null]);
+    if (state.sel) parts.push([state.sel.name, null]); }
+  parts.forEach(([t, fn], i) => { if (i) c.append("›"); const el = document.createElement(fn ? "button" : "span"); el.textContent = t; if (fn) el.onclick = fn; c.append(el); });
+  c.hidden = parts.length < 2;      // "Zone A" alone says nothing: show the trail only once you are inside something
+  // levels
+  $("levels").hidden = !b;
+  if (b){ const box = $("lvbtns"); box.innerHTML = "";
+    for (let i = b.floors.length-1; i >= 0; i--){ const x = document.createElement("button"); x.className = "lvbtn"; x.textContent = LVS[i]; x.title = b.levels[i];
+      x.setAttribute("aria-pressed", String(state.level === i)); x.onclick = () => showLevel(i); box.append(x); }
+    document.querySelector(".lvbtn.all").setAttribute("aria-pressed", String(state.level === "all")); }
+  // filters
+  const f = $("filters"); f.hidden = !b; f.innerHTML = "";
+  if (b) for (const k of Object.keys(CAT)){ if (k === "circulation") continue;
+    const n = b.rooms.filter(r => r.cat === k && (state.level === "all" || r.lv === state.level)).length; if (!n) continue;
+    const x = document.createElement("button"); x.className = "fchip"; x.setAttribute("aria-pressed", String(state.filter === k));
+    const dot = k === "washroom" ? `linear-gradient(90deg,${TONE["wc-m"].c} 50%,${TONE["wc-f"].c} 50%)` : CAT[k].c;   // washrooms: men's blue + women's pink
+    x.innerHTML = `<i class="dot" style="background:${dot}"></i>${CAT[k].n} <em>${n}</em>`;
+    x.onclick = () => { state.filter = state.filter === k ? null : k; paint(b); ui(); }; f.append(x); }
+  // tips show once each, as a brief toast, instead of a permanent line in the panel
+  const tip = !b ? (state.selB ? "" : "Tap a building outlined in green to see its floors.")
+    : state.level === "all" ? "Pick a level on the right, or tap a floor." : "";
+  if (tip && !tipsSeen.has(tip)){ tipsSeen.add(tip); setTimeout(() => toast(tip, 4000), 500); }
+  info(); renderDir(); setHash();
+}
+const tipsSeen = new Set();
+document.querySelector(".lvbtn.all").onclick = () => state.b && enterBuilding(state.b);
+$("home").onclick = campusView;
+$("north").onclick = () => { const d = camera.position.clone().sub(controls.target), h = Math.hypot(d.x, d.z); flyTo({p:controls.target.clone().add(new V3(0, d.y, h)), t:controls.target.clone()}, .6); };
+const zoom = f => { const d = camera.position.clone().sub(controls.target).multiplyScalar(f); flyTo({p:controls.target.clone().add(d), t:controls.target.clone()}, .4); };
+$("zin").onclick = () => zoom(.7); $("zout").onclick = () => zoom(1.4);
+
+function info(){
+  const el = $("info"), r = state.sel, b = state.selB;
+  if (DIR.open || (!r && !b && !(state.b && state.level === "all"))){ el.hidden = true; return; }
+  el.hidden = false; let h = ""; schedStore = [];
+  const head =(title, sub, dot) => `<div class="ihead"><div class="itx"><h2>${esc(title)}</h2><div class="sub">${dot ? `<i class="dot" style="background:${dot};width:8px;height:8px;border-radius:50%"></i>` : ""}${sub.filter(Boolean).map(esc).join('<span class="sep"></span>')}</div></div>
+    <div class="ibtns"><button class="ib" data-share aria-label="Copy link to this place" title="Copy link">${ICON.share}</button><button class="ib x" aria-label="Close" title="Close">${ICON.x}</button></div></div>`;
+  const acts = id => NAV && endpoint(id) ? `<div class="acts"><button class="btn" data-dto="${esc(id)}">${ICON.nav}Directions</button><button class="btn ghost" data-dfrom="${esc(id)}">Start here</button></div>` : "";
+  if (r){
+    const o = r.info || {}, isOffice = r.cat === "office", num = roomNumber(r);
+    const heading = num || (isOffice && o.instructor ? o.instructor : r.name);
+    h += head(heading, [oneOf(r), r.B.id+" · "+r.B.levels[r.lv]], tint(r));
+    if (num && r.name !== num && r.name !== CAT[r.cat].one && r.name !== oneOf(r) && r.name !== "Office "+num) h += `<p>${esc(r.name)}</p>`;
+    h += acts(r.id);
+    if (o.people){
+      h += directoryDetails(o.people);
+      for (const child of o.inside || []){
+        h += '<div class="sec"><h3>' + esc(child.roomId) + '</h3></div>';
+        h += directoryDetails(child.people || []);
+        if (!child.people?.length) h += '<p class="free">No occupant recorded for this office yet.</p>';
+      }
+      if (!o.people.length && !o.inside?.length) h += '<p class="free">No occupant recorded for this room yet.</p>';
+    } else if (isOffice){
+      h += o.instructor ? personBlock(o.instructor, [o.title, o.department], o.email, nineDigitPhone(o.phone)) : '<p class="free">No occupant recorded for this office yet.</p>';
+      if (o.officeHours?.length) h += `<div class="sec"><h3>Office hours</h3>${week(o.officeHours, "office", "")}</div>`;
+      h += schedBtn(o.schedule, o.instructor, "");
+      const kids = ROOMS.filter(x => x.parent === r.id);
+      if (kids.length) h += `<div class="sec"><h3>Offices inside</h3><div class="list">${kids.map(k => `<button data-room="${esc(k.id)}"><i class="dot" style="background:${tint(k)}"></i>${esc(k.name)}</button>`).join("")}</div></div>`;
+    } else if (r.cat === "pending") h += `<p>Reserved space. Its rooms will be added later.</p>`;
+  } else if (b){
+    h += head(b.name || b.id, [b.id, "No indoor map yet"]);
+    h += acts(b.id);
+  } else { const B = state.b, cnt = k => B.rooms.filter(x => x.cat === k).length;
+    const [main, ...more] = B.name.split(" / ");      // A9 houses two colleges: the first is the title, the rest a muted line
+    h += head(main, [B.id, B.floors.length+" levels", cnt("office")+" offices"]);
+    if (more.length) h += `<p>Also ${esc(more.join(", "))}</p>`;
+    h += acts(B.id);
+  }
+  el.innerHTML = h; el.scrollTop = 0;
+  el.querySelector(".x").onclick = () => { if (state.sel){ clearSel(); ui(); } else if (state.selB){ state.selB = null; ui(); } else el.hidden = true; };
+  el.querySelector("[data-share]").onclick = () => { const t = location.href;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Link copied"), () => toast("Copy the link from the address bar")); };
+  el.querySelectorAll("[data-room]").forEach(x => x.onclick = () => selectRoom(byId[x.dataset.room], true));
+  el.querySelectorAll("[data-sched]").forEach(x => x.onclick = () => openSched(schedStore[+x.dataset.sched]));
+  el.querySelectorAll("[data-dto]").forEach(x => x.onclick = () => { openDir(); setEnd("to", x.dataset.dto); if (!DIR.from) $("dfrom").focus(); });
+  el.querySelectorAll("[data-dfrom]").forEach(x => x.onclick = () => { openDir(); setEnd("from", x.dataset.dfrom); if (!DIR.to) $("dto").focus(); });
+  el.querySelectorAll("[data-lv]").forEach(x => x.onclick = () => showLevel(+x.dataset.lv));
+  el.querySelectorAll(".copy").forEach(x => x.onclick = () => { const t = x.dataset.v;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Copied "+t), () => { const s = getSelection(), rg = document.createRange(); rg.selectNodeContents(x.previousElementSibling); s.removeAllRanges(); s.addRange(rg); toast("Selected. Press copy."); }); });
+}
+// one person: name, a muted role line, then email/phone each with a Copy button; empty fields are left out
+const contact = (v, href) => v ? `<div class="ct"><a href="${esc(href)}">${esc(v)}</a><button class="copy" data-v="${esc(v)}">Copy</button></div>` : "";
+const personBlock = (name, sub, email, phone) => `<div class="who"><b>${esc(name)}</b>${sub.filter(Boolean).length ? `<span>${esc(sub.filter(Boolean).join(" · "))}</span>` : ""}</div>`
+  + contact(email, "mailto:"+email) + contact(phone, "tel:"+phone);
+// ---- timetable helpers shared by the card list (office hours) and the full weekly grid ----
+const slotNorm = items => (items || []).map(s => ({...s, day:String(s.day || "").slice(0, 3), where:s.location || s.where}));
+const slotTime = s => {
+  if (s.from && s.to) return s.from + "–" + s.to;
+  if (s.from) return "From " + s.from + " · end unspecified";
+  if (s.to) return "Until " + s.to + " · start unspecified";
+  const window = s.postedWindow;
+  if (window?.from && window?.to) return "Within " + window.from + "–" + window.to + " · exact time unspecified";
+  return "Time unspecified";
+};
+const slotStart = s => slotTime(s).match(/\d{2}:\d{2}/)?.[0] || "99:99";
+const slotType = (s, forceType) => forceType || s.type || (/office hours/i.test(s.title || "") ? "office" : "other");
+// compact weekly list: only days that have something, one line per slot (fits the 320 px card, no sideways scrolling)
+function week(items, forceType, empty){
+  if (!items || !items.length) return empty ? '<p class="free">' + esc(empty) + '</p>' : "";
+  items = slotNorm(items);
+  const days = DAYS.filter(d => items.some(s => s.day === d));
+  return '<div class="wk">' + days.map(d => {
+    const xs = items.filter(s => s.day === d).sort((a, b) => slotStart(a).localeCompare(slotStart(b)));
+    return '<div class="wd"><b>' + d + '</b><div class="ws">' + xs.map(s => {
+      const detail = forceType === "office" ? "" : [s.title, s.where && currentBuildingCode(s.where)].filter(Boolean).join(" · ");
+      return '<div class="wi ' + esc(slotType(s, forceType)) + '"><span class="tm">' + esc(slotTime(s)) + '</span>' + (detail ? '<span class="wt">' + esc(detail) + '</span>' : '') + '</div>';
+    }).join("") + '</div></div>';
+  }).join("") + '</div>';
+}
+// ---- weekly schedule: a button in the card that opens the full timetable (days = columns, time slots = rows) ----
+let schedStore = [];
+function schedBtn(items, who, period){
+  if (!items || !items.length) return "";
+  const i = schedStore.push({items, who, period}) - 1, n = slotNorm(items).filter(s => slotType(s) !== "office").length;
+  return `<button class="sbtn" data-sched="${i}" aria-haspopup="dialog">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+    <span>Weekly schedule${n ? `<small>${n} class${n === 1 ? "" : "es"} a week</small>` : ""}</span>
+    <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`;
+}
+function schedGrid(raw){
+  const items = slotNorm(raw), today = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
+  const days = DAYS.filter(d => WEEK.includes(d) || items.some(s => s.day === d));
+  const rows = [...new Set(items.filter(s => days.includes(s.day)).map(slotTime))].sort((a, b) => (a.match(/\d{2}:\d{2}/)?.[0] || "99:99").localeCompare(b.match(/\d{2}:\d{2}/)?.[0] || "99:99") || a.localeCompare(b));
+  const cell = (d, t) => items.filter(s => s.day === d && slotTime(s) === t).map(s => {
+    const where = s.where && currentBuildingCode(s.where);
+    return `<div class="blk ${esc(slotType(s))}">${esc(s.title || (slotType(s) === "office" ? "Office hours" : "Busy"))}${where ? `<small>${esc(where)}</small>` : ""}</div>`; }).join("");
+  return `<table class="grid"><thead><tr><th class="tc" scope="col">Time</th>${days.map(d => `<th scope="col"${d === today ? ' class="today"' : ""}>${d}${d === today ? " <span>Today</span>" : ""}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map(t => `<tr><th class="tc" scope="row">${esc(t)}</th>${days.map(d => `<td${d === today ? ' class="today"' : ""}>${cell(d, t)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+function openSched(s){ if (!s) return; const dlg = $("sched");
+  $("schedwho").textContent = [s.who, s.period].filter(Boolean).join(" · ");
+  $("schedbody").innerHTML = schedGrid(s.items); $("schedbody").scrollTop = $("schedbody").scrollLeft = 0;
+  if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", ""); }
+$("schedx").onclick = () => $("sched").close();
+$("sched").addEventListener("click", e => { if (e.target === e.currentTarget) e.currentTarget.close(); });   // click on the dimmed backdrop closes it
+// search
+const q = $("q"), res = $("results");
+function findHits(t){ const hits = [];
+  t = currentBuildingCode(t).toLowerCase();
+  for (const b of BLD) if ((b.id+" "+b.name).toLowerCase().includes(t)) hits.push({id:b.id, t:b.id+" · "+(b.name||"Building"), s:b.floors?"Building · floor plans available":"Building", rank:b.id.toLowerCase()===t?2:0, lv:"", c:"var(--accent)", go:() => pickBuilding(b)});
+  for (const r of ROOMS){ if (r.cat === "pending" || r.cat === "circulation") continue; const o = r.info || {};
+    const insideNumbers = (o.inside || []).map(child => child.roomId).join(" ");
+    if ((r.name+" "+(r.directoryInfo ? "" : r.id)+" "+CAT[r.cat].one+" "+oneOf(r)+" "+(o.instructor||"")+" "+roomNumber(r)+" "+insideNumbers+" "+(o.email||"")+" "+(o.department||"")).toLowerCase().includes(t)){
+      const number = String(roomNumber(r)).toLowerCase();
+      const title = roomNumber(r) || o.instructor || r.name;
+      const detail = [...new Set([insideNumbers, o.instructor, r.name, r.b, oneOf(r)])].filter(value => value && value !== title).join(" · ");
+      const rank = number === t ? 2 : number.startsWith(t) ? 1 : 0;
+      hits.push({id:r.id, t:title, s:detail, rank, lv:LVS[r.lv], c:tint(r), go:() => selectRoom(r, true)});
+    }
+  }
+  return hits.sort((a,b) => (b.rank || 0) - (a.rank || 0)); }
+q.addEventListener("input", () => {
+  const t = q.value.trim().toLowerCase(); res.innerHTML = "";
+  if (!t){ res.hidden = true; return; }
+  const hits = findHits(t);
+  res.hidden = false;
+  if (!hits.length){ res.innerHTML = `<div class="res" style="cursor:default"><span class="s">Nothing matches “${esc(q.value)}”.</span></div>`; return; }
+  for (const h of hits.slice(0, 40)){ const x = document.createElement("button"); x.className = "res";
+    x.innerHTML = `<i class="dot" style="background:${h.c}"></i><span><div class="t">${esc(h.t)}</div><div class="s">${esc(h.s)}</div></span><span class="lv">${h.lv}</span>`;
+    x.onclick = () => { res.hidden = true; q.value = ""; h.go(); }; res.append(x); }
+});
+
+// ---------- picking ----------
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(); let down = null;
+canvas.addEventListener("pointerdown", e => { down = [e.clientX, e.clientY]; tween = null; });
+// ---------- hover (mouse only): the room under the pointer lifts a little, glows green and shows its label ----------
+const LIFT = .35, lifted = new Set(); let hoverXY = null;
+canvas.addEventListener("pointermove", e => { hoverXY = e.pointerType === "mouse" && !e.buttons ? [e.clientX, e.clientY] : null; });   // no hover while dragging the map
+canvas.addEventListener("pointerleave", e => { if (!(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest("#labels"))) hoverXY = null; });
+// labels float above the canvas: moving onto a room's label keeps hovering whatever lies under the pointer, so the label doesn't flicker
+$("labels").addEventListener("pointermove", e => { hoverXY = e.pointerType === "mouse" && !e.buttons ? [e.clientX, e.clientY] : null; });
+$("labels").addEventListener("pointerleave", e => { if (e.relatedTarget !== canvas) hoverXY = null; });
+function setHover(r){ if (state.hover === r) return; const prev = state.hover; state.hover = r || null;
+  for (const x of [prev, r]) if (x){ lifted.add(x); x.label.classList.toggle("hov", x === r); }
+  canvas.style.cursor = r ? "pointer" : "";
+  new Set([prev && prev.B, r && r.B].filter(Boolean)).forEach(paint); }
+function updateHover(){ const b = state.b;
+  if (!hoverXY || !b || !b.slices || state.level === "all"){ setHover(null); return; }
+  const rc = canvas.getBoundingClientRect(); mouse.set((hoverXY[0]-rc.left)/rc.width*2-1, -(hoverXY[1]-rc.top)/rc.height*2+1);
+  ray.setFromCamera(mouse, camera); const hit = ray.intersectObjects(b.slices[state.level].picks, false)[0];
+  setHover(hit ? hit.object.userData.room : null); }
+// room meshes keep Blender's node transforms, so their local "y" is not always world up: lift along world up converted into each mesh's own space
+const liftW = new V3();
+function liftRooms(dt){ const k = still.matches ? 1 : Math.min(1, dt*14);
+  for (const r of lifted){ const goal = r === state.hover ? 1 : 0; r._lift = (r._lift || 0) + (goal - (r._lift || 0))*k;
+    if (Math.abs(goal - r._lift) < .005) r._lift = goal;
+    for (const o of r.objs || []){
+      if (!o.userData.p0){ o.userData.p0 = o.position.clone(); o.parent.updateMatrixWorld(true);
+        o.getWorldPosition(liftW); liftW.y += LIFT; o.userData.liftV = o.parent.worldToLocal(liftW).sub(o.position); }
+      o.position.copy(o.userData.p0).addScaledVector(o.userData.liftV, r._lift); }
+    if (r._lift === goal && goal === 0) lifted.delete(r); } }
+canvas.addEventListener("pointerup", e => {
+  if (!down || Math.hypot(e.clientX-down[0], e.clientY-down[1]) > 6 || !campus) return;
+  const rc = canvas.getBoundingClientRect(); mouse.set((e.clientX-rc.left)/rc.width*2-1, -(e.clientY-rc.top)/rc.height*2+1);
+  ray.setFromCamera(mouse, camera);
+  const b = state.b;
+  if (b){
+    if (state.level === "all"){ let best = null;      // nearest floor plate under the pointer
+      b.slices.forEach((s, i) => { const y = s.fz + s.wrap.position.y, t = (y - ray.ray.origin.y)/ray.ray.direction.y; if (t <= 0) return;
+        const p = ray.ray.at(t, new V3()); if (Math.abs(p.x-b.center.x) < b.s[0]/2+4 && Math.abs(p.z-b.center.z) < b.s[1]/2+4 && (!best || t < best.t)) best = {t, i}; });
+      if (best){ showLevel(best.i); return; }
+    } else { const hit = ray.intersectObjects(b.slices[state.level].picks, false)[0];
+      if (hit){ if (!dirPick(hit.object.userData.room.id)) selectRoom(hit.object.userData.room, false); return; }
+      const y = b.floors[state.level] + b.slices[state.level].wrap.position.y, t = (y - ray.ray.origin.y)/ray.ray.direction.y, p = ray.ray.at(t, new V3());
+      if (t > 0 && Math.abs(p.x-b.center.x) < b.s[0]/2+6 && Math.abs(p.z-b.center.z) < b.s[1]/2+6){ if (state.sel){ clearSel(); ui(); } return; }
+    }
+  }
+  const hit = ray.intersectObject(campus, true).find(h => { let o = h.object; while (o){ if (!o.visible) return false; o = o.parent; } return true; });
+  const id = hit && hit.object.userData.bid;
+  if (id && bById[id] !== b){ if (!dirPick(id)) pickBuilding(bById[id]); } else if (!id && state.selB){ state.selB = null; ui(); }
+});
+
+// ---------- loop ----------
+function resize(){ const w = canvas.clientWidth, h = canvas.clientHeight; renderer.setSize(w, h, false); camera.aspect = w/Math.max(1, h); camera.updateProjectionMatrix(); }
+window.addEventListener("resize", resize);
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+new MutationObserver(applyTheme).observe(document.documentElement, {attributes:true, attributeFilter:["data-theme"]});
+const v = new V3(); let last = performance.now(), boxes = [];
+function place(el, p, show, pri){
+  if (show){ v.copy(p).project(camera); show = v.z < 1 && Math.abs(v.x) < 1.02 && Math.abs(v.y) < 1.02; }
+  if (show){ const W = canvas.clientWidth, H = canvas.clientHeight, x = (v.x+1)*W/2, y = (1-v.y)*H/2, w = (el._w ||= el.offsetWidth || 80)/2+3, h = 12;
+    if (!pri) for (const b of boxes) if (Math.abs(b[0]-x) < b[2]+w && Math.abs(b[1]-y) < b[3]+h){ show = false; break; }
+    if (show){ if (pri !== 2) boxes.push([x, y, w, h]); el.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`; } }
+  if (el._on !== show){ el._on = show; el.classList.toggle("off", !show); if (show && !el._w) el._w = 0; }
+}
+function frame(now){
+  const dt = Math.min(.05, (now-last)/1000); last = now; const k = 1-Math.pow(.002, dt), b = state.b;
+  if (hoverXY || state.hover) updateHover(); if (lifted.size) liftRooms(dt);
+  if (b){ state.spread += ((window.__mapAssembled ? 0 : 1)-state.spread)*k;
+    b.slices.forEach((s, i) => { const off = state.spread*i*GAP, on = state.level === "all" || state.level === i;
+      s.wrap.position.y = off; s.wrap.visible = on; s.lo.constant = -((b.id === "A9" ? Math.max(s.low, s.fz-.1) : s.low)+off); s.hi.constant = s.fz+CUT+off; }); }
+  if (tween){ tween.t += dt; const t = ease(Math.min(1, tween.t/tween.dur));
+    camera.position.lerpVectors(tween.p0, tween.p1, t); controls.target.lerpVectors(tween.t0, tween.t1, t); if (tween.t >= tween.dur) tween = null; }
+  controls.update();
+  if (flows.length) flowArrows(now);
+  { // depth precision follows the view: a tight near plane keeps floors, blocks and walls a few cm apart from z-fighting at any zoom
+    const d = camera.position.distanceTo(controls.target), nn = Math.min(40, Math.max(.4, d*.04)), ff = Math.min(6000, d*2.5 + 1500);
+    if (Math.abs(nn-camera.near) > camera.near*.04 || Math.abs(ff-camera.far) > 50){ camera.near = nn; camera.far = ff; camera.updateProjectionMatrix(); } }
+  renderer.render(scene, camera);
+  boxes = [];
+  const dist = camera.position.distanceTo(controls.target);
+  routeFrame();
+  if (state.sel) place(state.sel.label, v2(state.sel), true, true);
+  const hv = state.hover && state.hover !== state.sel && !DIR.hi.has(state.hover) ? state.hover : null;
+  if (hv){ const p = v2(hv); p.y += LIFT; place(hv.label, p, true, 2); }   // the hovered room's label always shows, above the others, and takes no label space, so its neighbours' names stay visible
+  for (const B of BLD) place(B.label, tmp.set(B.center.x, B.h+6, B.center.z), B !== b && !fadeOn && (dist < 900), B === state.selB);
+  if (surr.on) placeSurroundings(dist, !b && !fadeOn);
+  if (b){ b.slices.forEach((s, i) => place(s.lab, tmp.set(b.center.x-b.s[0]/2-5, s.fz+s.wrap.position.y+1, b.center.z+b.s[1]/2), state.level === "all", true));
+    if (state.level !== "all") for (const pass of [0, 1]) for (const r of b.rooms){ if (r === state.sel || r === hv) continue; if (DIR.hi.has(r)){ if (!pass) place(r.label, tmp, false); continue; }
+      if (r.lv !== state.level){ if (!pass) place(r.label, tmp, false); continue; }
+      if (r.cat === "circulation"){ place(r.label, tmp, false); continue; }   // corridor labels removed
+      const minor = r.cat === "pending"; if (minor !== !!pass) continue;
+      place(r.label, v2(r), dist < (minor ? 55 : 130) && (!state.filter || r.cat === state.filter), false); }
+    else for (const r of b.rooms) if (r !== state.sel) place(r.label, tmp, false); }
+  for (const B of BLD) if (B !== b && B.slices){ for (const r of B.rooms) if (r.label._on) place(r.label, tmp, false);
+    for (const s of B.slices) if (s.lab._on) place(s.lab, tmp, false); }   // level tags ("Ground floor", "Level 1") of a building you have left
+  requestAnimationFrame(frame);
+}
+const tmp = new V3(), tmp2 = new V3();
+const v2 = r => tmp2.set(r.pos.x, r.B.floors[r.lv] + r.lv*GAP*state.spread + 1.2, r.pos.z);
+
+// =====================================================================================================
+// ---------- surroundings: real streets, buildings, parks and places around the campus, from OpenStreetMap.
+//            web/surroundings.json is made by tools/osm-surroundings.cjs, already in the model's coordinates
+//            (Blender x, y in metres; the script fits our buildings onto their OSM outlines).
+// =====================================================================================================
+let SURR = null;
+const surr = {on:false, streets:[], places:[]};
+const POI_C = {hospital:"#d9534f", clinic:"#d9534f", pharmacy:"#d9534f", university:"#8a6fd1", college:"#8a6fd1", school:"#8a6fd1", library:"#8a6fd1",
+  place_of_worship:"#8b5e3c", mall:"#e0893a", supermarket:"#e0893a", department_store:"#e0893a", convenience:"#e0893a", restaurant:"#e0893a", cafe:"#e0893a", fast_food:"#e0893a",
+  park:"#5aa469", sports_centre:"#5aa469", stadium:"#5aa469", bus_stop:"#2f6fd1", bus_station:"#2f6fd1", museum:"#2a9d8f", hotel:"#2a9d8f", attraction:"#2a9d8f"};
+const MAJOR = new Set(["motorway", "trunk", "primary", "secondary"]);
+function buildSurroundings(S){
+  if (!S || !S.roads) return;
+  const grp = new THREE.Group(); grp.name = "Surroundings";
+  // depth: every OSM layer sits a little below the model and is pushed further back (positive offsets), so wherever the model has
+  // its own ground, roads or grass, the model wins; among themselves: roads over road edges over pitches over parks over ground
+  const mat = (tok, f) => { const m = new THREE.MeshLambertMaterial({color:css(tok), side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:f, polygonOffsetUnits:f*4});
+    m.userData.tok = tok; fadeMats.push(m); return m; };
+  const mesh = (pos, m, order) => { if (!pos.length) return; const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.computeVertexNormals();
+    const o = new THREE.Mesh(g, m); o.renderOrder = order; o.matrixAutoUpdate = false; grp.add(o); };
+  const hc = S.campusHull.reduce((s, q) => [s[0] + q[0]/S.campusHull.length, s[1] + q[1]/S.campusHull.length], [0, 0]);
+  // ground in the scene's own colour, so the map has a floor beyond the campus model; fog softens the far edge
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(3200, 64), mat("--scene", 6)); ground.rotation.x = -Math.PI/2; ground.position.set(hc[0], -.4, -hc[1]); grp.add(ground);
+  scene.fog = new THREE.Fog(css("--scene"), 1400, 2900);
+  // flat polygons (parks, pitches) and roads (ribbons with round joins), each class merged into one mesh
+  const flat = (polys, y) => { const out = []; for (const p of polys){ const pts = p.map(q => new THREE.Vector2(q[0], q[1])); if (THREE.ShapeUtils.isClockWise(pts)) pts.reverse();
+      for (const [a, b, c] of THREE.ShapeUtils.triangulateShape(pts, [])) for (const i of [a, b, c]) out.push(pts[i].x, y, -pts[i].y); } return out; };
+  mesh(flat(S.areas.filter(a => a.k === "park").map(a => a.p.slice(0, -1)), -.3), mat("--park", 5), 1);
+  mesh(flat(S.areas.filter(a => a.k === "pitch").map(a => a.p.slice(0, -1)), -.28), mat("--pitch", 4), 1);
+  const ribbons = (extra, y) => { const pos = [];
+    for (const r of S.roads){ const h = r.w/2 + extra, P3 = r.p.map(q => [q[0], -q[1]]);
+      for (let k = 0; k < P3.length-1; k++){ const [x1, z1] = P3[k], [x2, z2] = P3[k+1], l = Math.hypot(x2-x1, z2-z1); if (l < 1e-6) continue;
+        const nx = -(z2-z1)/l*h, nz = (x2-x1)/l*h; pos.push(x1+nx,y,z1+nz, x2+nx,y,z2+nz, x2-nx,y,z2-nz, x1+nx,y,z1+nz, x2-nx,y,z2-nz, x1-nx,y,z1-nz); }
+      for (const [x, z] of P3) for (let i = 0; i < 10; i++){ const a1 = i/10*Math.PI*2, a2 = (i+1)/10*Math.PI*2; pos.push(x,y,z, x+Math.cos(a2)*h,y,z+Math.sin(a2)*h, x+Math.cos(a1)*h,y,z+Math.sin(a1)*h); } }
+    return pos; };
+  mesh(ribbons(.7, -.25), mat("--road-edge", 3), 2);
+  mesh(ribbons(0, -.2), mat("--road", 2), 3);
+  // nearby buildings: plain light blocks (walls + flat roof)
+  const bpos = [];
+  for (const B of S.blds){ const ring = B.p.slice(0, -1), pts = ring.map(q => new THREE.Vector2(q[0], q[1])); if (pts.length < 3) continue; const h = B.h;
+    for (let i = 0; i < ring.length; i++){ const [x1, y1] = ring[i], [x2, y2] = ring[(i+1) % ring.length]; bpos.push(x1,0,-y1, x2,0,-y2, x2,h,-y2, x1,0,-y1, x2,h,-y2, x1,h,-y1); }
+    if (THREE.ShapeUtils.isClockWise(pts)) pts.reverse();
+    for (const [a, b, c] of THREE.ShapeUtils.triangulateShape(pts, [])) for (const i of [a, b, c]) bpos.push(pts[i].x, h, -pts[i].y); }
+  mesh(bpos, mat("--osm-bld", 1), 4);
+  scene.add(grp);
+  // street names: a few anchors along each named street, every ~260 m, each lying along its road
+  for (const r of S.roads){ if (!r.n) continue; let acc = 120;
+    for (let k = 0; k < r.p.length-1; k++){ const [x1, y1] = r.p[k], [x2, y2] = r.p[k+1], l = Math.hypot(x2-x1, y2-y1);
+      if (l > 30 && acc >= 260){ const m = [(x1+x2)/2, (y1+y2)/2];
+        if (!surr.streets.some(s => s.n === r.n && Math.hypot(s.m[0]-m[0], s.m[1]-m[1]) < 200)){
+          surr.streets.push({n:r.n, m, d:[(x2-x1)/l, (y2-y1)/l], major:MAJOR.has(r.k), el:mkLabel(esc(r.n), "st"+(MAJOR.has(r.k) ? " major" : ""))}); acc = 0; } }
+      acc += l; } }
+  for (const p of S.pois) surr.places.push({...p, el:mkLabel(`<i style="background:${POI_C[p.k] || "#8a948e"}"></i>${esc(p.n.length > 30 ? p.n.slice(0, 29)+"…" : p.n)}`, "poi")});
+  surr.on = true; $("osmcredit").hidden = false;
+}
+// labels: places first (they matter more), then street names turned to follow their road; only in the campus view
+const sA = new V3(), sB = new V3();
+function placeSurroundings(dist, campusView){
+  for (const p of surr.places) place(p.el, tmp.set(p.p[0], 4, -p.p[1]), campusView && dist > 90 && dist < 1500, false);
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  for (const s of surr.streets){
+    const show = campusView && dist > 70 && (s.major || dist < 750);
+    if (show){ sA.set(s.m[0], 0, -s.m[1]).project(camera); sB.set(s.m[0] + s.d[0]*10, 0, -s.m[1] - s.d[1]*10).project(camera);
+      let a = Math.atan2(-(sB.y - sA.y)*H, (sB.x - sA.x)*W) * 180/Math.PI; if (a > 90) a -= 180; else if (a < -90) a += 180;   // keep the text upright
+      s.el.style.transform = `translate(-50%,-50%) rotate(${a.toFixed(1)}deg)`; }
+    place(s.el, tmp.set(s.m[0], 0, -s.m[1]), show, false); } }
+
+// =====================================================================================================
+// ---------- routing: indoor walkable grids (0.2 m) per floor + stairs/lifts + building exits, joined
+//            by an outdoor network of precomputed walking paths between building entrances (nav.json)
+// =====================================================================================================
+let NAV = null;
+const WALK = 1.25, STAIR_S = 18, LIFT_S = 30, LIFT_PER = 5;       // m/s; seconds per flight; lift wait + per floor
+const navCache = new Map();
+function navInit(n){ if (!n) return; NAV = n;
+  for (const [bid, B] of Object.entries(n.buildings)){ B.id = bid;
+    B.levels.forEach(L => {
+      L.c = Uint8Array.from(atob(L.grid), c => c.charCodeAt(0));
+      if (L.links) L.moves = Uint8Array.from(atob(L.links), c => c.charCodeAt(0));
+    });
+    B.portals.forEach((p, i) => { p.i = i; p.b = bid; p.k = p.cell[1]*B.levels[p.lv].w + p.cell[0]; }); }
+  const O = n.outdoor; O.nodes.forEach((x, i) => x.i = i); O.byId = Object.fromEntries(O.nodes.map(x => [x.id, x]));
+  for (const B of Object.values(n.buildings)) for (const p of B.portals) if (p.kind === "exit") p.node = O.byId[p.out];
+}
+const cellXY = (B, L, k) => [B.ox + (k % L.w + .5)*NAV.res, B.oy + (Math.floor(k/L.w) + .5)*NAV.res];
+const xyCell = (B, L, x, y) => Math.max(0, Math.min(L.h-1, Math.floor((y-B.oy)/NAV.res)))*L.w + Math.max(0, Math.min(L.w-1, Math.floor((x-B.ox)/NAV.res)));
+class Heap{ constructor(){ this.k = []; this.v = []; this.last = 0; } get size(){ return this.k.length; }
+  push(key, val){ const k = this.k, v = this.v; let i = k.length; k.push(key); v.push(val); while (i > 0){ const p = (i-1) >> 1; if (k[p] <= key) break; k[i] = k[p]; v[i] = v[p]; i = p; } k[i] = key; v[i] = val; }
+  pop(){ const k = this.k, v = this.v, top = v[0]; this.last = k[0]; const lk = k.pop(), lv = v.pop();
+    if (k.length){ let i = 0; const n = k.length; for (;;){ let c = 2*i+1; if (c >= n) break; if (c+1 < n && k[c+1] < k[c]) c++; if (k[c] >= lk) break; k[i] = k[c]; v[i] = v[c]; i = c; } k[i] = lk; v[i] = lv; }
+    return top; } }
+// Dijkstra over one floor's grid from one cell (cached): cell cost rises near walls, so routes keep to the middle of corridors
+function flood(bid, lv, src){ const key = bid+"|"+lv+"|"+src; if (navCache.has(key)) return navCache.get(key);
+  const B = NAV.buildings[bid], L = B.levels[lv], c = L.c, w = L.w, h = L.h, n = w*h, R = NAV.res;
+  const dist = new Float32Array(n).fill(Infinity), par = new Int32Array(n).fill(-1), done = new Uint8Array(n), hp = new Heap();
+  dist[src] = 0; hp.push(0, src);
+  while (hp.size){ const u = hp.pop(), du = hp.last; if (done[u]) continue; done[u] = 1; const ui = u % w, uj = (u-ui)/w, cu = c[u] || 30;
+    for (let dj = -1; dj <= 1; dj++) for (let di = -1; di <= 1; di++){ if (!di && !dj) continue;
+      const vi = ui+di, vj = uj+dj; if (vi < 0 || vj < 0 || vi >= w || vj >= h) continue; const v = vj*w+vi; if (!c[v] || done[v]) continue;
+      if (di && dj && (L.o || !c[uj*w+vi] || !c[vj*w+ui])) continue;      // no corner cutting; floors drawn as straight corridors (L.o) allow straight moves only
+      if (L.moves && !(L.moves[u] & (1 << (di ? (di > 0 ? 1 : 0) : (dj > 0 ? 3 : 2))))) continue;
+      const nd = du + (di && dj ? 1.41421 : 1)*R*(cu + c[v])/20; if (nd < dist[v]){ dist[v] = nd; par[v] = u; hp.push(nd, v); } } }
+  const r = {dist, par}; navCache.set(key, r); return r; }
+// string-pulling: a straight shortcut is kept only if it costs no more than the grid path it replaces
+function lineCost(L, a, b){ const w = L.w, ai = a % w, aj = (a-ai)/w, bi = b % w, bj = (b-bi)/w, len = Math.hypot(bi-ai, bj-aj), n = Math.ceil(len*3)+1; let s = 0;
+  for (let t = 0; t <= n; t++){ const v = L.c[Math.round(aj + (bj-aj)*t/n)*w + Math.round(ai + (bi-ai)*t/n)]; if (!v) return Infinity; if (t < n) s += v; }
+  return s/n*len*NAV.res/10; }
+function turnCells(L, path){ const w = L.w, out = [path[0]];
+  for (let k = 1; k < path.length-1; k++){ const a = path[k-1], b = path[k], c = path[k+1]; if ((b%w - a%w) !== (c%w - b%w) || (Math.floor(b/w) - Math.floor(a/w)) !== (Math.floor(c/w) - Math.floor(b/w))) out.push(b); }
+  if (path.length > 1) out.push(path[path.length-1]); return out; }
+function smoothCells(L, path){ const w = L.w, pc = [0];
+  for (let k = 1; k < path.length; k++){ const a = path[k-1], b = path[k]; pc.push(pc[k-1] + Math.hypot(a%w - b%w, Math.floor(a/w) - Math.floor(b/w))*NAV.res*(L.c[a] + L.c[b])/20); }
+  const out = [path[0]]; let i = 0;
+  while (i < path.length-1){ let j = Math.min(path.length-1, i+300); while (j > i+1 && lineCost(L, path[i], path[j]) > (pc[j]-pc[i])*1.002 + .03) j--; out.push(path[j]); i = j; }
+  return out; }
+function currentBuildingCode(value){ return String(value).replace(/\bM5\b/gi, "A9").replace(/\bM7\b/gi, "A11"); }
+const roomNumber = r => {
+  if (r.cat === "elevator" || r.cat === "stairs") return "";
+  if (r.directoryInfo) return r.directoryInfo.number || "";
+  return r.info?.number ? currentBuildingCode(r.info.number) : (r.b === "A9" && /^A9-\d/.test(r.id) ? r.id : "");
+};
+const rName = r => roomNumber(r) || r.name;
+const lvName = (bid, lv) => bById[bid].levels[lv];
+function endpoint(id){ if (!NAV || !id) return null; const r = byId[id]; if (r && unknownRoom(r)) return null;
+  if (r){ const R = NAV.rooms[id]; if (!R) return null; const B = NAV.buildings[R.b], L = B.levels[R.lv];
+    return {id, kind:"room", r, b:R.b, lv:R.lv, cell:xyCell(B, L, R.door[0], R.door[1]), door:R.door, c:R.c, threshold:R.threshold, name:rName(r), where:R.b+" · "+lvName(R.b, R.lv)}; }
+  const b = bById[id]; if (!b) return null; const nodes = NAV.outdoor.nodes.filter(n => n.b === id); if (!nodes.length) return null;
+  return {id, kind:"building", B:b, nodes, name:b.id+" "+(b.name || "").split(" / ")[0], where:"Building"}; }
+function exitLen(B, p){
+  const door = cellXY(B, B.levels[0], p.k);
+  const points = p.threshold ? [door, p.threshold, p.node.p] : [door, p.node.p];
+  return points.slice(1).reduce((sum, point, i) =>
+    sum + Math.hypot(point[0]-points[i][0], point[1]-points[i][1]), 0);
+}
+function plan(fromId, toId, opt = {}){
+  const A = endpoint(fromId), Z = endpoint(toId); if (!A || !Z) return null;
+  if (fromId === toId) return {A, Z, same:true, legs:[], len:0, time:0};
+  const candidates = ep => {
+    const doors = NAV.rooms[ep.id]?.doors;
+    if (!doors) return [ep];
+    const B = NAV.buildings[ep.b], L = B.levels[ep.lv];
+    return doors.map(d => ({...ep, ...d, cell:xyCell(B, L, ...d.door)}));
+  };
+  let best;
+  for (const start of candidates(A)) for (const end of candidates(Z)){
+    const route = planBetween(start, end, !!opt.stepFree);
+    if (!route.fail && (!best || route.time < best.time)) best = route;
+  }
+  return best || {A, Z, fail:true, legs:[]};
+}
+function planBetween(A, Z, sf){
+  const O = NAV.outdoor, dist = new Map(), prev = new Map(), done = new Set(), hp = new Heap();
+  const put = (k, d, p, how) => { if (d < (dist.has(k) ? dist.get(k) : Infinity)){ dist.set(k, d); prev.set(k, [p, how]); hp.push(d, k); } };
+  const indoorFrom = (bid, lv, cell) => { const F = flood(bid, lv, cell), B = NAV.buildings[bid], out = [];
+    for (const p of B.portals) if (p.lv === lv && isFinite(F.dist[p.k])) out.push(["P:"+bid+":"+p.i, F.dist[p.k], {t:"in", bid, lv, from:cell, to:p.k}]);
+    if (Z.kind === "room" && Z.b === bid && Z.lv === lv && isFinite(F.dist[Z.cell])) out.push(["T", F.dist[Z.cell], {t:"in", bid, lv, from:cell, to:Z.cell}]);
+    return out; };
+  const nbrs = k => {
+    if (k === "S") return A.kind === "room" ? indoorFrom(A.b, A.lv, A.cell) : A.nodes.map(n => ["O:"+n.i, 0, {t:"start", n}]);
+    if (k[0] === "P"){ const [, bid, pi] = k.split(":"), B = NAV.buildings[bid], p = B.portals[+pi], out = indoorFrom(bid, p.lv, p.k);
+      if (p.kind === "exit") out.push(["O:"+p.node.i, exitLen(B, p), {t:"exit", bid, p}]);
+      else for (const q of B.portals) if (q !== p && q.group === p.group && q.kind === p.kind){ const dl = Math.abs(q.lv - p.lv);
+        if (p.kind === "stairs" && !sf && dl === 1) out.push(["P:"+bid+":"+q.i, STAIR_S*WALK, {t:"stairs", bid, p, q}]);
+        if (p.kind === "lift") out.push(["P:"+bid+":"+q.i, (LIFT_S + LIFT_PER*dl)*WALK, {t:"lift", bid, p, q}]); }
+      return out; }
+    if (k[0] === "O"){ const i = +k.slice(2), n = O.nodes[i], out = [];
+      for (let j = 0; j < O.nodes.length; j++) if (j !== i){ const P = O.paths[i < j ? i+"-"+j : j+"-"+i]; if (P) out.push(["O:"+j, P.w, {t:"out", i, j}]); }
+      if (Z.kind === "building" && Z.nodes.includes(n)) out.push(["T", 0, {t:"end", n}]);
+      for (const B of Object.values(NAV.buildings)) for (const p of B.portals) if (p.kind === "exit" && p.node === n) out.push(["P:"+B.id+":"+p.i, exitLen(B, p), {t:"enter", bid:B.id, p}]);
+      return out; }
+    return []; };
+  put("S", 0, null, null);
+  while (hp.size){ const k = hp.pop(); if (done.has(k)) continue; done.add(k); if (k === "T") break;
+    for (const [v, w, how] of nbrs(k)) if (!done.has(v)) put(v, dist.get(k) + w, k, how); }
+  if (!done.has("T")) return {A, Z, fail:true, legs:[]};
+  const hops = []; for (let k = "T"; prev.get(k)[0] !== null; k = prev.get(k)[0]) hops.unshift(prev.get(k)[1]);
+  return build(A, Z, hops, sf); }
+// a walk drawn on the campus map rather than inside one building: outdoor paths ("out") and the hallways / covered
+// walkways between buildings ("hall", paths with k:"hall" in nav.json - drawn on top, since they run under roofs)
+const campusLeg = l => l && l.type === "walk" && (l.where === "out" || l.where === "hall");
+function build(A, Z, hops, sf){
+  const legs = []; let cur = null; const O = NAV.outdoor;
+  const walk = (where, pts, extra) => { if (!(cur && cur.type === "walk" && cur.where === where)){ cur = Object.assign({type:"walk", where, pts:[]}, extra); legs.push(cur); }
+    for (const p of pts){ const l = cur.pts[cur.pts.length-1]; if (!l || Math.hypot(l[0]-p[0], l[1]-p[1]) > .05) cur.pts.push(p); } return cur; };
+  const pathOf = h => O.paths[h.i < h.j ? h.i+"-"+h.j : h.j+"-"+h.i];
+  // the short pieces joining a door or a start point to the network take the kind of the stretch they join
+  const kindNext = hi => { const nh = hops[hi+1]; return nh && nh.t === "out" && pathOf(nh).k === "hall" ? "hall" : "out"; };
+  for (let hi = 0; hi < hops.length; hi++){ const h = hops[hi];
+    if (h.t === "in"){ const B = NAV.buildings[h.bid], L = B.levels[h.lv], F = flood(h.bid, h.lv, h.from), cells = [];
+      for (let k = h.to; k !== -1; k = F.par[k]) cells.push(k); cells.reverse();
+      walk(h.bid+":"+h.lv, (L.o ? turnCells(L, cells) : smoothCells(L, cells)).map(k => cellXY(B, L, k)), {b:h.bid, lv:h.lv}); }
+    else if (h.t === "stairs" || h.t === "lift"){ const B = NAV.buildings[h.bid], last = legs[legs.length-1];
+      const arrival = cellXY(B, B.levels[h.q.lv], h.q.k);
+      if (last && last.type === h.t && last.group === h.p.group && last.to === h.p.lv){ last.to = h.q.lv; last.arrival = arrival; }
+      else legs.push({type:h.t, b:h.bid, group:h.p.group, name:h.p.name, from:h.p.lv, to:h.q.lv, at:cellXY(B, B.levels[h.p.lv], h.p.k), arrival});
+      cur = null; }
+    else if (h.t === "exit" || h.t === "enter"){
+      const B = NAV.buildings[h.bid], p = h.p, door = cellXY(B, B.levels[0], p.k);
+      const threshold = p.threshold || door;
+      const indoor = pts => walk(h.bid+":0", pts, {b:h.bid, lv:0});
+      if (h.t === "exit"){
+        if (p.threshold) indoor([door, threshold]);
+        walk(kindNext(hi), [threshold, p.node.p], {exit:p.node});
+      } else {
+        walk(cur && cur.where === "hall" ? "hall" : "out", [p.node.p, threshold]).enter = p.node;
+        if (p.threshold) indoor([threshold, door]);
+      }
+    }
+    else if (h.t === "out"){ const P = pathOf(h); walk(P.k === "hall" ? "hall" : "out", h.i < h.j ? P.pts : P.pts.slice().reverse()); }
+    else if (h.t === "start"){ walk(kindNext(hi), [h.n.p], {from:h.n}); }
+    else if (h.t === "end"){ cur && (cur.to = h.n); }
+  }
+  // into the rooms: from the room to its door, and from the last door into the destination room
+  const w0 = legs.find(l => l.type === "walk"), w1 = [...legs].reverse().find(l => l.type === "walk");
+  // from the room centre to its door by straight moves on floors drawn as straight corridors: the last bit runs along the stub into the door
+  const ortho = l => NAV.buildings[l.b].levels[l.lv].o;
+  const inward = (l, c, door, next) => { if (!ortho(l) || !next) return [c]; const vert = Math.abs(next[0]-door[0]) < Math.abs(next[1]-door[1]); return [c, vert ? [door[0], c[1]] : [c[0], door[1]]]; };
+  if (A.kind === "room" && w0 && !campusLeg(w0)){ const e = A.threshold ? [A.c] : inward(w0, A.c, w0.pts[0], w0.pts[1]); w0.pts.unshift(...e); }
+  if (Z.kind === "room" && w1 && !campusLeg(w1)){ const n = w1.pts.length, e = Z.threshold ? [Z.c] : inward(w1, Z.c, w1.pts[n-1], w1.pts[n-2]); w1.pts.push(...e.reverse()); }
+  if (A.kind === "building" && hops[0]?.t === "start") A = {...A, selectedNode:hops[0].n};
+  const lastHop = hops[hops.length-1];   // (not hops.at(-1): iOS before 15.4 lacks Array.at)
+  if (Z.kind === "building" && lastHop?.t === "end") Z = {...Z, selectedNode:lastHop.n};
+  let len = 0, time = 0;
+  for (const l of legs){ if (l.type === "walk"){ l.len = 0; for (let k = 1; k < l.pts.length; k++) l.len += Math.hypot(l.pts[k][0]-l.pts[k-1][0], l.pts[k][1]-l.pts[k-1][1]); len += l.len; time += l.len/WALK; }
+    else { const dl = Math.abs(l.to - l.from); time += l.type === "stairs" ? STAIR_S*dl : LIFT_S + LIFT_PER*dl; } }
+  const res = {A, Z, legs, len, time, sf, stairs:legs.some(l => l.type === "stairs"), lift:legs.some(l => l.type === "lift")};
+  res.steps = describe(res); return res; }
+const metres = m => m < 15 ? Math.max(1, Math.round(m))+" m" : (Math.round(m/5)*5)+" m";
+const nodeName = n => n.name.replace(/^A[\w-]+ entrance$/, "entrance").replace(/^A\d+ /, "");
+const pName = l => l.type === "stairs" ? (/^Staircase/.test(l.name) ? l.name : "the main staircase") : (/^Lift/.test(l.name) ? l.name : "the lift");
+function describe(R){ const out = [], L = R.legs;
+  out.push({ic:"A", cls:"go", t:`Start at ${R.A.name}`, s:R.A.where, leg:-1});
+  L.forEach((l, i) => { const nx = L[i+1], pv = L[i-1];
+    if (l.type === "walk" && !campusLeg(l)){
+      const to = !nx ? R.Z.name : nx.type !== "walk" ? pName(nx) : nx.exit ? "the "+nodeName(nx.exit) : "the exit";
+      out.push({ic:"→", t:`Walk ${metres(l.len)} to ${to}`, s:`${l.b} · ${lvName(l.b, l.lv)}`, leg:i}); }
+    else if (l.type === "walk"){
+      // where this stretch ends: a building door, the hallway / outdoor path that follows, or the destination
+      const to = l.enter ? `the ${l.enter.b} ${nodeName(l.enter)}` : !nx ? R.Z.name
+        : nx.where === "hall" ? "the covered hallway" : nx.where === "out" ? "the outdoor path" : nx.b ? nx.b : R.Z.name;
+      if (l.where === "hall") out.push({ic:"⇢", t:(l.exit ? `Leave ${l.exit.b} by the ${nodeName(l.exit)} and walk` : "Walk")+` ${metres(l.len)} through the covered hallway to ${to}`, s:"Covered hallway", leg:i});
+      else out.push({ic:"↗", t:(l.exit ? `Leave ${l.exit.b} by the ${nodeName(l.exit)} and walk` : "Walk")+` ${metres(l.len)} outside to ${to}`, s:"Outdoors", leg:i}); }
+    else { const up = l.to > l.from, nm = pName(l);
+      out.push({ic:l.type === "stairs" ? "⇅" : "▣", t:`Take ${nm} ${up ? "up" : "down"} to ${lvName(l.b, l.to)}`, s:`${l.b} · ${Math.abs(l.to - l.from)} floor${Math.abs(l.to - l.from) > 1 ? "s" : ""} ${up ? "up" : "down"}`, leg:i}); } });
+  out.push({ic:"B", cls:"fin", t:`Arrive at ${R.Z.name}`, s:R.Z.where, leg:-2});
+  return out; }
+
+// ---------- drawing the route ----------
+const routeMat = new THREE.MeshBasicMaterial({color:css("--route") || "#2e8a61", side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:-6, polygonOffsetUnits:-6});
+routeMat.userData.tok = "--route"; fadeMats.push(routeMat);
+const routeOutMat = new THREE.MeshBasicMaterial({color:css("--route") || "#2e8a61", side:THREE.DoubleSide, depthTest:false, transparent:true, opacity:.92});
+routeOutMat.userData.tok = "--route"; fadeMats.push(routeOutMat);
+const arrowMat = new THREE.MeshBasicMaterial({color:0xffffff, side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:-8, polygonOffsetUnits:-8});
+const arrowOutMat = new THREE.MeshBasicMaterial({color:0xffffff, side:THREE.DoubleSide, depthTest:false, transparent:true});
+let routeObjs = [], routePins = [], routeTransfers = [];
+function ribbon(pts, y, w, gap, out){
+  const P3 = pts.map(p => [p[0], -p[1]]), pos = [], ar = [], h = w/2;
+  for (let k = 0; k < P3.length-1; k++){ const [x1, z1] = P3[k], [x2, z2] = P3[k+1], dx = x2-x1, dz = z2-z1, l = Math.hypot(dx, dz); if (l < 1e-6) continue;
+    const nx = -dz/l*h, nz = dx/l*h; pos.push(x1+nx,y,z1+nz, x2+nx,y,z2+nz, x2-nx,y,z2-nz, x1+nx,y,z1+nz, x2-nx,y,z2-nz, x1-nx,y,z1-nz); }
+  for (const [x, z] of P3) for (let i = 0; i < 12; i++){ const a1 = i/12*Math.PI*2, a2 = (i+1)/12*Math.PI*2; pos.push(x,y,z, x+Math.cos(a2)*h,y,z+Math.sin(a2)*h, x+Math.cos(a1)*h,y,z+Math.sin(a1)*h); }
+  const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+  const grp = new THREE.Group(), m = new THREE.Mesh(g, out ? routeOutMat : routeMat); m.renderOrder = out ? 20 : 2; grp.add(m);
+  // moving arrows: one chevron shape (pointing +x) drawn many times; flowArrows() slides them forward every frame
+  const cum = [0]; for (let k = 1; k < P3.length; k++) cum.push(cum[k-1] + Math.hypot(P3[k][0]-P3[k-1][0], P3[k][1]-P3[k-1][1]));
+  const total = cum[cum.length-1];
+  if (total > .5){ const a = w*.42, ga = new THREE.BufferGeometry();
+    ga.setAttribute("position", new THREE.Float32BufferAttribute([a,0,0, -.5*a,0,.8*a, -.15*a,0,0,  a,0,0, -.15*a,0,0, -.5*a,0,-.8*a], 3));
+    const n = Math.floor(total/gap) + 1, ma = new THREE.InstancedMesh(ga, out ? arrowOutMat : arrowMat, n);
+    ma.renderOrder = out ? 21 : 3; ma.frustumCulled = false; grp.add(ma);
+    flows.push({mesh:ma, P3, cum, total, gap, y:y+.005, n}); }
+  return grp; }
+// ---------- animated arrows: every arrow moves forward along the route and re-enters at the start (a seamless loop) ----------
+let flows = [];
+const flowObj = new THREE.Object3D(), still = matchMedia("(prefers-reduced-motion: reduce)");
+function flowArrows(now){
+  for (const f of flows){
+    const speed = f.gap*.55, phase = still.matches ? f.gap*.6 : (now/1000*speed) % f.gap;   // ~half a gap per second; reduced motion: arrows stay put
+    let k = 0;
+    for (let i = 0; i < f.n; i++){
+      const s = phase + i*f.gap;
+      if (s > f.total - .05){ flowObj.scale.setScalar(0); flowObj.updateMatrix(); f.mesh.setMatrixAt(i, flowObj.matrix); continue; }
+      while (k < f.cum.length-2 && f.cum[k+1] < s) k++;      // arrows are in order along the path, so the segment index only moves forward
+      const [x1, z1] = f.P3[k], [x2, z2] = f.P3[k+1], l = f.cum[k+1]-f.cum[k] || 1e-6, t = (s - f.cum[k])/l;
+      const ux = (x2-x1)/l, uz = (z2-z1)/l;
+      // fade in at the start and out at the end by size, so arrows don't pop in or out
+      const edge = Math.min(1, s/(f.gap*.5), (f.total - s)/(f.gap*.5));
+      flowObj.position.set(x1 + (x2-x1)*t, f.y, z1 + (z2-z1)*t); flowObj.rotation.set(0, Math.atan2(-uz, ux), 0); flowObj.scale.setScalar(Math.max(0, edge));
+      flowObj.updateMatrix(); f.mesh.setMatrixAt(i, flowObj.matrix); }
+    f.mesh.instanceMatrix.needsUpdate = true; } }
+function clearRouteDraw(){ routeObjs.forEach(o => { o.parent && o.parent.remove(o); o.traverse(x => x.geometry && x.geometry.dispose()); }); routeObjs = []; flows = [];
+  routePins.forEach(p => p.el.remove()); routePins = [];
+  routeTransfers.forEach(p => p.el.remove()); routeTransfers = [];
+  const old = [...DIR.hi]; DIR.hi.clear(); new Set(old.map(r => r.B)).forEach(paint); }
+function drawRoute(R){ clearRouteDraw(); if (!R || !R.legs) return;
+  for (const l of R.legs){
+    // hallway legs are drawn at roof height (the zigzag canopies peak at 4.9 m): at ground level a tilted camera shifts the line sideways
+    // against the roof it is under, so it no longer looks centred in the hallway. Outdoor legs stay on the ground.
+    if (campusLeg(l)){ const g = ribbon(l.pts, l.where === "hall" ? 4.7 : .35, l.where === "hall" ? 1.2 : 1.5, 7, true); scene.add(g); routeObjs.push(g); }
+    else if (l.type === "walk"){ const b = bById[l.b]; buildSlices(b); const g = ribbon(l.pts, b.floors[l.lv] + .1, l.b === "A11" ? .30 : .55, 2.6, false); b.slices[l.lv].wrap.add(g); routeObjs.push(g); }
+    else {
+      const b = bById[l.b];
+      buildSlices(b);
+      const mode = l.type === "stairs" ? "Stairs" : "Elevator";
+      const direction = l.to > l.from ? "↑" : "↓";
+      for (const [lv, point, label] of [
+        [l.from, l.at, mode+" "+direction+" to "+lvName(l.b, l.to)],
+        [l.to, l.arrival, "From "+lvName(l.b, l.from)+" · "+mode],
+      ]){
+        routeTransfers.push({b, lv, point, el:mkLabel(esc(label), "rpin transfer")});
+      }
+    }
+  }
+  const pin = (ep, cls, txt) => { const d = mkLabel(`<em>${cls.toUpperCase()}</em>${esc(txt)}`, "rpin "+cls); d.style.pointerEvents = "none"; routePins.push({el:d, ep}); };
+  pin(R.A, "a", R.A.kind === "room" ? R.A.name : R.A.B.id); pin(R.Z, "b", R.Z.kind === "room" ? R.Z.name : R.Z.B.id);
+  for (const ep of [R.A, R.Z]) if (ep.kind === "room"){ DIR.hi.add(ep.r); buildSlices(ep.r.B); paint(ep.r.B); }
+}
+const pinPos = new V3();
+function routeFrame(){
+  const inB = !!state.b; if (routeOutMat.depthTest !== inB){ routeOutMat.depthTest = arrowOutMat.depthTest = inB; routeOutMat.opacity = inB ? .55 : .92; routeOutMat.needsUpdate = arrowOutMat.needsUpdate = true; }
+  for (const {b, lv, point, el} of routeTransfers){
+    const wrap = b.slices[lv].wrap;
+    const show = state.b === b && (state.level === "all" || state.level === lv) && wrap.visible;
+    if (show) pinPos.set(point[0], b.floors[lv] + wrap.position.y + 1.5, -point[1]);
+    place(el, pinPos, show, true);
+  }
+  for (const p of routePins){ const ep = p.ep; let show;
+    if (ep.kind === "room"){ const b = ep.r.B; show = state.b === b && (state.level === "all" || state.level === ep.lv) && b.slices && b.slices[ep.lv].wrap.visible;
+      if (show) pinPos.set(ep.c[0], b.floors[ep.lv] + b.slices[ep.lv].wrap.position.y + 2.2, -ep.c[1]);
+      else { show = state.b !== b; pinPos.set(b.center.x, b.h + 9, b.center.z); } }
+    else { const n = ep.selectedNode || ep.nodes[0]; show = true; pinPos.set(n.p[0], 4, -n.p[1]); }
+    place(p.el, pinPos, show, true); }
+}
+
+// ---------- directions panel ----------
+function openDir(){ if (!DIR.open){ DIR.open = true; $("dir").hidden = false; $("opendir").setAttribute("aria-pressed", "true"); if (state.sel){ clearSel(); } } ui(); }
+function closeDir(){ DIR.open = false; $("opendir").setAttribute("aria-pressed", "false"); DIR.res = null; DIR.step = -1; DIR.from = DIR.to = null; $("dfrom").value = $("dto").value = ""; $("dsug").hidden = true; $("dir").hidden = true; clearRouteDraw(); ui(); }
+const epLabel = id => { const r = byId[id]; if (r) return rName(r)+" · "+r.b+" "+lvName(r.b, r.lv); const b = bById[id]; return b ? b.id+" · "+(b.name||"").split(" / ")[0] : ""; };
+function setEnd(which, id, quiet){ DIR[which] = id || null; $(which === "from" ? "dfrom" : "dto").value = id ? epLabel(id) : ""; $("dsug").hidden = true;
+  DIR.field = !DIR.from ? "from" : !DIR.to ? "to" : DIR.field; if (!quiet) recompute(); }
+function recompute(){ DIR.res = DIR.from && DIR.to ? plan(DIR.from, DIR.to, {stepFree:DIR.sf}) : null; DIR.step = -1; drawRoute(DIR.res && !DIR.res.fail ? DIR.res : null);
+  if (DIR.res && !DIR.res.fail && !DIR.res.same) focusStep(-1); else ui(); }
+function dirPick(id){ if (!DIR.open || (DIR.from && DIR.to) || !endpoint(id)) return false;
+  setEnd(DIR.field === "to" || DIR.from ? "to" : "from", id); return true; }
+function fmtTime(s){ const m = Math.max(1, Math.round(s/60)); return m < 60 ? m+" min" : Math.floor(m/60)+" h "+(m%60)+" min"; }
+function renderDir(){ if (!DIR.open) return; const R = DIR.res, sum = $("dsum"), st = $("dsteps");
+  $("dir").classList.toggle("compact", !!(R && !R.fail && !R.same && DIR.step >= 0));
+  st.innerHTML = ""; $("dnav").hidden = true; sum.className = "sum";
+  if (!DIR.from || !DIR.to){ sum.className = "sum err"; sum.textContent = !DIR.from && !DIR.to ? "Pick a start and a destination. Type a room number, an instructor or a building, or click one on the map."
+      : !DIR.from ? "Now pick where you are starting from. Type it or click it on the map." : "Now pick your destination. Type it or click it on the map."; return; }
+  if (!R){ sum.className = "sum err"; sum.textContent = "No walking route is mapped for this place yet."; return; }
+  if (R.same){ sum.className = "sum err"; sum.textContent = "The start and destination are the same place."; return; }
+  if (R.fail){ sum.className = "sum err"; sum.textContent = DIR.sf ? "No step-free route was found between these places." : "No route was found between these places."; return; }
+  sum.innerHTML = `<b>${fmtTime(R.time)}</b><span>${metres(R.len)} walk${R.lift ? " · uses a lift" : ""}${R.stairs ? " · uses stairs" : ""}${R.sf ? " · step-free" : ""}</span>`;
+  R.steps.forEach((s, i) => { const li = document.createElement("li"), b = document.createElement("button");
+    b.innerHTML = `<i class="ic ${s.cls||""}">${esc(s.ic)}</i><span>${esc(s.t)}<small>${esc(s.s)}</small></span>`;
+    if (i === DIR.step) b.setAttribute("aria-current", "step"); b.onclick = () => focusStep(i); li.append(b); st.append(li); });
+  $("dnav").hidden = false; $("dprev").disabled = DIR.step <= 0; $("dnext").disabled = DIR.step >= R.steps.length-1;
+  const cur = st.querySelector('[aria-current="step"]'); if (cur) cur.scrollIntoView({block:"nearest"}); }
+// camera that shows every point of the route in the part of the screen the cards leave free
+const fitCam = new THREE.PerspectiveCamera();
+function fitView(pts, y){ let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity; for (const p of pts){ x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }
+  const P3 = pts.map(p => new V3(p[0], p[2] ?? y, -p[1])), W = canvas.clientWidth, H = canvas.clientHeight, dir = new V3(0, 1.05, .7).normalize();
+  const side = $("side").getBoundingClientRect(), mob = W <= 760, card = mob ? $("dir").getBoundingClientRect() : null;
+  const L = mob ? -.9 : Math.min(.2, (side.right + 16)/W*2 - 1), R = .9, T = mob ? Math.min(.8, 1 - ($("panel").getBoundingClientRect().bottom + 12)/H*2) : .82, B = mob ? Math.max(-.6, 1 - (card.top - 10)/H*2) : -.85;
+  fitCam.copy(camera); fitCam.aspect = W/Math.max(1, H);
+  const c = new V3((x0+x1)/2, y, -(y0+y1)/2), v = new V3();
+  const bounds = d => { fitCam.position.copy(c).addScaledVector(dir, d); fitCam.updateMatrixWorld(); fitCam.lookAt(c); fitCam.near = .5; fitCam.far = 1e5; fitCam.updateProjectionMatrix(); fitCam.updateMatrixWorld();
+    let a = 9, b = -9, e = 9, f = -9; for (const q of P3){ v.copy(q).project(fitCam); a = Math.min(a, v.x); b = Math.max(b, v.x); e = Math.min(e, v.y); f = Math.max(f, v.y); } return [a, b, e, f]; };
+  let d = Math.max(20, Math.max(x1-x0, y1-y0)*1.2);
+  for (let it = 0; it < 4; it++){   // centre the route in the free area, then size it to fit
+    let lo = 8, hi = 4000; for (let k = 0; k < 30; k++){ const m = (lo+hi)/2, [a, b, e, f] = bounds(m); if (b-a <= R-L && f-e <= T-B) hi = m; else lo = m; } d = Math.max(hi*1.06, 30);
+    const [a, b, e, f] = bounds(d), ox = ((a+b)/2 - (L+R)/2), oy = ((e+f)/2 - (T+B)/2);
+    const right = new V3().setFromMatrixColumn(fitCam.matrixWorld, 0), up = new V3().setFromMatrixColumn(fitCam.matrixWorld, 1);
+    const halfW = Math.tan(fitCam.fov*Math.PI/360)*d*fitCam.aspect, halfH = Math.tan(fitCam.fov*Math.PI/360)*d;
+    c.addScaledVector(right, ox*halfW).addScaledVector(up, oy*halfH); c.y = y; }
+  return {p:c.clone().addScaledVector(dir, d), t:c}; }
+function legView(l){ if (campusLeg(l)){ if (state.b) campusView(); return fitView(l.pts, 0); }
+  const b = bById[l.b]; if (l.type !== "walk"){ if (state.b !== b) enterBuilding(b); else { state.level = "all"; } return viewBuilding(b, true); }
+  if (state.b !== b) enterBuilding(b); state.level = l.lv; return fitView(l.pts, b.floors[l.lv] + l.lv*GAP); }
+function focusStep(i){ const R = DIR.res; if (!R || !R.legs.length) return; DIR.step = i; clearSel(); $("dir").classList.toggle("compact", i >= 0);
+  let v;
+  if (i < 0 || i >= R.steps.length){ DIR.step = -1;      // overview
+    const outs = R.legs.filter(campusLeg), bs = [...new Set(R.legs.filter(l => l.b).map(l => l.b))];
+    if (outs.length || bs.length !== 1){ if (state.b) campusView(); const ends = [R.A, R.Z].map(ep => ep.kind === "room" ? [ep.r.B.c[0], ep.r.B.c[1], ep.r.B.h + 10] : [ep.nodes[0].p[0], ep.nodes[0].p[1], 5]);
+      v = fitView(outs.flatMap(l => l.pts).concat(bs.map(id => [bById[id].c[0], bById[id].c[1]]), ends), 0); }
+    else { const b = bById[bs[0]], lvs = [...new Set(R.legs.map(l => l.lv))];
+      if (state.b !== b) enterBuilding(b);
+      if (lvs.length === 1 && R.legs.every(l => l.type === "walk")){      // one building, one floor: open that floor and frame the route
+        const li = lvs[0], pts = R.legs.flatMap(l => l.pts);
+        const cx = pts.reduce((s, p) => s + p[0], 0)/pts.length, cy = pts.reduce((s, p) => s + p[1], 0)/pts.length;
+        pts.push([cx-15, cy-15], [cx+15, cy+15]);                          // at least ~30 m of floor in view, so a short route keeps its surroundings
+        state.level = li; v = fitView(pts, b.floors[li] + li*GAP); }
+      else { state.level = "all"; v = viewBuilding(b, true); } } }
+  else { const s = R.steps[i], li = s.leg === -1 ? 0 : s.leg === -2 ? R.legs.length-1 : s.leg; v = legView(R.legs[li]);
+    if (s.leg < 0){ const ep = s.leg === -1 ? R.A : R.Z; if (ep.kind === "room") v = viewRoom(ep.r); } }
+  flyTo(v); ui(); }
+$("opendir").onclick = () => { openDir(); (DIR.from ? $("dto") : $("dfrom")).focus(); };
+$("dirx").onclick = closeDir;
+$("dswap").onclick = () => { const a = DIR.from; setEnd("from", DIR.to, true); setEnd("to", a); };
+$("dsf").onchange = e => { DIR.sf = e.target.checked; recompute(); };
+$("dprev").onclick = () => focusStep(Math.max(0, DIR.step - 1));
+$("dnext").onclick = () => focusStep(Math.min(DIR.res.steps.length-1, DIR.step + 1));
+$("dall").onclick = () => focusStep(-1);
+document.querySelectorAll("#dir .clr").forEach(b => b.onclick = () => { setEnd(b.dataset.clr, null); $(b.dataset.clr === "from" ? "dfrom" : "dto").focus(); });
+for (const [fid, which] of [["dfrom", "from"], ["dto", "to"]]){ const inp = $(fid);
+  inp.addEventListener("focus", () => { DIR.field = which; inp.select(); });
+  inp.addEventListener("input", () => { const t = inp.value.trim().toLowerCase(), box = $("dsug"); box.innerHTML = ""; DIR.field = which;
+    if (!t){ box.hidden = true; return; }
+    const hits = findHits(t).filter(h => endpoint(h.id)); box.hidden = false;
+    if (!hits.length){ box.innerHTML = `<div class="res" style="cursor:default"><span class="s">No mapped place matches “${esc(inp.value)}”.</span></div>`; return; }
+    for (const h of hits.slice(0, 30)){ const x = document.createElement("button"); x.className = "res";
+      x.innerHTML = `<i class="dot" style="background:${h.c}"></i><span><div class="t">${esc(h.t)}</div><div class="s">${esc(h.s)}</div></span><span class="lv">${h.lv}</span>`;
+      x.onclick = () => { setEnd(which, h.id); if (which === "from" && !DIR.to) $("dto").focus(); else if (which === "to" && !DIR.from) $("dfrom").focus(); }; box.append(x); } });
+  inp.addEventListener("keydown", e => { if (e.key === "Enter"){ const f = $("dsug").querySelector("button.res"); if (f) f.click(); } if (e.key === "Escape") $("dsug").hidden = true; }); }
+})();
+</script>

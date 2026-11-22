@@ -1,0 +1,502 @@
+{
+  "college": "cci",
+  "level": "bachelors",
+  "program": "Science in Business Information Systems",
+  "catalog_year": "2020-21",
+  "source_file": "cci/bachelors/bsc-business-information-systems/cci_bsc-business-information-systems_2020-21_study-plan_v1.pdf",
+  "total_credit_hours": 123,
+  "courses": [
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 1,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "0301120",
+      "title": "Accounting (1): Financial Accounting",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "0302160",
+      "title": "Principles of Management",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 1,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": "1440100",
+      "title": "Mathematics for Business",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 1
+    },
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 1,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "0308230",
+      "title": "Financial Management",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "0301211",
+      "title": "Accounting (2): Managerial Accounting",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [
+        "0301120"
+      ],
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "0302170",
+      "title": "Principles of Marketing",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "1503130",
+      "title": "Intro. to BIS",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": null,
+      "prerequisites": [],
+      "track": null,
+      "term": 2
+    },
+    {
+      "code": "1503231",
+      "title": "Business Programming",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1503130 or 0303130"
+      ],
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": "0301151",
+      "title": "Principles of Microeconomics",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": null,
+      "title": "College Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": "1440264",
+      "title": "Business Statistics",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1440100"
+      ],
+      "track": null,
+      "term": 3
+    },
+    {
+      "code": "1503230",
+      "title": "Database Management",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "1503130 or 0303130"
+      ],
+      "track": null,
+      "term": 4
+    },
+    {
+      "code": "0301252",
+      "title": "Prin. of Macroeconomics",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "0301151"
+      ],
+      "track": null,
+      "term": 4
+    },
+    {
+      "code": "0302262",
+      "title": "Organizational Behavior",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "0302160"
+      ],
+      "track": null,
+      "term": 4
+    },
+    {
+      "code": "0302250",
+      "title": "Legal Environment of Business",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": null,
+      "prerequisites": [
+        "0302160"
+      ],
+      "track": null,
+      "term": 4
+    },
+    {
+      "code": null,
+      "title": "College Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 2,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 4
+    },
+    {
+      "code": "1503332",
+      "title": "Bus. Data Telecom. and Network",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1503230"
+      ],
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": null,
+      "title": "University Requirement",
+      "credits": 3,
+      "type": "university",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": "0302361",
+      "title": "Operations and Supply Chain Man.",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1440264"
+      ],
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": null,
+      "title": "Minor",
+      "credits": 3,
+      "type": "other",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": null,
+      "title": "Minor",
+      "credits": null,
+      "type": "other",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 5
+    },
+    {
+      "code": "1503330",
+      "title": "Systems Analysis and Design",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1503230"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "1503431",
+      "title": "Project Management",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "1503230"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "0302350",
+      "title": "Ethics and Islamic Values in Business",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "0302250"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": null,
+      "title": "Minor",
+      "credits": 3,
+      "type": "other",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 3,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": "1503437",
+      "title": "Internship in BIS",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": null,
+      "prerequisites": [
+        "75 credit hours and departmental approval"
+      ],
+      "track": null,
+      "term": 6
+    },
+    {
+      "code": null,
+      "title": "University Requirements",
+      "credits": 3,
+      "type": "university",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": "1503333",
+      "title": "Information Security",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "1503332"
+      ],
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "BIS Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "Minor",
+      "credits": 3,
+      "type": "other",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": null,
+      "title": "Minor",
+      "credits": 3,
+      "type": "other",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 7
+    },
+    {
+      "code": "1503439",
+      "title": "Project in BIS",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "1503330 & Dept. approval"
+      ],
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": "0302467",
+      "title": "Strategic Management",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "Senior Level"
+      ],
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": null,
+      "title": "BIS Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": null,
+      "prerequisites": null,
+      "track": null,
+      "term": 8
+    },
+    {
+      "code": "0302461",
+      "title": "Research Methods",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": null,
+      "prerequisites": [
+        "1440264"
+      ],
+      "track": null,
+      "term": 8
+    }
+  ],
+  "notes": [
+    "The PDF states the program is 123 credit hours over eight semesters.",
+    "Prerequisites: 'None' is printed as an empty list; a blank prerequisite cell is null (not stated).",
+    "Placeholder rows ('University Requirements', 'College Elective', 'Minor', 'BIS Elective') have no course code; 'Minor' rows are typed 'other'.",
+    "Row credits do not match the printed semester credit headers in semesters 3, 5, 6, 7 and 8 (see validation report); values are kept as printed in the rows.",
+    "The PDF numbers the semesters (or chart rows) in order but does not name them fall/spring, so 'semester' is null and 'term' holds the position (1-8); a 'summer' semester is named in the PDF where present."
+  ]
+}

@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import String, Text, ForeignKey, DateTime, Enum as SAEnum
+from sqlalchemy import String, Text, ForeignKey, DateTime, Enum as SAEnum, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from backend.database.connection import Base
 
@@ -61,6 +61,8 @@ class ChatMessage(Base):
     session_id: Mapped[str] = mapped_column(String(36), ForeignKey("chat_sessions.id", ondelete="CASCADE"), nullable=False)
     role: Mapped[str] = mapped_column(SAEnum("user", "assistant", name="message_role"), nullable=False)
     content: Mapped[str] = mapped_column(Text, nullable=False)
+    # JSON list of {id, title, section, excerpt}; only on assistant messages
+    sources: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow)
 
     session: Mapped["ChatSession"] = relationship("ChatSession", back_populates="messages")
@@ -88,3 +90,38 @@ class Document(Base):
     source: Mapped[str | None] = mapped_column(String(500), nullable=True)
     uploaded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow)
     status: Mapped[str] = mapped_column(String(50), default="pending")
+
+
+class StudyProgress(Base):
+    """Courses a user has marked as completed in one study plan (Study Plan Progress)."""
+    __tablename__ = "study_progress"
+    __table_args__ = (UniqueConstraint("user_id", "plan_id", name="uq_study_progress_user_plan"),)
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    plan_id: Mapped[str] = mapped_column(String(120), nullable=False)
+    track: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    completed: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON list of course keys
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=_utcnow, onupdate=_utcnow)
+
+
+class StudentRecord(Base):
+    """SIMULATED student record (demo data made by backend/seed_students.py), standing in
+    for the university's student information system so the agent can answer personal questions."""
+    __tablename__ = "student_records"
+
+    user_id: Mapped[str] = mapped_column(String(36), ForeignKey("users.id", ondelete="CASCADE"), primary_key=True)
+    student_id: Mapped[str] = mapped_column(String(20), nullable=False)
+    plan_id: Mapped[str] = mapped_column(String(120), nullable=False)      # study plan id, e.g. cci-msc-data-science
+    track: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    level: Mapped[str] = mapped_column(String(20), nullable=False)          # masters / bachelors
+    study_mode: Mapped[str] = mapped_column(String(20), nullable=False)     # full-time / part-time
+    admission: Mapped[str] = mapped_column(String(120), nullable=False)     # e.g. Regular, Conditional (condition B)
+    start_term: Mapped[str] = mapped_column(String(30), nullable=False)
+    current_term: Mapped[str] = mapped_column(String(30), nullable=False)
+    advisor: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    supervisor: Mapped[str | None] = mapped_column(String(120), nullable=True)
+    probations: Mapped[int] = mapped_column(default=0)
+    transcript: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON [{code,title,credits,grade,term}]
+    registered: Mapped[str] = mapped_column(Text, nullable=False, default="[]")  # JSON [{code,title,credits}] this term
+    notes: Mapped[str | None] = mapped_column(Text, nullable=True)

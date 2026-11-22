@@ -44,7 +44,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--green);
-  box-shadow: 0 0 0 4px rgba(46,139,107,.15);
+  box-shadow: 0 0 0 4px rgba(96,182,143,.15);
   flex-shrink: 0;
 }
 
@@ -110,7 +110,7 @@
 
 .input:focus {
   border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(46,139,107,.12);
+  box-shadow: 0 0 0 3px rgba(96,182,143,.12);
 }
 
 .inputError {
@@ -219,29 +219,4 @@
 
 .forgotLink:hover {
   color: var(--ink-2);
-}
-
-.devCodeBox {
-  background: var(--green-soft);
-  border: 1px solid rgba(46,139,107,.3);
-  border-radius: 8px;
-  padding: 0.65rem 1rem;
-  font-size: 0.85rem;
-  color: var(--green-deep);
-  margin-bottom: 1.2rem;
-  text-align: center;
-}
-
-.successIcon {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--green-soft);
-  color: var(--green);
-  font-size: 1.4rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.2rem;
 }

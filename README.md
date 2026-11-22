@@ -51,7 +51,7 @@ The tables are created automatically the first time the backend starts.
 
 ## 3. Environment Setup (.env)
 
-Create a file named `.env` in the project root:
+Create a file named `.env` in the project root and fill in your own values:
 
 ```
 DATABASE_URL=postgresql+asyncpg://postgres:YOUR_POSTGRES_PASSWORD@localhost:5432/chatbot_db
@@ -59,6 +59,23 @@ JWT_SECRET_KEY=any-long-random-text
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_LLM_MODEL=gemini-3.6-flash
 GEMINI_EMBEDDING_MODEL=models/gemini-embedding-001
+
+# Which model answers the questions: deepseek (the code default), gemini or groq
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your_deepseek_api_key_here
+DEEPSEEK_MODEL=deepseek-flash
+# Optional, only for LLM_PROVIDER=groq
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+**Answering model.** `LLM_PROVIDER` picks the model that writes the answers; if it is not set, **DeepSeek** is used, so either add a `DEEPSEEK_API_KEY` (https://platform.deepseek.com, paid) or set `LLM_PROVIDER=gemini` to use the Gemini key for answers too. Groq (https://console.groq.com) is the third option. Embeddings (document search) always use Gemini, so `GEMINI_API_KEY` is needed in every case.
+
+**Sign-in mode.** The app uses the email/password login (`AUTH_MODE=password`, the default). `AUTH_MODE=microsoft` would show a single "Continue with Microsoft" button for `@sharjah.ac.ae` emails (`ALLOWED_EMAIL_DOMAIN`), but the real Microsoft app registration (`MS_TENANT_ID`, `MS_CLIENT_ID`) is not wired up yet, so that button cannot sign anyone in. `AUTH_DEV_LOGIN=true` keeps the email/password login reachable in that mode. Restart the backend after changing these:
+
+```
+AUTH_MODE=password
+ALLOWED_EMAIL_DOMAIN=sharjah.ac.ae
+AUTH_DEV_LOGIN=true
 ```
 
 > Never commit `.env` (it is already in `.gitignore`). Avoid `@ : / #` in the PostgreSQL password, as they break the connection URL.
@@ -81,7 +98,7 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 Then install the packages (with `(.venv)` showing in the terminal):
 
 ```
-pip install fastapi uvicorn python-dotenv "sqlalchemy[asyncio]" asyncpg "python-jose[cryptography]" bcrypt python-multipart "pydantic[email]" langchain-core langchain-chroma langchain-google-genai langchain-text-splitters langchain-docling docling pypdfium2
+pip install fastapi uvicorn python-dotenv "sqlalchemy[asyncio]" asyncpg "python-jose[cryptography]" bcrypt python-multipart "pydantic[email]" langchain-core langchain-chroma langchain-google-genai langchain-text-splitters langchain-docling docling pypdfium2 langchain-openai fastembed
 ```
 
 ---
@@ -134,6 +151,26 @@ Open http://localhost:5173 and create an account.
 ```
 python -m RAG.query_data "What is the minimum GPA to graduate?"
 ```
+
+**Demo students (simulated data, for the agentic mode):**
+
+```
+python -m backend.seed_students
+```
+
+Creates five made-up student accounts with a student record (program, admission, transcript,
+current registration), synced Study Plan Progress and Thesis Roadmap ticks. When one of them
+logs in, Mosaed answers as an agent: it calls tools to read the student's record and to search
+the documents before answering. Running the command again resets the accounts. Set
+`AGENT_MODE=off` in `.env` to use the normal RAG answer for everyone.
+
+| Student | Email | Password | Situation |
+|---|---|---|---|
+| Layla Haddad | layla.haddad@mosaed.example.com | Layla@2026 | MSc Data Science, full-time, thesis step 4 |
+| Khalid Mansour | khalid.mansour@mosaed.example.com | Khalid@2026 | MSc Data Science, part-time, failed Research Methodology |
+| Mariam Al Ali | mariam.alali@mosaed.example.com | Mariam@2026 | MSc Data Science, ready to defend (step 7) |
+| Yousef Karim | yousef.karim@mosaed.example.com | Yousef@2026 | MSc AI, conditional admission, on probation |
+| Sara Nasser | sara.nasser@mosaed.example.com | Sara@2026 | BSc Chemistry, Year 3, retaking a failed course |
 
 ---
 

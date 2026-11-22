@@ -1,0 +1,711 @@
+{
+  "college": "sci",
+  "level": "bachelors",
+  "program": "Chemistry",
+  "catalog_year": "2019-20",
+  "source_file": "sci/bachelors/bsc-chemistry/sci_bsc-chemistry_2019-20_study-plan_v1.pdf",
+  "total_credit_hours": 123,
+  "courses": [
+    {
+      "code": "0201102",
+      "title": "Arabic Language or Arabic Language for non-Arabic Speakers",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0202112",
+      "title": "English for Academic Purposes",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420101",
+      "title": "General Chemistry I",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [],
+      "track": null
+    },
+    {
+      "code": "1420102",
+      "title": "General Chemistry I Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": [
+        "Pre/Co 1420101"
+      ],
+      "track": null
+    },
+    {
+      "code": "1430110",
+      "title": "Physics I for Sciences",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430116",
+      "title": "Physics I Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1440131",
+      "title": "Calculus I",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501100",
+      "title": "Introduction to IT",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420103",
+      "title": "General Chemistry II",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "1420101 and 1420102"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420104",
+      "title": "General Chemistry II Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": [
+        "Pre/Co 1420103"
+      ],
+      "track": null
+    },
+    {
+      "code": "1430117",
+      "title": "Physics II",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1430118",
+      "title": "Physics II Lab",
+      "credits": 1,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1440132",
+      "title": "Calculus II",
+      "credits": 3,
+      "type": null,
+      "year": 1,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1501116",
+      "title": "Programming I",
+      "credits": 4,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0202227",
+      "title": "Critical Reading and Writing",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420221",
+      "title": "Analytical Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "1420103"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420222",
+      "title": "Analytical Chemistry Lab",
+      "credits": 1,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "Pre/co 1420221"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420211",
+      "title": "Organic Chemistry I",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "1420103"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420212",
+      "title": "Organic Chemistry I Lab",
+      "credits": 1,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": [
+        "Pre/Co 1420211"
+      ],
+      "track": null
+    },
+    {
+      "code": "0204102",
+      "title": "UAE Society",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0104101",
+      "title": "Islamic Culture",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "0302200",
+      "title": "Fund. of Innovation & Entrep.",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420217",
+      "title": "Organic Chemistry II",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "1420211"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420218",
+      "title": "Organic Chemistry II Lab",
+      "credits": 1,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "Pre/Co 1420217"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420241",
+      "title": "Physical Chemistry I",
+      "credits": 3,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "1420103"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420242",
+      "title": "Physical Chemistry I Lab",
+      "credits": 1,
+      "type": null,
+      "year": 2,
+      "semester": "spring",
+      "prerequisites": [
+        "Pre/Co 1420241"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420331",
+      "title": "Inorganic Chemistry I",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1420103"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420311",
+      "title": "Identification of organic compounds",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1420217"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420361",
+      "title": "Biochemistry",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1420217"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420341",
+      "title": "Physical Chemistry II",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "1420241"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420342",
+      "title": "Physical Chemistry II Lab",
+      "credits": 1,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": [
+        "Pre/Co-requisite 1420341"
+      ],
+      "track": null
+    },
+    {
+      "code": "0202207",
+      "title": "Technical Writing",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420332",
+      "title": "Inorganic Chemistry II",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1420331"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420333",
+      "title": "Inorganic Chemistry Lab",
+      "credits": 1,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "Pre/Co-requisite 1420332"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420322",
+      "title": "Instrumental Analysis",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "1420221"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420323",
+      "title": "Instrumental Analysis Lab",
+      "credits": 1,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "Pre/Co 1420322"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420391",
+      "title": "Chemical Literature and Seminar",
+      "credits": 3,
+      "type": null,
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": [
+        "3rd year standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "xxxxxxx",
+      "title": "University Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "14204xx",
+      "title": "Specialized Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 3,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420452",
+      "title": "Industrial Training",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": [
+        "Junior Standing (65 C.H.)"
+      ],
+      "track": null
+    },
+    {
+      "code": "14204xx",
+      "title": "Specialized Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "14204xx",
+      "title": "Specialized Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "xxxxxxx",
+      "title": "University Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "xxxxxxx",
+      "title": "General Free Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "fall",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420490",
+      "title": "Chemistry Senior Project",
+      "credits": 3,
+      "type": null,
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": [
+        "Senior standing"
+      ],
+      "track": null
+    },
+    {
+      "code": "14204xx",
+      "title": "Specialized Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "xxxxxxx",
+      "title": "General Free Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "xxxxxxx",
+      "title": "University Elective",
+      "credits": 3,
+      "type": "elective",
+      "year": 4,
+      "semester": "spring",
+      "prerequisites": null,
+      "track": null
+    },
+    {
+      "code": "1420410",
+      "title": "Organic Chemistry III",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420217"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420412",
+      "title": "Chemistry of Natural Products",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420332"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420420",
+      "title": "Electrochemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420322"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420423",
+      "title": "Separation Methods in Chemical Analysis",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420322"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420429",
+      "title": "Forensic Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420323"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420433",
+      "title": "Homogeneous Catalysis",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420332"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420440",
+      "title": "Computer Applications in Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420342"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420441",
+      "title": "Photochemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420341"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420442",
+      "title": "Quantum Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420341"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420451",
+      "title": "Polymer Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420217"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420453",
+      "title": "Petrochemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420218"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420454",
+      "title": "Environmental Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420322"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420455",
+      "title": "Heterocyclic Chemistry",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420217"
+      ],
+      "track": null
+    },
+    {
+      "code": "1420460",
+      "title": "Biochemistry of Plants",
+      "credits": 3,
+      "type": null,
+      "year": null,
+      "semester": null,
+      "prerequisites": [
+        "1420361"
+      ],
+      "track": null
+    }
+  ],
+  "notes": [
+    "Bachelor of Science in Chemistry, College of Sciences, Department of Chemistry. Adoption date Fall 2019-2020; Sharjah Main Campus; duration 4-6 years (min.-max.); language English; intake Fall, Spring & Summer; full-time. 'Total years = 4 / Total semesters = 8 / Total weeks = 128; Total number of courses = 48 / Total hours = 123'.",
+    "Six-digit codes printed in the plan table without the leading zero were normalised to seven digits: 201102 -> 0201102 (Arabic Language or Arabic Language for non-Arabic Speakers), 202112 -> 0202112, 204102 -> 0204102, 202207 -> 0202207, 104101 -> 0104101 (Islamic Culture; other plans print Islamic Culture as 0104100, so this code needs a human check).",
+    "Prerequisites come from the Course Description pages (credit pattern lecture-lab-credit, e.g. 3-0-3); courses without a description (university/support courses and electives) have null prerequisites. 'Pre/Co' = prerequisite or co-requisite. The description of General Chemistry II Lab prints its code as 10420104 (typo for 1420104).",
+    "The plan table does not label courses compulsory/elective; only 'University Elective', 'Specialized Elective' (14204xx) and 'General Free Elective' (xxxxxxx) slots are typed elective, other types are null.",
+    "Rows with year null are courses that have a description page but do not appear in the plan table (14204xx specialized-elective candidates, 3 credits each); they are not explicitly labelled elective in the PDF, so their type is null."
+  ]
+}

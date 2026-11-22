@@ -17,7 +17,7 @@
 }
 
 .btn:hover:not(:disabled) {
-  border-color: rgba(46,139,107,.5);
+  border-color: rgba(96,182,143,.5);
   background: var(--green-soft);
   color: var(--green-deep);
   transform: scale(1.08);

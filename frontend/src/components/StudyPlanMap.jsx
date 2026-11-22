@@ -1,9 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react";
+import { bottleneckText } from "./planText";
 import styles from "./StudyPlanMap.module.css";
 
 // Study plan drawn like the official flowchart: one column per term, grouped by year,
 // one box per course, arrows from each prerequisite to the course that needs it.
-// Click a box to mark it completed.
+// Manual mode: click a box to mark it completed. Record mode: click it for details.
 
 const YEAR_COLORS = ["#E8833A", "#7FB24A", "#3FA7C9", "#D9534F", "#8E6CC0", "#5C7A8A"];
 
@@ -20,7 +21,26 @@ function termLabel(group) {
   return m ? m[1] : group;
 }
 
-export default function StudyPlanMap({ courses, statuses, done, onToggle }) {
+// Hover text for a box: what the record says, or what is still needed.
+function boxTitle(info, readOnly, course) {
+  const warn = bottleneckText(info, course);
+  const base = boxStatusTitle(info, readOnly);
+  return warn ? `${base}\n${warn}` : base;
+}
+
+function boxStatusTitle(info, readOnly) {
+  const last = info.attempts?.at(-1);
+  if (info.status === "done") return info.grade ? `Passed · grade ${info.grade}${info.term ? ` · ${info.term}` : ""}` : "Completed";
+  if (info.status === "progress") return `Registered for ${info.term}${info.retake ? " (retake)" : ""}`;
+  if (info.status === "retake") return last ? `Not passed (${last.grade}, ${last.term}): register it again` : "Register it again";
+  if (info.needs?.length) return `Needs: ${info.needs.join("; ")}`;
+  return readOnly ? "You can register this course" : "Click to mark as completed";
+}
+
+// onToggle = null: read-only (the plan is filled in from the student record);
+// onSelect then opens a course's details and `selected` outlines that course.
+export default function StudyPlanMap({ courses, statuses, done, onToggle, onSelect, selected }) {
+  const readOnly = !onToggle;
   const wrapRef = useRef(null);
   const boxRefs = useRef(new Map());
   const [edges, setEdges] = useState([]);
@@ -125,25 +145,29 @@ export default function StudyPlanMap({ courses, statuses, done, onToggle }) {
           return (
             <div key={`c-${col.group}`} className={styles.column}>
               {col.items.map((c) => {
-                const st = statuses.get(c.key)?.status;
+                const info = statuses.get(c.key) || {};
+                const st = info.status;
                 const dim = hover && !related(c.key);
                 return (
                   <button
                     type="button"
                     key={c.key}
                     ref={(el) => (el ? boxRefs.current.set(c.key, el) : boxRefs.current.delete(c.key))}
-                    className={`${styles.box} ${styles[st]} ${dim ? styles.dim : ""}`}
+                    className={`${styles.box} ${styles[st]} ${dim ? styles.dim : ""} ${readOnly && !onSelect ? styles.readOnly : ""} ${selected === c.key ? styles.selected : ""}`}
                     style={{ "--year": color }}
-                    onClick={() => onToggle(c.key)}
+                    onClick={readOnly ? (onSelect ? () => onSelect(c.key) : undefined) : () => onToggle(c.key)}
                     onMouseEnter={() => setHover(c.key)}
                     onMouseLeave={() => setHover(null)}
-                    title={statuses.get(c.key)?.needs.length ? `Needs: ${statuses.get(c.key).needs.join("; ")}` : "Click to mark as completed"}
-                    aria-pressed={done.has(c.key)}
+                    title={boxTitle(info, readOnly, c)}
+                    aria-pressed={readOnly ? undefined : done.has(c.key)}
                   >
-                    <span className={styles.boxTitle}>{c.title}</span>
+                    {info.bottleneck && <span className={styles.flag} aria-label="Do not leave for later">!</span>}
+                    <span className={styles.boxTitle}>{info.filled_by || c.title}</span>
                     <span className={styles.boxMeta}>
                       {c.code || "—"} ({c.credits}cr)
-                      {st === "done" && <span className={styles.mark}> ✓</span>}
+                      {st === "done" && <span className={styles.mark}> {info.grade || "✓"}</span>}
+                      {st === "progress" && <span className={styles.mark}> · now</span>}
+                      {st === "retake" && <span className={styles.mark}> · retake</span>}
                       {st === "locked" && <span className={styles.mark}> 🔒</span>}
                     </span>
                   </button>
@@ -184,10 +208,18 @@ export default function StudyPlanMap({ courses, statuses, done, onToggle }) {
           })}
         </svg>
       </div>
-      <p className={styles.legend}>
-        Click a course to mark it completed · arrows go from a prerequisite to the course that needs it
-        (dotted = can be taken together) · hover a course to highlight its links · ✓ done · 🔒 prerequisite missing
-      </p>
+      {readOnly ? (
+        <p className={styles.legend}>
+          Filled = passed (with your grade) · thick outline = this term · amber = retake · plain = you can register it ·
+          dashed 🔒 = a prerequisite is missing · ! = later courses wait for it · arrows go from a prerequisite to the
+          course that needs it (dotted = can be taken together) · hover a course to highlight its links, click it for details
+        </p>
+      ) : (
+        <p className={styles.legend}>
+          Click a course to mark it completed · arrows go from a prerequisite to the course that needs it
+          (dotted = can be taken together) · hover a course to highlight its links · ✓ done · 🔒 prerequisite missing
+        </p>
+      )}
     </div>
   );
 }

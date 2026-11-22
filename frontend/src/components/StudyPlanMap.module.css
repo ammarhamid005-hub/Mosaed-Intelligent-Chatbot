@@ -1,9 +1,10 @@
 .scroller {
-  flex: 1;
-  overflow: auto;
-  padding: 0.6rem 1.25rem 0.8rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 8px 12px; /* room for the "!" badges that sit over the box corners */
+  margin: 0 -8px;
   scrollbar-width: thin;
-  scrollbar-color: rgba(46,139,107,.25) transparent;
+  scrollbar-color: rgba(96,182,143,.25) transparent;
 }
 
 .grid {
@@ -94,6 +95,38 @@
   border-style: dashed;
   background: var(--bg);
   opacity: 0.75;
+}
+.progress {
+  border-width: 3px;
+  background: color-mix(in srgb, var(--year) 30%, var(--bg));
+}
+.retake {
+  border-color: #D68910;
+  background: rgba(214,137,16,.12);
+}
+.retake .boxMeta { color: #A5650A; font-weight: 600; }
+.readOnly { cursor: default; }
+.selected {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* bottleneck: later courses wait for this one */
+.flag {
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #D68910;
+  color: #fff;
+  font-size: 0.66rem;
+  font-weight: 800;
+  box-shadow: 0 0 0 2px var(--bg);
 }
 .dim { opacity: 0.3; }
 .mark { font-size: 0.66rem; }

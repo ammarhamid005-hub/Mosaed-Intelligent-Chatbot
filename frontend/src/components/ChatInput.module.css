@@ -1,46 +1,51 @@
 .wrapper {
-  padding: 0 1.5rem 1.5rem;
+  padding: 0 1.5rem 0.9rem;
   background: transparent;
 }
 
 .center {
-  max-width: 760px;
+  max-width: 720px;
   margin: 0 auto;
 }
 
+/* Glass card with two rows: the question, then the send button */
 .form {
   display: flex;
-  align-items: flex-end;
-  gap: 0.6rem;
-  background: var(--bg-tint);
-  border: 1px solid var(--line);
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 12px 12px 18px;
+  background: var(--glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
   border-radius: 18px;
-  padding: 0.55rem 0.55rem 0.55rem 1rem;
-  box-shadow: 0 8px 32px -4px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
-  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+  /* faint top highlight gives the glass an edge, like light catching it */
+  box-shadow: var(--glass-shadow), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 150ms ease, background-color 150ms ease;
 }
 
-.form:focus-within {
-  border-color: var(--green);
-  box-shadow: 0 8px 32px -4px rgba(0,0,0,0.15), 0 0 0 3px rgba(46,139,107,.09);
-  background: var(--bg);
+.form[data-focused] {
+  background: var(--glass-strong);
+  border-color: color-mix(in srgb, var(--brand) 60%, transparent);
 }
 
 .textarea {
-  flex: 1;
+  display: block;
+  width: 100%;
+  min-height: 46px;
+  max-height: 200px;
+  padding: 0 6px 0 0;
   background: transparent;
   border: none;
   color: var(--ink);
   font-family: inherit;
   font-size: 0.95rem;
-  padding: 0.35rem 0;
+  line-height: 1.55;
   resize: none;
   outline: none;
-  max-height: 160px;
-  line-height: 1.55;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(46,139,107,.2) transparent;
+  scrollbar-color: var(--line) transparent;
 }
 
 .textarea::placeholder {
@@ -48,46 +53,65 @@
 }
 
 .textarea:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  cursor: progress;
 }
 
+/* ── Bottom row ── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Send: a small rounded square. Quiet until there is text, then brand green. */
 .sendBtn {
   flex-shrink: 0;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(15,20,25,.08);
-  color: var(--muted);
+  width: 34px;
+  height: 34px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  border-radius: 10px;
+  background: var(--hover);
+  color: var(--muted);
+  cursor: default;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.ready {
+  background: var(--brand);
+  color: var(--on-green);
   cursor: pointer;
-  transition: background 0.18s, color 0.18s, transform 0.15s;
 }
 
-.sendBtnActive {
-  background: var(--ink);
-  color: #fff;
+.ready:active {
+  transform: scale(0.92);
+  transition-duration: 100ms;
 }
 
-.sendBtnActive:hover {
-  background: var(--green-deep);
-  transform: scale(1.05);
+.sendBtn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
 }
 
-.sendBtn:disabled {
-  cursor: not-allowed;
+@media (hover: hover) and (pointer: fine) {
+  .ready:hover {
+    background: var(--brand-hover);
+  }
 }
 
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,.3);
-  border-top-color: #fff;
+  border: 2px solid color-mix(in srgb, var(--brand) 25%, transparent);
+  border-top-color: var(--brand);
   border-radius: 50%;
-  animation: spin 0.7s linear infinite;
+  animation: spin 0.6s linear infinite;
   display: block;
 }
 
@@ -95,3 +119,13 @@
   to { transform: rotate(360deg); }
 }
 
+.disclaimer {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ready:active { transform: none; }
+}

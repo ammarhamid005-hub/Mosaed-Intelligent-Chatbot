@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { api } from "../services/api";
 import styles from "./AuthPage.module.css";
 
-export default function LoginPage({ onSwitch, onForgot }) {
+export default function LoginPage({ onSwitch, onForgot, devOnly = false, onBack }) {
   const { login } = useAuth();
   const [form, setForm] = useState({ email: "", password: "" });
   const [keepSignedIn, setKeepSignedIn] = useState(false);
@@ -66,7 +66,7 @@ export default function LoginPage({ onSwitch, onForgot }) {
           <div className={styles.field}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
               <label className={styles.label}>Password</label>
-              <button type="button" className={styles.forgotLink} onClick={onForgot}>Forgot password?</button>
+              {!devOnly && <button type="button" className={styles.forgotLink} onClick={onForgot}>Forgot password?</button>}
             </div>
             <input
               className={`${styles.input} ${errors.password ? styles.inputError : ""}`}
@@ -94,10 +94,16 @@ export default function LoginPage({ onSwitch, onForgot }) {
           </button>
         </form>
 
-        <p className={styles.switchText}>
-          Don't have an account?{" "}
-          <button className={styles.switchLink} onClick={onSwitch}>Sign up</button>
-        </p>
+        {devOnly ? (
+          <p className={styles.switchText}>
+            <button className={styles.switchLink} onClick={onBack}>Back to Microsoft sign-in</button>
+          </p>
+        ) : (
+          <p className={styles.switchText}>
+            Don't have an account?{" "}
+            <button className={styles.switchLink} onClick={onSwitch}>Sign up</button>
+          </p>
+        )}
       </div>
     </div>
   );

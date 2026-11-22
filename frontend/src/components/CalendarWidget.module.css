@@ -2,224 +2,266 @@
   position: relative;
 }
 
-/* ── Trigger button ── */
-.calBtn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--green-soft);
-  border: 1px solid rgba(46,139,107,.3);
-  color: var(--green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
-  flex-shrink: 0;
-}
-
-.calBtn:hover {
-  background: rgba(46,139,107,.18);
-  border-color: var(--green);
-  box-shadow: 0 0 0 4px rgba(46,139,107,.1);
-}
-
-.calBtnActive {
-  background: rgba(46,139,107,.18);
-  border-color: var(--green);
-  box-shadow: 0 0 0 4px rgba(46,139,107,.1);
-}
-
-/* ── Dropdown panel ── */
+/* ── Panel: the same glass card as the sidebar and the schedule panel ── */
 .panel {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: 340px;
-  max-height: 490px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: 0 8px 32px -8px rgba(15,20,25,.14), 0 2px 8px rgba(15,20,25,.06);
+  position: fixed;   /* drawn in <body>, placed beside the sidebar by the component */
   z-index: 1000;
+  width: min(360px, calc(100vw - 24px));
+  max-height: min(560px, calc(100vh - 24px));
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  padding: 16px 16px 12px;
+  background: var(--glass-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
   overflow: hidden;
-  animation: slideIn 0.18s ease;
+  transform-origin: top left;   /* grows out of the sidebar row that opened it */
+  animation: panelIn 200ms var(--ease-out);
 }
 
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+@keyframes panelIn {
+  from { opacity: 0; transform: translateX(-6px) scale(0.98); }
 }
 
 /* ── Header ── */
-.panelHeader {
-  padding: 0.95rem 1.15rem 0.65rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.panelTitle {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: 0.02em;
-  margin-bottom: 0.22rem;
-}
-
-.panelToday {
-  font-size: 0.7rem;
-  color: var(--muted);
-  letter-spacing: 0.03em;
-}
-
-/* ── Semester tabs ── */
-.tabs {
+.head {
   display: flex;
-  border-bottom: 1px solid var(--line);
-  padding: 0 0.7rem;
+  align-items: flex-start;
+  gap: 12px;
+  padding-left: 2px;
 }
 
-.tab {
+.titles {
   flex: 1;
-  padding: 0.5rem 0.4rem;
-  background: none;
-  border: none;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  color: var(--muted);
-  font-size: 0.76rem;
-  cursor: pointer;
-  transition: color 0.18s;
-}
-
-.tab:hover {
-  color: var(--ink-2);
-}
-
-.tabActive {
-  color: var(--green);
-  border-bottom-color: var(--green);
-  font-weight: 600;
-}
-
-/* ── Event list ── */
-.eventList {
-  overflow-y: auto;
-  flex: 1;
-  padding: 0.5rem 0.45rem;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(46,139,107,.2) transparent;
-}
-
-/* ── Event row ── */
-.eventRow {
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-  padding: 0.48rem 0.65rem;
-  border-radius: 8px;
-  margin-bottom: 2px;
-  border: 1px solid transparent;
-  transition: background 0.15s;
-}
-
-.eventRow:hover {
-  background: rgba(15,20,25,.03);
-}
-
-.eventDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.eventInfo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.12rem;
   min-width: 0;
 }
 
-.eventLabel {
-  font-size: 0.8rem;
-  line-height: 1.35;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.title {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
 }
 
-.eventDate {
-  font-size: 0.68rem;
+.year {
+  margin-left: 4px;
+  font-weight: 500;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
 }
 
-/* ── Status: past ── */
-.past .eventDot  { background: var(--line); }
-.past .eventLabel { color: var(--muted); text-decoration: line-through; }
-.past .eventDate  { color: var(--line); }
-
-/* ── Status: current ── */
-.current .eventDot {
-  background: var(--green);
-  box-shadow: 0 0 6px rgba(46,139,107,.5);
+.today {
+  margin: 3px 0 0;
+  font-size: 0.74rem;
+  color: var(--muted);
 }
-.current .eventLabel { color: var(--green-deep); font-weight: 500; }
-.current .eventDate  { color: var(--green); }
 
-/* ── Status: upcoming ── */
-.upcoming .eventDot {
-  background: transparent;
-  border: 1.5px solid var(--muted);
-}
-.upcoming .eventLabel { color: var(--ink); }
-.upcoming .eventDate  { color: var(--muted); }
-
-/* ── Next upcoming highlight ── */
-.next {
-  background: var(--green-soft) !important;
-  border-color: rgba(46,139,107,.2) !important;
-}
-.next .eventDot {
-  background: var(--green) !important;
-  border: none !important;
-  box-shadow: 0 0 6px rgba(46,139,107,.5) !important;
-}
-.next .eventLabel { color: var(--green-deep) !important; font-weight: 600; }
-.next .eventDate  { color: var(--green) !important; }
-
-/* ── Badges ── */
-.nowBadge,
-.nextBadge {
-  font-size: 0.6rem;
-  font-weight: 700;
-  padding: 0.13rem 0.38rem;
-  border-radius: 4px;
+/* Close: the same quiet ghost button as the schedule panel, teaching Esc */
+.closeBtn {
+  height: 30px;
   flex-shrink: 0;
-  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 7px 0 6px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: transform 160ms var(--ease-out), background-color 150ms ease, color 150ms ease;
+}
+
+.closeKey {
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 500;
+  line-height: 1;
+  padding: 3px 5px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: var(--muted);
+  transition: border-color 150ms ease, color 150ms ease;
+}
+
+.closeBtn:active { transform: scale(0.95); }
+
+@media (hover: hover) and (pointer: fine) {
+  .closeBtn:hover { background: var(--hover); color: var(--ink); }
+  .closeBtn:hover .closeKey { color: var(--ink-2); border-color: color-mix(in srgb, var(--ink) 20%, transparent); }
+}
+
+/* ── Semester switch: the segmented control used on My degree ── */
+.segment {
+  display: flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--hover);
+}
+
+.segBtn {
+  flex: 1;
+  height: 28px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--ink-2);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.segActive {
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .segBtn:not(.segActive):hover { color: var(--ink); }
+}
+
+/* ── Agenda ── */
+.list {
+  flex: 1;
+  min-height: 0;
+  margin: 0 -8px;
+  padding: 0 8px 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.month + .month { margin-top: 10px; }
+
+.monthName {
+  margin: 0;
+  padding: 6px 4px 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 10px;
+  padding: 7px 8px 7px 4px;
+  border-radius: 10px;
+}
+
+.row + .row { margin-top: 1px; }
+
+.date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.1;
+}
+
+.dayNum {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.dayName {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--muted);
   text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-.nowBadge {
-  background: var(--green-soft);
-  color: var(--green-deep);
-  border: 1px solid rgba(46,139,107,.3);
+.body {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
-.nextBadge {
-  background: rgba(46,139,107,.08);
-  color: var(--green);
-  border: 1px solid rgba(46,139,107,.2);
+.label {
+  font-size: 0.82rem;
+  line-height: 1.35;
+  color: var(--ink);
+  text-wrap: pretty;
 }
 
-/* ── Footer note ── */
+.range {
+  font-size: 0.7rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.tagNow,
+.tagNext {
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Over: still readable, just stepped back */
+.past .dayNum,
+.past .label { color: var(--muted); }
+.past .dayName,
+.past .range { opacity: 0.7; }
+
+/* Happening now: a soft green wash, the same tint as "selected" elsewhere */
+.current { background: var(--green-soft); }
+.current .label { font-weight: 600; color: var(--green-deep); }
+.current .dayNum { color: var(--green-deep); }
+.tagNow { color: var(--green-deep); }
+
+/* The next date: its count-down in green, nothing louder */
+.isNext .label { font-weight: 600; }
+.tagNext { color: var(--green); }
+
+/* ── Footer ── */
 .note {
   margin: 0;
-  padding: 0.55rem 1.15rem;
-  font-size: 0.63rem;
-  color: var(--muted);
-  font-style: italic;
+  padding: 8px 4px 0;
   border-top: 1px solid var(--line);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.segBtn:focus-visible,
+.closeBtn:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.list:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+  border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel { animation: fadeIn 150ms ease; }
+  .closeBtn:active { transform: none; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
 }

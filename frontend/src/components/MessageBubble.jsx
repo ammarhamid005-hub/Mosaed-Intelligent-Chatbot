@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { loadMapIndex, findMapLinks, openMap } from "../utils/mapLinks";
+import { loadScheduleIndex, findPerson, openSchedule, officeStatus, officeStatusText } from "../utils/schedules";
+import { IconCalendar, IconPin, IconArrowRight, IconCopy, IconCheck } from "./icons";
 import styles from "./MessageBubble.module.css";
 
 // Typewriter speed: 5 chars every 16 ms ≈ ~300 chars/sec, smooth at 60 fps.
@@ -39,34 +41,104 @@ function Sources({ sources }) {
   );
 }
 
-// "Show on map" buttons for the buildings / A9 rooms an answer mentions.
-function MapLinks({ text }) {
+// One action card under an answer: icon tile, what it is, what it does, and an arrow.
+function ActionCard({ icon, title, detail, onClick, hint }) {
+  return (
+    <button type="button" className={styles.action} onClick={onClick} title={hint}>
+      <span className={styles.actionIcon}>{icon}</span>
+      <span className={styles.actionText}>
+        <span className={styles.actionTitle}>{title}</span>
+        <span className={styles.actionDetail}>{detail}</span>
+      </span>
+      <span className={styles.actionArrow} aria-hidden="true"><IconArrowRight size={15} /></span>
+    </button>
+  );
+}
+
+// Follow-ups for what an answer mentions: the instructor's timetable and the places on the map.
+function AnswerActions({ text }) {
+  const [person, setPerson] = useState(null);
   const [links, setLinks] = useState([]);
   useEffect(() => {
     let alive = true;
-    if (!/\bA(\d|-P)/.test(text || "")) return;
-    loadMapIndex().then((index) => { if (alive) setLinks(findMapLinks(text, index)); });
+    loadScheduleIndex().then((people) => { if (alive) setPerson(findPerson(text, people)); });
+    if (/\bA(\d|-P)/.test(text || "")) {
+      loadMapIndex().then((index) => { if (alive) setLinks(findMapLinks(text, index)); });
+    }
     return () => { alive = false; };
   }, [text]);
-  if (links.length === 0) return null;
+  if (!person && links.length === 0) return null;
   return (
-    <div className={styles.mapLinks}>
+    <div className={styles.actions}>
+      {person && (
+        <ActionCard
+          icon={<IconCalendar size={16} />}
+          title={person.name}
+          detail={officeStatusText(officeStatus(person.schedule))}
+          onClick={() => openSchedule(person)}
+          hint="Open the weekly timetable"
+        />
+      )}
       {links.map((l) => (
-        <button key={l.label} type="button" className={styles.mapLink} title={l.title} onClick={() => openMap(l.hash)}>
-          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2"
-            strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" />
-          </svg>
-          Show {l.label} on map
-        </button>
+        <ActionCard
+          key={l.label}
+          icon={<IconPin size={16} />}
+          title={/^A9-/.test(l.label) ? `Room ${l.label}` : l.label}
+          detail="Show on the campus map"
+          onClick={() => openMap(l.hash)}
+          hint={l.title}
+        />
       ))}
     </div>
+  );
+}
+
+// Copy a question to ask it again or elsewhere. Shows "Copied" briefly, then resets.
+function CopyButton({ text }) {
+  const [copied, setCopied] = useState(false);
+  const timer = useRef(null);
+  useEffect(() => () => clearTimeout(timer.current), []);
+  const copy = async () => {
+    let ok = false;
+    try {
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    } catch {
+      // Clipboard API blocked (permissions, embedded browsers): fall back to a hidden textarea
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.cssText = "position:fixed;opacity:0;pointer-events:none";
+      document.body.appendChild(ta);
+      ta.select();
+      try { ok = document.execCommand("copy"); } catch { ok = false; }
+      ta.remove();
+    }
+    if (!ok) return;
+    setCopied(true);
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), 1400);
+  };
+  return (
+    <button
+      type="button"
+      className={`${styles.copyBtn} ${copied ? styles.copied : ""}`}
+      onClick={copy}
+      aria-label={copied ? "Copied" : "Copy question"}
+    >
+      <span className={styles.copyIcon} key={copied ? "y" : "n"}>
+        {copied ? <IconCheck size={13} /> : <IconCopy size={13} />}
+      </span>
+      {copied ? "Copied" : "Copy"}
+    </button>
   );
 }
 
 export default function MessageBubble({ message }) {
   const isUser = message.role === "user";
   const shouldAnimate = !isUser && !!message.animate;
+  // Only messages created in this visit animate in; history loaded from a past chat appears at once.
+  const isNew = !!message.tempId || !!message.animate;
 
   const [displayed, setDisplayed] = useState(shouldAnimate ? "" : message.content);
   const [isTyping, setIsTyping] = useState(shouldAnimate);
@@ -92,12 +164,12 @@ export default function MessageBubble({ message }) {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <div className={`${styles.row} ${isUser ? styles.userRow : styles.assistantRow}`}>
+    <div className={`${styles.row} ${isUser ? styles.userRow : styles.assistantRow} ${isNew ? styles.enter : ""}`}>
       {/* Content */}
       <div className={styles.content}>
         <div className={`${styles.bubble} ${isUser ? styles.userBubble : styles.botBubble}`}>
           {isUser ? (
-            <span className={styles.text}>{displayed}</span>
+            <span className={styles.text} dir="auto">{displayed}</span>
           ) : (
             <div className={`${styles.text} ${styles.markdown}`} dir="auto">
               <ReactMarkdown>{displayed}</ReactMarkdown>
@@ -105,7 +177,8 @@ export default function MessageBubble({ message }) {
             </div>
           )}
         </div>
-        {!isUser && !isTyping && <MapLinks text={message.content} />}
+        {isUser && <CopyButton text={message.content} />}
+        {!isUser && !isTyping && <AnswerActions text={message.content} />}
         {!isUser && !isTyping && <Sources sources={message.sources} />}
       </div>
     </div>

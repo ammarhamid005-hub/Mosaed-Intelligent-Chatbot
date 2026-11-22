@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Which model answers the questions: "gemini" (default), "deepseek" or "groq".
+# Which model answers the questions: "deepseek" (default), "gemini" or "groq".
 # Embeddings are NOT affected by this setting; they always use Gemini.
 LLM_PROVIDER = os.getenv("LLM_PROVIDER", "deepseek").strip().lower()
 

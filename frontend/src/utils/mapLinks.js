@@ -58,7 +58,8 @@ export function findMapLinks(text, index, max = 3) {
   return links;
 }
 
-// Ask the map panel (MapViewer) to open at a building or room.
+// Ask for the campus map page (pages/MapPage, handled in ChatPage) at a building or room;
+// an empty hash opens it where it was left.
 export function openMap(hash = "") {
   window.dispatchEvent(new CustomEvent("mosaed:open-map", { detail: { hash } }));
 }

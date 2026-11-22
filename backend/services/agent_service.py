@@ -88,7 +88,10 @@ def _make_tools(snap: dict, found: list):
 
     def get_study_plan_status() -> str:
         """Compare the record with the official study plan: courses done, registered now,
-        can take now, locked (with missing prerequisites), open elective slots and elective choices."""
+        must retake, can take now, locked (with missing prerequisites), open elective slots and
+        elective choices, bottleneck courses that hold others back, the estimated graduation
+        term, and a suggested registration for next term (the same one the Study Plan panel shows).
+        Use the suggestion when the student asks what to register next."""
         return _dump(sr.plan_status(snap))
 
     def get_thesis_status() -> str:

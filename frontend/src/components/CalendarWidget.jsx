@@ -1,10 +1,17 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import NavItem, { sidePanelPosition } from "./NavItem";
+import { IconCalendar, IconClose } from "./icons";
 import styles from "./CalendarWidget.module.css";
 
-const SEMESTERS = ["Fall 2026/2027", "Spring 2026/2027", "Summer 2026/2027"];
+// Academic calendar: a side panel beside the sidebar. It lists the chosen semester as an
+// agenda grouped by month, opened at today, with the next date counted down.
+
+const YEAR = "2026/27";
+const SEMESTERS = ["Fall", "Spring", "Summer"];
 
 const EVENTS = {
-  "Fall 2026/2027": [
+  Fall: [
     { start: "2026-08-17", end: "2026-08-17", label: "Return of Academic Staff" },
     { start: "2026-08-17", end: "2026-08-20", label: "New Students Orientation Week" },
     { start: "2026-08-24", end: "2026-08-24", label: "Classes begin" },
@@ -19,13 +26,13 @@ const EVENTS = {
     { start: "2026-12-16", end: "2026-12-17", label: "Last day — Incomplete Exams" },
     { start: "2026-12-16", end: "2027-01-10", label: "Students' winter break" },
   ],
-  "Spring 2026/2027": [
+  Spring: [
     { start: "2027-01-04", end: "2027-01-04", label: "Return of Academic Staff" },
     { start: "2027-01-04", end: "2027-01-07", label: "New Students Orientation Week" },
     { start: "2027-01-11", end: "2027-01-11", label: "Classes begin" },
     { start: "2027-01-14", end: "2027-01-14", label: "Last day for Add/Drop" },
     { start: "2027-03-08", end: "2027-03-11", label: "Eid Al-Fitr" },
-    { start: "2027-03-15", end: "2027-03-25", label: "Midterm Exam" },
+    { start: "2027-03-15", end: "2027-03-25", label: "Midterm exams" },
     { start: "2027-04-01", end: "2027-04-01", label: "Last day for dropping without 'F'" },
     { start: "2027-04-05", end: "2027-04-08", label: "Spring Break" },
     { start: "2027-04-15", end: "2027-04-15", label: "Last day for withdrawal from semester" },
@@ -33,7 +40,7 @@ const EVENTS = {
     { start: "2027-05-01", end: "2027-05-11", label: "Final exams" },
     { start: "2027-05-12", end: "2027-05-13", label: "Last day — Incomplete Exams" },
   ],
-  "Summer 2026/2027": [
+  Summer: [
     { start: "2027-05-15", end: "2027-05-19", label: "Eid Al-Adha Holidays" },
     { start: "2027-05-31", end: "2027-05-31", label: "Classes begin" },
     { start: "2027-06-01", end: "2027-06-01", label: "Last day for Add/Drop" },
@@ -42,154 +49,216 @@ const EVENTS = {
     { start: "2027-07-01", end: "2027-07-01", label: "Last day for dropping without 'F'" },
     { start: "2027-07-08", end: "2027-07-08", label: "Summer classes end" },
     { start: "2027-07-10", end: "2027-07-15", label: "Final exams" },
+    { start: "2027-08-16", end: "2027-08-16", label: "Return of Academic Staff" },
     { start: "2027-08-16", end: "2027-08-17", label: "Last day — Incomplete Exams" },
-    { start: "2027-08-16", end: "2027-08-16", label: "Return of academic staff" },
     { start: "2027-08-23", end: "2027-08-23", label: "Classes begin (2027/2028)" },
   ],
 };
 
-// Hardcoded to a demo date so the calendar shows meaningful "current/upcoming"
-// badges regardless of when the app is run. Replace with new Date() for production.
+// ── Dates (all local, as YYYY-MM-DD strings so they compare as text) ──
+const parse = (s) => {
+  const [y, m, d] = s.split("-");
+  return new Date(+y, +m - 1, +d);
+};
+
 function todayStr() {
-  //return new Date().toISOString().slice(0, 10);
-  return "2026-08-28";
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 }
 
-function getStatus(start, end) {
-  const t = todayStr();
-  if (end < t) return "past";
-  if (start <= t) return "current";
+const fmt = (s, opts) => parse(s).toLocaleDateString("en-GB", opts);
+const weekday = (s) => fmt(s, { weekday: "short" });
+const dayMonth = (s) => fmt(s, { day: "numeric", month: "short" });
+const monthName = (s) => fmt(s, { month: "long", year: "numeric" });
+
+const daysBetween = (a, b) => Math.round((parse(b) - parse(a)) / 86400000);
+
+function statusOf(ev, today) {
+  if (ev.end < today) return "past";
+  if (ev.start <= today) return "current";
   return "upcoming";
 }
 
-function formatRange(start, end) {
-  const parse = (s) => {
-    const [y, m, d] = s.split("-");
-    return new Date(+y, +m - 1, +d);
-  };
-  const short = (d) => d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
-  const long = (d) => d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-  const s = parse(start);
-  const e = parse(end);
-  if (start === end) return long(s);
-  return `${short(s)} – ${long(e)}`;
+function untilText(days) {
+  if (days <= 0) return "Today";
+  if (days === 1) return "Tomorrow";
+  if (days < 14) return `In ${days} days`;
+  if (days < 60) return `In ${Math.round(days / 7)} weeks`;
+  return `In ${Math.round(days / 30)} months`;
 }
 
-function getActiveSemester() {
-  const t = todayStr();
+// The semester the student is in now: the first one with something still ahead or ongoing
+function activeSemester(today) {
+  return SEMESTERS.find((s) => EVENTS[s].some((ev) => ev.end >= today)) ?? SEMESTERS[SEMESTERS.length - 1];
+}
+
+// The next date across the whole year, with the semester it belongs to
+function nextEvent(today) {
   for (const sem of SEMESTERS) {
-    if (EVENTS[sem].some((ev) => ev.end >= t)) return sem;
+    const ev = EVENTS[sem].find((e) => e.start > today);
+    if (ev) return { sem, ev };
   }
-  return SEMESTERS[SEMESTERS.length - 1];
+  return null;
 }
 
-function getNextIdx(events) {
-  for (let i = 0; i < events.length; i++) {
-    if (getStatus(events[i].start, events[i].end) === "upcoming") return i;
+function byMonth(events) {
+  const groups = [];
+  for (const ev of [...events].sort((a, b) => a.start.localeCompare(b.start) || a.end.localeCompare(b.end))) {
+    const key = ev.start.slice(0, 7);
+    if (groups.at(-1)?.key !== key) groups.push({ key, items: [] });
+    groups.at(-1).items.push(ev);
   }
-  return -1;
+  return groups;
 }
 
-const CalIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round" width="17" height="17">
-    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-    <line x1="16" y1="2" x2="16" y2="6" />
-    <line x1="8" y1="2" x2="8" y2="6" />
-    <line x1="3" y1="10" x2="21" y2="10" />
-  </svg>
-);
+const PANEL_W = 360;
+const PANEL_H = 560;
 
 export default function CalendarWidget() {
+  const today = todayStr();
   const [open, setOpen] = useState(false);
-  const [activeSem, setActiveSem] = useState(getActiveSemester);
+  const [sem, setSem] = useState(() => activeSemester(today));
+  const [pos, setPos] = useState({ top: 64, left: 280 });
   const wrapperRef = useRef(null);
+  const panelRef = useRef(null);
+  const listRef = useRef(null);
+  const tabRefs = useRef({});
 
-  const todayDisplay = new Date().toLocaleDateString("en-GB", {
-    weekday: "short", day: "numeric", month: "long", year: "numeric",
-  });
+  const next = nextEvent(today);
+
+  function close(returnFocus) {
+    setOpen(false);
+    if (returnFocus) wrapperRef.current?.querySelector("button")?.focus();
+  }
 
   useEffect(() => {
+    if (!open) return;
     function onClickOutside(e) {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) setOpen(false);
+      const inside = (r) => r.current && r.current.contains(e.target);
+      if (!inside(wrapperRef) && !inside(panelRef)) setOpen(false);
     }
     function onEsc(e) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") close(true);
     }
-    if (open) {
-      document.addEventListener("mousedown", onClickOutside);
-      document.addEventListener("keydown", onEsc);
-    }
+    document.addEventListener("mousedown", onClickOutside);
+    document.addEventListener("keydown", onEsc);
     return () => {
       document.removeEventListener("mousedown", onClickOutside);
       document.removeEventListener("keydown", onEsc);
     };
   }, [open]);
 
-  const events = EVENTS[activeSem];
-  const nextIdx = getNextIdx(events);
+  // Open the list at today: the month of the first date that is not over yet
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!open || !list) return;
+    const target = list.querySelector("[data-live]")?.closest("section");
+    list.scrollTop = target ? target.offsetTop - list.offsetTop : 0;
+  }, [open, sem]);
+
+  function openPanel(e) {
+    const p = sidePanelPosition(e.currentTarget, PANEL_H);
+    const w = Math.min(PANEL_W, window.innerWidth - 24);
+    setPos({ top: p.top, left: Math.max(12, Math.min(p.left, window.innerWidth - w - 12)) });
+    setSem(activeSemester(today));
+    setOpen((v) => !v);
+  }
+
+  function onTabKey(e) {
+    const step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+    if (!step) return;
+    e.preventDefault();
+    const nextSem = SEMESTERS[(SEMESTERS.indexOf(sem) + step + SEMESTERS.length) % SEMESTERS.length];
+    setSem(nextSem);
+    tabRefs.current[nextSem]?.focus();
+  }
+
+  const groups = byMonth(EVENTS[sem]);
+  let liveMarked = false;
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
-      <button
-        className={`${styles.calBtn} ${open ? styles.calBtnActive : ""}`}
-        onClick={() => setOpen((v) => !v)}
-        title="Academic Calendar 2026/2027"
-        aria-label="Open academic calendar"
+      <NavItem
+        icon={<IconCalendar />}
+        label="Academic calendar"
+        active={open}
+        onClick={openPanel}
         aria-expanded={open}
-      >
-        <CalIcon />
-      </button>
+      />
 
-      {open && (
-        <div className={styles.panel} role="dialog" aria-label="Academic Calendar">
-          <div className={styles.panelHeader}>
-            <span className={styles.panelTitle}>Academic Calendar 2026/2027</span>
-            <span className={styles.panelToday}>{todayDisplay}</span>
-          </div>
+      {open && createPortal(
+        <div className={styles.panel} role="dialog" aria-label="Academic calendar" ref={panelRef}
+          style={{ top: pos.top, left: pos.left }}>
+          <header className={styles.head}>
+            <div className={styles.titles}>
+              <h2 className={styles.title}>Academic calendar <span className={styles.year}>{YEAR}</span></h2>
+              <p className={styles.today}>
+                Today is {parse(today).toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" })}
+              </p>
+            </div>
+            <button type="button" className={styles.closeBtn} onClick={() => close(true)}
+              aria-label="Close calendar" title="Close (Esc)">
+              <kbd className={styles.closeKey} aria-hidden="true">Esc</kbd>
+              <IconClose size={16} />
+            </button>
+          </header>
 
-          <div className={styles.tabs} role="tablist">
-            {SEMESTERS.map((sem) => (
+          <div className={styles.segment} role="tablist" aria-label="Semester" onKeyDown={onTabKey}>
+            {SEMESTERS.map((s) => (
               <button
-                key={sem}
+                key={s}
+                ref={(el) => { tabRefs.current[s] = el; }}
+                type="button"
                 role="tab"
-                aria-selected={activeSem === sem}
-                className={`${styles.tab} ${activeSem === sem ? styles.tabActive : ""}`}
-                onClick={() => setActiveSem(sem)}
+                aria-selected={sem === s}
+                tabIndex={sem === s ? 0 : -1}
+                className={`${styles.segBtn} ${sem === s ? styles.segActive : ""}`}
+                onClick={() => setSem(s)}
               >
-                {sem.split(" ")[0]}
+                {s}
               </button>
             ))}
           </div>
 
-          <div className={styles.eventList}>
-            {events.map((ev, i) => {
-              const status = getStatus(ev.start, ev.end);
-              const isNext = i === nextIdx;
-              const isCurrent = status === "current";
-              return (
-                <div
-                  key={i}
-                  className={[
-                    styles.eventRow,
-                    styles[status],
-                    isNext ? styles.next : "",
-                  ].join(" ")}
-                >
-                  <span className={styles.eventDot} />
-                  <div className={styles.eventInfo}>
-                    <span className={styles.eventLabel}>{ev.label}</span>
-                    <span className={styles.eventDate}>{formatRange(ev.start, ev.end)}</span>
-                  </div>
-                  {isCurrent && <span className={styles.nowBadge}>Now</span>}
-                  {isNext && <span className={styles.nextBadge}>Next</span>}
-                </div>
-              );
-            })}
+          <div className={styles.list} ref={listRef} role="tabpanel" aria-label={`${sem} ${YEAR}`} tabIndex={0}>
+            {groups.map((g) => (
+              <section key={g.key} className={styles.month}>
+                <h3 className={styles.monthName}>{monthName(g.items[0].start)}</h3>
+                <ul className={styles.rows}>
+                  {g.items.map((ev) => {
+                    const status = statusOf(ev, today);
+                    const isNext = next && ev === next.ev;
+                    const live = status !== "past" && !liveMarked;
+                    if (live) liveMarked = true;
+                    const multi = ev.start !== ev.end;
+                    return (
+                      <li key={ev.start + ev.label} data-live={live || undefined}
+                        className={`${styles.row} ${styles[status]} ${isNext ? styles.isNext : ""}`}>
+                        <span className={styles.date}>
+                          <span className={styles.dayNum}>{+ev.start.slice(8)}</span>
+                          <span className={styles.dayName}>{weekday(ev.start)}</span>
+                        </span>
+                        <span className={styles.body}>
+                          <span className={styles.label}>{ev.label}</span>
+                          {multi && (
+                            <span className={styles.range}>
+                              Until {weekday(ev.end)} {dayMonth(ev.end)} · {daysBetween(ev.start, ev.end) + 1} days
+                            </span>
+                          )}
+                        </span>
+                        {status === "current" && <span className={styles.tagNow}>Now</span>}
+                        {isNext && <span className={styles.tagNext}>{untilText(daysBetween(today, ev.start))}</span>}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ))}
           </div>
 
-          <p className={styles.note}>* Holidays and graduation dates are subject to change.</p>
-        </div>
+          <p className={styles.note}>Holidays and graduation dates are subject to change.</p>
+        </div>,
+        document.body,
       )}
     </div>
   );

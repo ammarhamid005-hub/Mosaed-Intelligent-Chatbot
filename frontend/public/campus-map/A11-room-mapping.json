@@ -1,0 +1,338 @@
+{
+  "A11-1-02": {
+    "number": null,
+    "name": "NOT MAPPED 12"
+  },
+  "A11-1-03": {
+    "number": "A11-112B"
+  },
+  "A11-1-04": {
+    "number": "A11-118"
+  },
+  "A11-1-05": {
+    "number": "A11-117"
+  },
+  "A11-1-06": {
+    "number": null,
+    "name": "NOT MAPPED 11"
+  },
+  "A11-1-07": {
+    "number": null,
+    "name": "Male Washroom"
+  },
+  "A11-1-08": {
+    "number": "A11-112C"
+  },
+  "A11-1-10": {
+    "number": null,
+    "name": "NOT MAPPED 13"
+  },
+  "A11-1-11": {
+    "number": "A11-112A"
+  },
+  "A11-1-12": {
+    "number": "A11-111A"
+  },
+  "A11-1-13": {
+    "number": "A11-119",
+    "name": "College of Sciences Dean's Office"
+  },
+  "A11-1-15": {
+    "number": "A11-111B"
+  },
+  "A11-1-17": {
+    "number": "A11-110A"
+  },
+  "A11-1-18": {
+    "number": "A11-110B"
+  },
+  "A11-1-19": {
+    "number": "A11-109A"
+  },
+  "A11-1-20": {
+    "number": "A11-120"
+  },
+  "A11-1-21": {
+    "number": "A11-109B"
+  },
+  "A11-1-22": {
+    "number": "A11-108A"
+  },
+  "A11-1-23": {
+    "number": "A11-121"
+  },
+  "A11-1-24": {
+    "number": "A11-108B"
+  },
+  "A11-1-25": {
+    "number": "A11-122"
+  },
+  "A11-1-26": {
+    "number": "A11-107A"
+  },
+  "A11-1-27": {
+    "number": "A11-107B"
+  },
+  "A11-1-28": {
+    "number": "A11-123A"
+  },
+  "A11-1-29": {
+    "number": "A11-101A"
+  },
+  "A11-1-30": {
+    "number": "A11-102A"
+  },
+  "A11-1-31": {
+    "number": "A11-103A"
+  },
+  "A11-1-32": {
+    "number": "A11-106"
+  },
+  "A11-1-33": {
+    "number": "A11-123B"
+  },
+  "A11-1-34": {
+    "number": "A11-105"
+  },
+  "A11-1-37": {
+    "number": "A11-124"
+  },
+  "A11-1-38": {
+    "number": "A11-101B"
+  },
+  "A11-1-39": {
+    "number": "A11-102B"
+  },
+  "A11-1-40": {
+    "number": "A11-103B"
+  },
+  "A11-1-41": {
+    "number": "A11-104"
+  },
+  "A11-2-01": {
+    "number": null,
+    "name": "NOT MAPPED 18"
+  },
+  "A11-2-02": {
+    "number": "A11-213"
+  },
+  "A11-2-03": {
+    "number": "A11-212"
+  },
+  "A11-2-04": {
+    "number": "A11-219"
+  },
+  "A11-2-06": {
+    "number": "A11-218"
+  },
+  "A11-2-07": {
+    "number": null,
+    "name": "NOT MAPPED 19"
+  },
+  "A11-2-08": {
+    "number": null,
+    "name": "NOT MAPPED 17"
+  },
+  "A11-2-09": {
+    "number": null,
+    "name": "NOT MAPPED 16"
+  },
+  "A11-2-12": {
+    "number": "A11-220A"
+  },
+  "A11-2-13": {
+    "number": "A11-220B",
+    "name": "Chairman of Chemistry Department"
+  },
+  "A11-2-14": {
+    "number": "A11-211A"
+  },
+  "A11-2-15": {
+    "number": "A11-211B"
+  },
+  "A11-2-16": {
+    "number": "A11-210A"
+  },
+  "A11-2-17": {
+    "number": "A11-210B"
+  },
+  "A11-2-18": {
+    "number": null,
+    "name": "NOT MAPPED 20"
+  },
+  "A11-2-19": {
+    "number": "A11-209A"
+  },
+  "A11-2-20": {
+    "number": "A11-209B"
+  },
+  "A11-2-21": {
+    "number": "A11-208A"
+  },
+  "A11-2-22": {
+    "number": "A11-208B"
+  },
+  "A11-2-23": {
+    "number": "A11-223B"
+  },
+  "A11-2-24": {
+    "number": "A11-223A"
+  },
+  "A11-2-25": {
+    "number": "A11-207"
+  },
+  "A11-2-26": {
+    "number": "A11-203A"
+  },
+  "A11-2-27": {
+    "number": "A11-203B"
+  },
+  "A11-2-28": {
+    "number": "A11-224A"
+  },
+  "A11-2-29": {
+    "number": "A11-201A"
+  },
+  "A11-2-30": {
+    "number": "A11-206"
+  },
+  "A11-2-31": {
+    "number": "A11-224B"
+  },
+  "A11-2-32": {
+    "number": "A11-225"
+  },
+  "A11-2-33": {
+    "number": "A11-201B"
+  },
+  "A11-2-34": {
+    "number": "A11-203C"
+  },
+  "A11-2-35": {
+    "number": null,
+    "name": "NOT MAPPED 15"
+  },
+  "A11-2-36": {
+    "number": "A11-204"
+  },
+  "A11-2-37": {
+    "number": "A11-205"
+  },
+  "A11-2-39": {
+    "number": null,
+    "name": "NOT MAPPED 14"
+  },
+  "A11-G-01": {
+    "number": "A11-010G"
+  },
+  "A11-G-02": {
+    "number": "A11-017"
+  },
+  "A11-G-03": {
+    "number": "A11-016"
+  },
+  "A11-G-04": {
+    "number": null,
+    "name": "NOT MAPPED 8"
+  },
+  "A11-G-05": {
+    "number": null,
+    "name": "NOT MAPPED 9"
+  },
+  "A11-G-06": {
+    "number": "A11-010I"
+  },
+  "A11-G-07": {
+    "number": null,
+    "name": "NOT MAPPED 7"
+  },
+  "A11-G-08": {
+    "number": "A11-010F"
+  },
+  "A11-G-09": {
+    "number": "A11-010J"
+  },
+  "A11-G-10": {
+    "number": null,
+    "name": "NOT MAPPED 10"
+  },
+  "A11-G-12": {
+    "number": "A11-010E"
+  },
+  "A11-G-13": {
+    "number": "A11-018"
+  },
+  "A11-G-14": {
+    "number": "A11-010D"
+  },
+  "A11-G-15": {
+    "number": "A11-019"
+  },
+  "A11-G-16": {
+    "number": "A11-010C"
+  },
+  "A11-G-17": {
+    "number": "A11-010A"
+  },
+  "A11-G-18": {
+    "number": "A11-010B"
+  },
+  "A11-G-19": {
+    "number": null,
+    "name": "NOT MAPPED 6"
+  },
+  "A11-G-20": {
+    "number": null,
+    "name": "NOT MAPPED 1"
+  },
+  "A11-G-21": {
+    "number": "A11-002"
+  },
+  "A11-G-22": {
+    "number": null,
+    "name": "NOT MAPPED 2"
+  },
+  "A11-G-23": {
+    "number": "A11-003A"
+  },
+  "A11-G-24": {
+    "number": "A11-004A"
+  },
+  "A11-G-25": {
+    "number": "A11-005A"
+  },
+  "A11-G-26": {
+    "number": "A11-006A"
+  },
+  "A11-G-27": {
+    "number": null,
+    "name": "NOT MAPPED 3"
+  },
+  "A11-G-28": {
+    "number": "A11-003B"
+  },
+  "A11-G-29": {
+    "number": "A11-004B"
+  },
+  "A11-G-30": {
+    "number": "A11-005B"
+  },
+  "A11-G-31": {
+    "number": "A11-006B"
+  },
+  "A11-G-32": {
+    "number": "A11-007"
+  },
+  "A11-G-33": {
+    "number": null,
+    "name": "NOT MAPPED 5"
+  },
+  "A11-G-34": {
+    "number": null,
+    "name": "NOT MAPPED 4"
+  },
+  "A11-G-WC": {
+    "number": null,
+    "name": "Male Washroom"
+  }
+}

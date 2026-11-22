@@ -2,28 +2,6 @@
   position: relative;
 }
 
-/* ── Trigger button (same look as the calendar button) ── */
-.trigger {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--green-soft);
-  border: 1px solid rgba(46,139,107,.3);
-  color: var(--green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
-  flex-shrink: 0;
-}
-.trigger:hover,
-.triggerActive {
-  background: rgba(46,139,107,.18);
-  border-color: var(--green);
-  box-shadow: 0 0 0 4px rgba(46,139,107,.1);
-}
-
 /* ── Panel ── */
 .panel {
   position: fixed;   /* drawn in <body>, placed under the button by the component */
@@ -37,7 +15,7 @@
   z-index: 1000;
   animation: slideIn 0.18s ease;
   scrollbar-width: thin;
-  scrollbar-color: rgba(46,139,107,.2) transparent;
+  scrollbar-color: rgba(96,182,143,.2) transparent;
 }
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(-6px); }
@@ -178,7 +156,7 @@
 .formLink {
   font-size: 0.72rem;
   color: var(--green-deep);
-  border: 1px solid rgba(46,139,107,.3);
+  border: 1px solid rgba(96,182,143,.3);
   border-radius: 8px;
   padding: 0.2rem 0.5rem;
   text-decoration: none;
@@ -231,7 +209,7 @@
 .stepDone .stepTitle { color: var(--muted); }
 .stepCurrent .num {
   border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(46,139,107,.18);
+  box-shadow: 0 0 0 3px rgba(96,182,143,.18);
 }
 .stepCurrent .stepWhen { color: var(--green-deep); font-weight: 600; }
 .doneCheck {

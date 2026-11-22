@@ -1,205 +1,321 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>UOS Campus Map</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 <style>
 /* Layout: full-screen 3D campus (the Blender model), search panel top-left, room/building card below it,
    level switcher on the right edge, category filters bottom-left, camera tools bottom-right. */
+/* Mosaed's design language (the chatbot this map lives in): Inter, black and white for about 80% of the UI,
+   the University of Sharjah green #60B68F for the rest, and floating glass panels over the map.
+   --accent is the green itself (fills, with black text on top); --accent-ink is a deeper shade for green text and
+   thin icons so they stay readable on white; --ink is black (white in dark mode) for primary buttons and the
+   selected level. */
 :root{
-  --bg:#eef1ee; --scene:#e4eae6; --fade:#e9ece9; --fade-edge:#d3d8d4; --surface:#ffffff; --surface-2:#f3f6f4;
-  --fg:#18201b; --muted:#5d6a62; --line:#d5ddd7; --accent:#0d7a52; --accent-fg:#ffffff; --accent-soft:#dcefe6;
-  --shadow:0 6px 24px rgba(20,40,30,.13); --r:14px;
-  --f-ui:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --bg:#f1f2f1; --scene:#e8ebe9; --fade:#eceeec; --fade-edge:#d4d8d5; --surface:#ffffff; --surface-2:rgba(0,0,0,.05);
+  --fg:#000000; --fg-2:#3a3a3a; --muted:#767676; --line:rgba(0,0,0,.08); --ink:#000000; --ink-fg:#ffffff;
+  --accent:#60b68f; --accent-fg:#000000; --accent-ink:#2f7f5b; --accent-soft:rgba(96,182,143,.16);
+  /* glass panels, the same as the chatbot's sidebar */
+  --glass:rgba(255,255,255,.85); --glass-border:rgba(255,255,255,.9); --glass-blur:blur(22px) saturate(170%);
+  --shadow:0 0 0 1px rgba(0,0,0,.05),0 18px 50px -16px rgba(0,0,0,.18);
+  --shadow-sm:0 0 0 1px rgba(0,0,0,.05),0 4px 14px -6px rgba(0,0,0,.16);
+  --r:20px; --ease-out:cubic-bezier(.23,1,.32,1);
+  --f-ui:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --f-mono:var(--f-ui);
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --bg:#121614; --scene:#161c19; --fade:#232a26; --fade-edge:#2e3732; --surface:#1c221f; --surface-2:#242c28;
-  --fg:#e8eee9; --muted:#9aa89f; --line:#333d37; --accent:#3fbf8a; --accent-fg:#06140d; --accent-soft:#1f3a2e;
-  --shadow:0 6px 24px rgba(0,0,0,.5); color-scheme:dark}}
+  --bg:#000000; --scene:#0f1110; --fade:#1d201e; --fade-edge:#2b2f2d; --surface:#0d0d0d; --surface-2:rgba(255,255,255,.06);
+  --fg:#ffffff; --fg-2:#d0d0d0; --muted:#8a8a8a; --line:rgba(255,255,255,.09); --ink:#ffffff; --ink-fg:#000000;
+  --accent:#60b68f; --accent-fg:#000000; --accent-ink:#60b68f; --accent-soft:rgba(96,182,143,.16);
+  --glass:rgba(22,22,22,.85); --glass-border:rgba(255,255,255,.1); --glass-blur:blur(22px) saturate(150%);
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 20px 60px -16px rgba(0,0,0,.9);
+  --shadow-sm:0 0 0 1px rgba(255,255,255,.06),0 6px 18px -6px rgba(0,0,0,.7); color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#121614; --scene:#161c19; --fade:#232a26; --fade-edge:#2e3732; --surface:#1c221f; --surface-2:#242c28;
-  --fg:#e8eee9; --muted:#9aa89f; --line:#333d37; --accent:#3fbf8a; --accent-fg:#06140d; --accent-soft:#1f3a2e;
-  --shadow:0 6px 24px rgba(0,0,0,.5); color-scheme:dark}
-html,body{height:100%}
-body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);overflow:hidden}
-#app{position:fixed;inset:0}
+  --bg:#000000; --scene:#0f1110; --fade:#1d201e; --fade-edge:#2b2f2d; --surface:#0d0d0d; --surface-2:rgba(255,255,255,.06);
+  --fg:#ffffff; --fg-2:#d0d0d0; --muted:#8a8a8a; --line:rgba(255,255,255,.09); --ink:#ffffff; --ink-fg:#000000;
+  --accent:#60b68f; --accent-fg:#000000; --accent-ink:#60b68f; --accent-soft:rgba(96,182,143,.16);
+  --glass:rgba(22,22,22,.85); --glass-border:rgba(255,255,255,.1); --glass-blur:blur(22px) saturate(150%);
+  --shadow:0 0 0 1px rgba(255,255,255,.06),0 20px 60px -16px rgba(0,0,0,.9);
+  --shadow-sm:0 0 0 1px rgba(255,255,255,.06),0 6px 18px -6px rgba(0,0,0,.7); color-scheme:dark}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-ui);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#app{position:fixed;inset:0;-webkit-tap-highlight-color:transparent}
+#gl,#labels{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}   /* long-press on the map: no text selection or iOS callout */
 #gl{position:absolute;inset:0;display:block;width:100%;height:100%;touch-action:none;outline:none}
 #labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
-button{font-family:inherit}
+/* floating glass panels; the border is the glass edge, and becomes a real outline in Windows high-contrast (forced colours) */
+.card{background:var(--glass);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border);border-radius:var(--r);box-shadow:var(--shadow)}
+button,input{font-family:inherit}
 [hidden]{display:none!important}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+::selection{background:var(--accent-soft)}
+/* times, levels and counts line up in columns */
+.tm,.wd>b,.res .lv,.grid .tc,.sum b,.fchip em{font-variant-numeric:tabular-nums}
 
 /* loading */
 #load{position:absolute;inset:0;display:grid;place-items:center;background:var(--bg);z-index:20;transition:opacity .4s}
 #load.done{opacity:0;pointer-events:none}
-#load .box{width:min(320px,calc(100% - 48px));display:grid;gap:12px;text-align:center}
-#load b{font-size:18px}
+#load .box{width:min(280px,calc(100% - 48px));display:grid;gap:12px;text-align:center}
+#load b{font-size:15px;font-weight:600}
 #load span{font-size:12.5px;color:var(--muted)}
-#bar{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+#bar{height:4px;border-radius:99px;background:var(--line);overflow:hidden}
 #bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+/* inside the chatbot the sidebar already carries the brand, so the map drops its own mark */
+.embedded .mark{display:none}
+.embedded .bar{padding-left:10px}
 
 /* left column */
-#side{position:absolute;z-index:5;top:max(12px,env(safe-area-inset-top,0px));left:max(16px,env(safe-area-inset-left,0px));bottom:max(76px,env(safe-area-inset-bottom,0px));
-  width:min(360px,calc(100% - 32px));display:flex;flex-direction:column;gap:10px;pointer-events:none;min-height:0}
+#side{position:absolute;z-index:5;top:max(12px,env(safe-area-inset-top,0px));left:max(12px,env(safe-area-inset-left,0px));bottom:max(60px,env(safe-area-inset-bottom,0px));
+  width:min(320px,calc(100% - 24px));display:flex;flex-direction:column;gap:8px;pointer-events:none;min-height:0}
 #side>*{pointer-events:auto}
-#side:has(#info:not([hidden])){width:min(620px,calc(100% - 32px))}
-#panel{display:flex;flex-direction:column;min-height:0;flex:0 1 auto}
-.brand{display:flex;align-items:center;gap:10px;padding:12px 14px 10px}
-.brand b{font-size:15px}
-.brand span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.mark{width:32px;height:32px;border-radius:9px;background:var(--accent);color:var(--accent-fg);display:grid;place-items:center;font-weight:800;font-size:11px;flex:none}
-.search{margin:0 12px 10px;display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:0 10px;color:var(--muted)}
-.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:500 14px var(--f-ui);padding:10px 0;outline:none}
-.search:focus-within{border-color:var(--accent)}
-.crumbs{display:flex;align-items:center;gap:6px;padding:0 14px 10px;font-size:12px;color:var(--muted);flex-wrap:wrap}
-.crumbs button{all:unset;cursor:pointer;color:var(--accent);font-weight:700}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#panel{display:flex;flex-direction:column;min-height:0;flex:0 1 auto;overflow:hidden}
+.bar{display:flex;align-items:center;gap:6px;padding:8px}
+.mark{width:30px;height:30px;border-radius:10px;background:var(--ink);color:var(--ink-fg);display:grid;place-items:center;font-weight:700;font-size:10px;flex:none;position:relative;overflow:hidden;padding-bottom:3px;box-sizing:border-box}
+.mark::after{content:"";position:absolute;left:4px;right:4px;bottom:4px;height:3px;border-radius:50% 50% 0 0/100% 100% 0 0;background:var(--accent)}   /* the logo's green arc */
+.search{flex:1;min-width:0;display:flex;align-items:center;gap:8px;padding:0 6px;color:var(--muted);border-radius:12px}   /* 12 + the bar's 8px padding = the card's 20px: concentric corners */
+.search input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:400 14px var(--f-ui);padding:8px 0;outline:none}
+.search input::placeholder{color:var(--muted)}
+.search input::-webkit-search-cancel-button{filter:grayscale(1)}
+.ib{width:32px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--muted);display:grid;place-items:center;cursor:pointer;flex:none;padding:0}
+@media (hover:hover){.ib:hover{background:var(--surface-2);color:var(--fg)}}
+/* Directions: the map's own route mark (green start A, black end B, the walk between them), not a generic arrow tile */
+.vsep{width:1px;height:20px;background:var(--line);flex:none}
+.ib.route{width:36px;height:34px;color:var(--fg-2)}
+.ib.route .rp{stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-dasharray:.1 3;transition:stroke-dashoffset .5s var(--ease-out)}
+.ib.route .ra{fill:var(--route)}
+.ib.route .rb{fill:var(--route-b)}
+@media (hover:hover){.ib.route:hover{color:var(--fg)}.ib.route:hover .rp{stroke-dashoffset:-6.6}}   /* the dots walk along the path on hover */
+.ib.route[aria-pressed="true"]{background:var(--surface-2);color:var(--fg)}
+.crumbs{display:flex;align-items:center;gap:6px;padding:0 14px 10px;font-size:12px;color:var(--muted);flex-wrap:wrap;line-height:1.3}
+.crumbs button{all:unset;cursor:pointer;color:var(--accent-ink);font-weight:500}
+@media (hover:hover){.crumbs button:hover{text-decoration:underline;text-underline-offset:3px}}
 .crumbs button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
-#results{overflow:auto;border-top:1px solid var(--line);min-height:0;max-height:46vh}
-.res{display:flex;gap:10px;align-items:center;padding:9px 14px;cursor:pointer;border:0;border-bottom:1px solid var(--line);background:transparent;width:100%;text-align:left;font:inherit;color:inherit}
-.res:hover,.res:focus-visible{background:var(--surface-2);outline:none}
+.crumbs span:last-child{color:var(--fg);font-weight:600}
+#results{overflow:auto;border-top:1px solid var(--line);min-height:0;max-height:46vh;padding:4px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.res{display:flex;gap:10px;align-items:center;padding:8px 10px;cursor:pointer;border:0;border-radius:12px;background:transparent;width:100%;text-align:left;font:inherit;color:inherit}
+.res:focus-visible{background:var(--surface-2);outline:none}
+@media (hover:hover){.res:hover{background:var(--surface-2)}}
 .res>span{min-width:0}
-.res .t{font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res .t{font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .res .s{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.res .lv{margin-left:auto;font:500 11px var(--f-mono);color:var(--muted);flex:none}
+.res .lv{margin-left:auto;font:500 11px var(--f-ui);color:var(--muted);flex:none}
 .dot{width:10px;height:10px;border-radius:3px;flex:none;display:inline-block}
-.hint{padding:10px 14px 12px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);line-height:1.45}
-
-/* info card */
-#info{padding:14px 16px 16px;display:grid;gap:10px;overflow:auto;min-height:0;flex:0 1 auto;position:relative}
+/* info card: title, one muted subtitle line, one main action, then plain sections */
+#info{padding:16px 16px 18px;display:grid;gap:14px;overflow:auto;min-height:0;flex:0 1 auto;position:relative;align-content:start;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
 #info>*{min-width:0}
-#info h2{margin:0;font-size:18px;line-height:1.25;text-wrap:balance;padding-right:28px}
-#info .x{position:absolute;top:8px;right:8px;width:30px;height:30px;border-radius:8px;border:0;background:transparent;color:var(--muted);font-size:19px;cursor:pointer}
-.meta{display:flex;gap:6px;flex-wrap:wrap}
-.chip{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--fg);display:inline-flex;align-items:center;gap:5px}
-.chip.mono{font-family:var(--f-mono);font-weight:500}
-.chip.plain{background:var(--surface-2);border:1px solid var(--line)}
+.ihead{display:flex;gap:8px;align-items:flex-start}
+.itx{flex:1;min-width:0;display:grid;gap:4px}
+#info h2{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em;line-height:1.25;text-wrap:balance}
+.ibtns{display:flex;gap:2px;flex:none;margin:-4px -6px 0 0}
+.sub{display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;font-size:12.5px;color:var(--muted)}
+.sub .sep{width:3px;height:3px;border-radius:50%;background:currentColor;opacity:.6}
 #info p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.5}
-.sec{display:grid;gap:6px;border-top:1px solid var(--line);padding-top:10px;min-width:0}
-.sec h3{margin:0;font-size:10.5px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:800}
-.kv{display:grid;grid-template-columns:86px 1fr;gap:4px 10px;font-size:13px;align-items:baseline}
-.kv dt{color:var(--muted);font-size:12px}
-.kv dd{margin:0;min-width:0;overflow-wrap:anywhere;font-weight:600}
-.kv dd.empty{color:var(--muted);font-weight:500;font-style:italic}
-.kv dd .copy{all:unset;cursor:pointer;margin-left:6px;font-size:11px;font-weight:700;color:var(--accent)}
-.who{display:flex;gap:10px;align-items:center}
-.who .av{width:38px;height:38px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
-.who b{display:block;font-size:14px}
+.sec{display:grid;gap:8px;min-width:0}
+.sec h3{margin:0;font-size:13px;font-weight:600;color:var(--fg)}
+.sec h3 span{font-weight:500;color:var(--muted);font-size:12px}
+.who{display:grid;gap:2px;padding-top:14px;border-top:1px solid var(--line)}
+.who b{font-size:14px;font-weight:600}
 .who span{font-size:12px;color:var(--muted)}
-.timetable-scroll{overflow-x:auto;max-width:100%;min-width:0;border:1px solid var(--line);border-radius:9px}
-.timetable{border-collapse:collapse;table-layout:fixed;min-width:720px;width:100%;font-size:11.5px}
-.timetable th,.timetable td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:6px;vertical-align:top;text-align:left;overflow-wrap:anywhere}
-.timetable tr>:last-child{border-right:0}
-.timetable tbody tr:last-child>*{border-bottom:0}
-.timetable thead th{background:var(--surface-2);font-weight:800;position:sticky;top:0;z-index:1}
-.timetable .time{width:112px;font:600 10.5px var(--f-mono);font-variant-numeric:tabular-nums;white-space:normal}
-.timetable tbody th{background:var(--surface-2);color:var(--muted)}
-.timetable .time{position:sticky;left:0;z-index:2;background:var(--surface-2)}
-.timetable thead .time{z-index:3}
-.timetable td{width:150px}
-.timetable td:empty{background:var(--surface-2)}
-.timetable .slot+.slot{margin-top:4px}
-.slot{border:1px solid var(--line);border-left:3px solid var(--muted);border-radius:7px;padding:4px 8px;background:var(--surface-2);min-width:0}
-.slot.office{border-left-color:var(--accent);background:var(--accent-soft)}
-.slot.class{border-left-color:#5b8fd6}
-.slot t{display:block;font:600 11px var(--f-mono);font-variant-numeric:tabular-nums}
-.slot s{display:block;text-decoration:none;font-size:12px;overflow-wrap:anywhere}
-.free{font-size:11.5px;color:var(--muted);padding:5px 0;border-bottom:1px dashed var(--line)}
-.btn{all:unset;cursor:pointer;background:var(--accent);color:var(--accent-fg);font-weight:800;font-size:13px;padding:9px 14px;border-radius:10px;text-align:center}
-.btn.ghost{background:var(--surface-2);color:var(--fg);border:1px solid var(--line)}
-.list{display:grid;gap:4px}
-.list button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:center;font-size:12.5px;font-weight:600;padding:5px 6px;border-radius:7px}
-.list button:hover{background:var(--surface-2)}
+.ct{display:flex;align-items:baseline;gap:8px;font-size:12.5px;min-width:0}
+.ct a{color:var(--fg);font-weight:500;text-decoration:none;overflow-wrap:anywhere;min-width:0}
+@media (hover:hover){.ct a:hover{text-decoration:underline;text-underline-offset:3px}}
+.copy{all:unset;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--accent-ink);flex:none}
+@media (hover:hover){.copy:hover{text-decoration:underline;text-underline-offset:3px}}
+.wk{display:grid;gap:6px}
+.wd{display:grid;grid-template-columns:32px 1fr;gap:8px;font-size:12px;align-items:start}
+.wd>b{font:600 11.5px var(--f-ui);color:var(--muted);padding-top:1px}
+.ws{display:grid;gap:4px;min-width:0}
+.wi{display:flex;flex-wrap:wrap;gap:0 8px;align-items:baseline;min-width:0;padding:2px 8px;border-radius:7px;background:var(--surface-2)}
+.wi.office{background:var(--accent-soft)}
+.wi.class{background:rgba(91,143,214,.14)}
+.tm{font:500 11.5px var(--f-ui);color:var(--fg)}
+.wt{color:var(--muted);overflow-wrap:anywhere;min-width:0}
+.free{font-size:12px;color:var(--muted);margin:0}
+/* weekly schedule button in the card */
+.sbtn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--line);color:var(--fg);font-size:13px;font-weight:600}
+@media (hover:hover){.sbtn:hover{background:var(--surface-2)}}
+.sbtn>svg:first-child{color:var(--accent-ink);flex:none}
+.sbtn span{flex:1;display:grid;gap:1px}
+.sbtn small{font-size:11.5px;font-weight:500;color:var(--muted)}
+.sbtn .chev{color:var(--muted);flex:none}
+/* weekly schedule dialog: a clear day × time grid over the map */
+#sched{padding:0;margin:auto;width:min(880px,calc(100% - 24px));max-width:none;max-height:calc(100% - 48px);color:var(--fg);background:var(--surface);overflow:hidden}   /* solid: the timetable's sticky headers sit on it */
+#sched[open]{display:flex;flex-direction:column}
+#sched::backdrop{background:rgba(10,14,12,.38)}
+.shead{display:flex;align-items:flex-start;gap:12px;padding:16px 16px 14px;border-bottom:1px solid var(--line)}
+.shead h2{margin:0;font-size:17px;font-weight:650;letter-spacing:-.01em}
+.legend{display:flex;gap:12px;font-size:11.5px;color:var(--muted);align-self:center;margin-left:auto}
+.legend span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.lg{width:10px;height:10px;border-radius:3px;background:rgba(91,143,214,.45)}
+.lg.office{background:var(--accent)}
+.sbody{overflow:auto;min-height:0}
+.grid{border-collapse:separate;border-spacing:0;width:100%;min-width:600px;table-layout:fixed;font-size:12.5px}
+.grid th,.grid td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:6px;vertical-align:top;text-align:left}
+.grid tr>:last-child{border-right:0}
+.grid tbody tr:last-child>*{border-bottom:0}
+.grid thead th{position:sticky;top:0;z-index:2;background:var(--surface);font-weight:600;font-size:12.5px;padding:10px 8px}
+.grid thead th span{font-size:11px;font-weight:600;color:var(--accent-ink);margin-left:4px}
+.grid .tc{width:104px;position:sticky;left:0;z-index:1;background:var(--surface);font:500 11.5px var(--f-ui);color:var(--muted);padding:8px}
+.grid thead .tc{z-index:3;font:600 12.5px var(--f-ui);color:var(--muted)}
+.grid td.today{background:color-mix(in srgb,var(--accent) 6%,var(--surface))}
+.blk{border-radius:8px;padding:6px 8px;background:rgba(91,143,214,.14);font-weight:600;line-height:1.3;overflow-wrap:anywhere}
+.blk small{display:block;margin-top:2px;font-weight:500;color:var(--muted);font-size:11px}
+.blk.office{background:color-mix(in srgb,var(--accent) 26%,var(--surface))}
+.blk+.blk{margin-top:4px}
+/* buttons: the chatbot's black pill for the main action, a quiet outlined pill beside it */
+.btn{all:unset;box-sizing:border-box;cursor:pointer;background:var(--ink);color:var(--ink-fg);font-weight:600;font-size:13px;height:36px;padding:0 16px;border-radius:999px;text-align:center;display:inline-flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
+.btn.ghost{background:transparent;color:var(--fg);box-shadow:inset 0 0 0 1px var(--line)}
+.list{display:grid;gap:2px}
+.list button{all:unset;cursor:pointer;display:flex;gap:8px;align-items:center;font-size:12.5px;font-weight:500;padding:6px 8px;border-radius:8px}
+@media (hover:hover){.list button:hover{background:var(--surface-2)}}
 
-/* levels, tools, filters */
-#levels{position:absolute;z-index:5;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:6px;padding:8px;align-items:center}
-#levels .cap{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:800}
-.lvbtn{width:46px;height:42px;border-radius:10px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);font:800 14px var(--f-ui);cursor:pointer}
-.lvbtn[aria-pressed="true"]{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+/* levels, tools, filters: small floating glass pills */
+#levels{position:absolute;z-index:5;right:max(12px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:2px;padding:4px;align-items:center;border-radius:14px}
+#levels .cap{display:none}
+.lvbtn{width:34px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--fg-2);font:600 13px var(--f-ui);cursor:pointer}
+@media (hover:hover){.lvbtn:hover{background:var(--surface-2);color:var(--fg)}}
+.lvbtn[aria-pressed="true"]{background:var(--ink);color:var(--ink-fg)}
 .lvbtn.all{font-size:11px}
-#tools{position:absolute;z-index:5;right:max(16px,env(safe-area-inset-right,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));display:flex;gap:6px;padding:6px}
-#tools button{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);font:700 16px var(--f-ui);cursor:pointer;display:grid;place-items:center}
-#filters{position:absolute;z-index:5;left:max(16px,env(safe-area-inset-left,0px));bottom:max(14px,env(safe-area-inset-bottom,0px));display:flex;gap:6px;flex-wrap:wrap;padding:8px;max-width:calc(100% - 260px)}
-.fchip{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);border-radius:999px;padding:5px 10px 5px 8px;font:700 11.5px var(--f-ui);cursor:pointer;white-space:nowrap}
-.fchip[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft)}
-.fchip em{font-style:normal;color:var(--muted);font-weight:600}
-#toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);padding:8px 14px;font-size:12.5px;font-weight:700;opacity:0;transition:opacity .3s;pointer-events:none;z-index:8;max-width:calc(100% - 32px);text-align:center}
+#tools{position:absolute;z-index:5;right:max(12px,env(safe-area-inset-right,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));display:flex;gap:2px;padding:4px;border-radius:14px}
+#tools button{width:32px;height:32px;border-radius:10px;border:0;background:transparent;color:var(--fg-2);cursor:pointer;display:grid;place-items:center;padding:0}
+@media (hover:hover){#tools button:hover{background:var(--surface-2);color:var(--fg)}}
+#filters{position:absolute;z-index:5;left:max(12px,env(safe-area-inset-left,0px));bottom:max(12px,env(safe-area-inset-bottom,0px));display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding:2px;max-width:calc(100% - 200px)}
+#filters::-webkit-scrollbar{display:none}
+.fchip{display:flex;align-items:center;gap:6px;border:1px solid var(--glass-border);background:var(--glass);-webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);color:var(--fg);border-radius:999px;height:30px;padding:0 12px 0 10px;font:500 12px var(--f-ui);cursor:pointer;white-space:nowrap;box-shadow:var(--shadow-sm);flex:none}
+.fchip .dot{width:8px;height:8px;border-radius:50%}
+.fchip[aria-pressed="true"]{border-color:color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--accent) 18%,var(--surface));color:var(--accent-ink);font-weight:600}
+.fchip em{font-style:normal;color:var(--muted);font-weight:500}
+.fchip[aria-pressed="true"] em{color:inherit}
+/* surroundings from OpenStreetMap */
+:root{--road:#ffffff;--road-edge:#d5dad5;--osm-bld:#dde1dc;--park:#d4e7cd;--pitch:#c6e0bd}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--road:#2b322e;--road-edge:#1f2522;--osm-bld:#252b28;--park:#1e3125;--pitch:#213a28}}
+:root[data-theme="dark"]{--road:#2b322e;--road-edge:#1f2522;--osm-bld:#252b28;--park:#1e3125;--pitch:#213a28}
+.lbl.st{background:none;border:0;box-shadow:none;padding:0;font:700 10px var(--f-ui);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);pointer-events:none;
+  text-shadow:0 0 3px var(--scene),0 0 3px var(--scene),0 0 2px var(--scene),0 0 1px var(--scene)}
+.lbl.st.major{font-size:11px;color:color-mix(in srgb,var(--fg) 70%,var(--muted))}
+.lbl.poi{font-size:10.5px;font-weight:600;padding:2px 7px 2px 5px;color:var(--muted);pointer-events:none;background:color-mix(in srgb,var(--surface) 85%,transparent)}
+.lbl.poi i{width:8px;height:8px}
+#osmcredit{position:absolute;z-index:5;right:max(12px,env(safe-area-inset-right,0px));bottom:calc(max(12px,env(safe-area-inset-bottom,0px)) + 46px);font-size:10px;color:var(--muted);text-decoration:none;
+  background:color-mix(in srgb,var(--surface) 80%,transparent);padding:2px 6px;border-radius:6px}
+@media (hover:hover){#osmcredit:hover{color:var(--fg);text-decoration:underline}}
+/* toast: the chatbot's black pill (white in dark mode) */
+#toast{position:absolute;left:50%;bottom:64px;transform:translateX(-50%);padding:9px 16px;font-size:12.5px;font-weight:500;opacity:0;transition:opacity .3s;pointer-events:none;z-index:8;max-width:calc(100% - 32px);text-align:center;
+  background:var(--ink);color:var(--ink-fg);border:0;border-radius:999px;-webkit-backdrop-filter:none;backdrop-filter:none}
 #toast.on{opacity:1}
 
 /* map labels */
-.lbl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font-size:11px;font-weight:700;color:var(--fg);
+.lbl{position:absolute;left:0;top:0;transform:translate(-50%,-50%);white-space:nowrap;font-size:11px;font-weight:600;color:var(--fg);
   background:color-mix(in srgb,var(--surface) 92%,transparent);border:1px solid var(--line);padding:2px 8px;border-radius:999px;
   pointer-events:auto;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.1);display:flex;align-items:center;gap:5px;will-change:translate}
 .lbl i{width:7px;height:7px;border-radius:50%;flex:none}
-.lbl.bld{font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:11px;flex-direction:column;gap:0;align-items:center}
-.lbl.bld small{font-weight:500;font-size:10px;color:var(--muted);max-width:170px;overflow:hidden;text-overflow:ellipsis}
-.lbl.bld.has{border-color:var(--accent)}
-.lbl.bld.has::after{content:"Floor plans";font-size:9px;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
-.lbl.lvl{font-size:12px;font-weight:800;background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.lbl.bld{font-size:12px;font-weight:700;padding:3px 10px;gap:6px}
+.lbl.bld small{font-weight:500;font-size:10.5px;color:var(--muted);max-width:130px;overflow:hidden;text-overflow:ellipsis}
+.lbl.bld.has{border-color:var(--accent);border-width:1.5px}   /* green outline = has floor plans */
+.lbl.lvl{font-size:11.5px;font-weight:600;background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
 .lbl.sel{background:var(--accent);color:var(--accent-fg);border-color:var(--accent);z-index:3}
+/* hover look for an ordinary room label; a selected room keeps its green label (its dark text would vanish on the dark-mode surface) */
+.lbl.hov:not(.sel){border-color:var(--accent);background:var(--surface);color:var(--fg)}
+.lbl.hov{z-index:4;transform:translate(-50%,-50%) scale(1.1);box-shadow:0 3px 10px rgba(0,0,0,.18)}
 .lbl.sel i{background:var(--accent-fg)!important}
-.lbl.pending{color:var(--muted);font-weight:500}
+.lbl.pending{color:var(--muted);font-weight:500;pointer-events:none;cursor:default}   /* unknown rooms: label only, not a button */
 .lbl.off{display:none}
 
 /* directions */
-:root{--route:#1f6feb;--route-b:#d6336c}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--route:#5b9dff;--route-b:#ff6b9a}}
-:root[data-theme="dark"]{--route:#5b9dff;--route-b:#ff6b9a}
-.brand .dirbtn{all:unset;margin-left:auto;cursor:pointer;display:flex;align-items:center;gap:6px;font-size:12px;font-weight:800;color:var(--accent);padding:7px 10px;border-radius:9px;background:var(--accent-soft)}
-.brand .dirbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-#dir{padding:12px 14px 12px;display:flex;flex-direction:column;gap:10px;min-height:0;flex:0 1 auto;overflow:hidden;position:relative}
+/* route = the logo green (a touch deeper in light mode so the line and white text on the A pin stay readable on pale floors);
+   start A = green, destination B = the logo black (white in dark mode) */
+:root{--route:#2e8a61;--route-fg:#ffffff;--route-b:var(--ink);--route-b-fg:var(--ink-fg)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--route:#61b68f;--route-fg:#0d1f16}}
+:root[data-theme="dark"]{--route:#61b68f;--route-fg:#0d1f16}
+#dir{padding:14px;display:flex;flex-direction:column;gap:12px;min-height:0;flex:0 1 auto;overflow:hidden;position:relative}
 #dir .dhead{display:flex;align-items:center;gap:8px}
-#dir .dhead b{font-size:15px}
-#dir .x{margin-left:auto;width:30px;height:30px;border-radius:8px;border:0;background:transparent;color:var(--muted);font-size:19px;cursor:pointer}
+#dir .dhead b{font-size:15px;font-weight:650;flex:1}
 .ends{display:grid;grid-template-columns:1fr 34px;gap:6px 6px;align-items:center}
-.end{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:0 6px 0 8px;grid-column:1}
-.end:focus-within{border-color:var(--accent)}
-.end input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:600 13px var(--f-ui);padding:9px 0;outline:none}
-.end .clr{all:unset;cursor:pointer;color:var(--muted);font-size:15px;padding:0 4px}
-.pin{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font:800 10px var(--f-ui);font-style:normal;color:#fff;flex:none}
-.pin.a{background:var(--route)} .pin.b{background:var(--route-b)}
-.swap{grid-column:2;grid-row:1/3;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);font:700 16px var(--f-ui);cursor:pointer}
-.sug{border:1px solid var(--line);border-radius:10px;max-height:34vh;overflow:auto;margin-top:-4px}
-.sf{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;cursor:pointer;user-select:none}
+.end{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid transparent;border-radius:12px;padding:0 6px 0 10px;grid-column:1;transition:border-color .15s ease,background-color .15s ease}
+.end:focus-within{border-color:color-mix(in srgb,var(--accent) 60%,transparent);background:var(--surface)}
+.end input{flex:1;min-width:0;border:0;background:transparent;color:var(--fg);font:500 13px var(--f-ui);padding:9px 0;outline:none}
+.end input::placeholder{color:var(--muted);font-weight:400}
+.end .clr{all:unset;cursor:pointer;color:var(--muted);font-size:15px;padding:0 4px;border-radius:6px}
+@media (hover:hover){.end .clr:hover{color:var(--fg)}}
+.pin{width:18px;height:18px;border-radius:50%;display:grid;place-items:center;font:700 10px var(--f-ui);font-style:normal;color:#fff;flex:none}
+.pin.a{background:var(--route);color:var(--route-fg)} .pin.b{background:var(--route-b);color:var(--route-b-fg)}
+.swap{grid-column:2;grid-row:1/3;width:34px;height:34px;border-radius:10px;border:0;background:transparent;color:var(--fg-2);font:600 16px var(--f-ui);cursor:pointer}
+.sug{border:1px solid var(--line);border-radius:12px;max-height:34vh;overflow:auto;margin-top:-4px;padding:4px;background:var(--surface)}
+.sf{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:500;color:var(--fg-2);cursor:pointer;user-select:none}
 .sf input{width:16px;height:16px;accent-color:var(--accent);margin:0}
 .sum{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.sum b{font-size:20px;font-variant-numeric:tabular-nums}
+.sum b{font-size:20px;font-weight:650;letter-spacing:-.01em}
 .sum span{font-size:12.5px;color:var(--muted)}
 .sum.err{color:var(--muted);font-size:12.5px;line-height:1.45}
-.steps{list-style:none;margin:0;padding:0;display:grid;gap:2px;overflow:auto;min-height:0;flex:0 1 auto}
-.steps button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:26px 1fr;gap:8px;align-items:start;width:100%;padding:7px 6px;border-radius:9px;font-size:12.5px;line-height:1.4}
-.steps button:hover{background:var(--surface-2)}
+.steps{list-style:none;margin:0 -4px;padding:0;display:grid;gap:2px;overflow:auto;min-height:0;flex:0 1 auto;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.steps button{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start;width:100%;padding:8px;border-radius:12px;font-size:12.5px;line-height:1.4}
+@media (hover:hover){.steps button:hover{background:var(--surface-2)}}
 .steps button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .steps button[aria-current="step"]{background:var(--accent-soft)}
-.steps .ic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--surface-2);border:1px solid var(--line);font:800 11px var(--f-ui);color:var(--muted)}
-.steps .ic.go{background:var(--route);border-color:var(--route);color:#fff}
-.steps .ic.fin{background:var(--route-b);border-color:var(--route-b);color:#fff}
+.steps .ic{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:var(--surface-2);font:700 11px var(--f-ui);color:var(--muted)}
+.steps .ic.go{background:var(--route);color:var(--route-fg)}
+.steps .ic.fin{background:var(--route-b);color:var(--route-b-fg)}
 .steps small{display:block;color:var(--muted);font-size:11.5px}
 .dnav{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
-.dnav .btn{padding:8px 6px;font-size:12.5px}
-.btn[disabled]{opacity:.45;pointer-events:none}
-.acts{display:flex;gap:6px;flex-wrap:wrap}
-.acts .btn{padding:7px 12px;font-size:12.5px}
-.lbl.rpin{font-weight:800;color:#fff;border-color:transparent;z-index:4;gap:6px}
-.lbl.rpin.a{background:var(--route)} .lbl.rpin.b{background:var(--route-b)}
+.dnav .btn{height:34px;padding:0 8px;font-size:12.5px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.acts{display:flex;gap:6px}
+.acts .btn:first-child{flex:1}
+.lbl.rpin{font-weight:700;color:#fff;border-color:transparent;z-index:4;gap:6px}
+.lbl.rpin.a{background:var(--route);color:var(--route-fg)} .lbl.rpin.b{background:var(--route-b);color:var(--route-b-fg)}
 .lbl.rpin.transfer{background:var(--surface);color:var(--fg);border-color:var(--route);pointer-events:none}
 .lbl.rpin em{font-style:normal;width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,.25);display:grid;place-items:center;font-size:10px}
 
 @media (max-width:760px){
-  #side{bottom:calc(max(14px,env(safe-area-inset-bottom,0px)) + 66px);max-height:none}
+  #side{bottom:calc(max(12px,env(safe-area-inset-bottom,0px)) + 52px);max-height:none}
   #dir{position:static;flex:0 1 35%;max-height:none;overflow:auto}
   #dir .steps{max-height:22vh}
   #dir.compact .ends,#dir.compact .sf,#dir.compact #dsug{display:none}
   #dir.compact{flex-basis:25%}
-  .brand span,#panel .hint{display:none}
   #results{max-height:34vh}
-  #info{position:relative;flex:1 1 60%;max-height:none}
+  .search input,.end input{font-size:16px}   /* iPhone zooms the page into any text field under 16px */
+  #info{position:relative;flex:0 1 auto;max-height:none}
+  #sched{width:calc(100% - 16px);max-height:calc(100% - 32px)}
+  .legend{display:none}
+  .grid{min-width:520px;font-size:12px}
+  .grid .tc{width:84px}
   #filters{display:none}
-  #levels{top:auto;bottom:max(14px,env(safe-area-inset-bottom,0px));right:auto;left:max(12px,env(safe-area-inset-left,0px));transform:none;flex-direction:row}
-  #levels .cap{display:none}
+  #levels{top:auto;bottom:max(12px,env(safe-area-inset-bottom,0px));right:auto;left:max(12px,env(safe-area-inset-left,0px));transform:none;flex-direction:row}
   #tools{flex-direction:row}
   #tools #zin,#tools #zout{display:none}
 }
-@media (prefers-reduced-motion:reduce){#load,#toast,#bar i{transition:none}}
+/* ---- interaction polish ---- */
+/* scroll areas inside panels and the dialog don't pass their scroll on to the map/page behind */
+#results,#info,#dir,.steps,.sug,.sbody{overscroll-behavior:contain}
+/* hover and press: colour changes are quick (120ms) and named explicitly, never "all" */
+.ib,.btn,.sbtn,.lvbtn,#tools button,.fchip,.swap,.res,.list button,.steps button,.copy,.crumbs button{
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease,box-shadow .15s ease,transform .16s var(--ease-out)}
+/* press feedback: a small squeeze so taps feel registered (disabled buttons already ignore the pointer) */
+.ib:active,.btn:active,.sbtn:active,.lvbtn:active,#tools button:active,.fchip:active,.swap:active{transform:scale(.97)}
+.ib,.btn,.sbtn,.lvbtn,#tools button,.fchip,.swap{-webkit-tap-highlight-color:transparent}
+@media (hover:hover){
+  .btn:hover{background:color-mix(in srgb,var(--ink) 82%,var(--ink-fg))}
+  .btn.ghost:hover{background:var(--surface-2);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 16%,transparent)}
+  .swap:hover{background:var(--surface-2);color:var(--fg)}
+  .fchip:hover{border-color:color-mix(in srgb,var(--fg) 14%,transparent)}
+}
+/* the weekly schedule opens with a short fade-and-rise (a one-time entrance, so a keyframe) */
+#sched[open]{animation:pop .2s var(--ease-out)}
+#sched[open]::backdrop{animation:fade .18s ease}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.98)}}
+@keyframes fade{from{opacity:0}}
+/* toast rises a few pixels as it fades in */
+#toast{transition:opacity .2s ease,translate .2s ease;translate:0 4px}
+#toast.on{translate:0 0}
+@media (prefers-reduced-motion:reduce){
+  #load,#bar i{transition:none}
+  #toast{transition:opacity .2s ease;translate:none}
+  .ib,.btn,.sbtn,.lvbtn,#tools button,.fchip,.swap{transition:background-color .12s ease,color .12s ease,border-color .12s ease}
+  .ib:active,.btn:active,.sbtn:active,.lvbtn:active,#tools button:active,.fchip:active,.swap:active{transform:none}
+  #sched[open]{animation:fade .15s ease}
+  .lbl.hov{transform:translate(-50%,-50%)}
+}
+@media (forced-colors:active){.lbl,.fchip,.card{border-color:CanvasText}}
 </style>
 
 <div id="app">
@@ -208,18 +324,21 @@ button{font-family:inherit}
 
   <div id="side">
     <section class="card" id="panel" aria-label="Search and location">
-      <div class="brand"><div class="mark">UOS</div><div><b>Campus Map</b><br><span>University of Sharjah · Zone A</span></div>
-        <button class="dirbtn" id="opendir" title="Get directions"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg>Directions</button></div>
-      <label class="search" for="q">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input id="q" type="search" placeholder="Search buildings, rooms, instructors…" autocomplete="off">
-      </label>
-      <nav class="crumbs" id="crumbs" aria-label="Location"></nav>
+      <h1 class="vh">University of Sharjah campus map</h1>
+      <div class="bar">
+        <div class="mark" aria-hidden="true">UOS</div>
+        <label class="search" for="q">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="q" type="search" placeholder="Search rooms, instructors…" autocomplete="off" aria-label="Search buildings, rooms and instructors">
+        </label>
+        <span class="vsep" aria-hidden="true"></span>
+        <button class="ib route" id="opendir" aria-label="Directions" title="Directions"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path class="rp" d="M7.2 8.6c0 5.6 9.6 1.2 9.6 6.8"/><circle class="ra" cx="7" cy="6" r="2.6"/><circle class="rb" cx="17" cy="18" r="2.6"/></svg></button>
+      </div>
+      <nav class="crumbs" id="crumbs" aria-label="Location" hidden></nav>
       <div id="results" hidden></div>
-      <div class="hint" id="hint"></div>
     </section>
     <section class="card" id="dir" hidden aria-label="Directions">
-      <div class="dhead"><b>Directions</b><button class="x" id="dirx" aria-label="Close directions">×</button></div>
+      <div class="dhead"><b>Directions</b><button class="ib" id="dirx" aria-label="Close directions"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
       <div class="ends">
         <div class="end"><i class="pin a">A</i><input id="dfrom" placeholder="Start: room, office or building" autocomplete="off" aria-label="Start"><button class="clr" data-clr="from" aria-label="Clear start">×</button></div>
         <div class="end"><i class="pin b">B</i><input id="dto" placeholder="Destination" autocomplete="off" aria-label="Destination"><button class="clr" data-clr="to" aria-label="Clear destination">×</button></div>
@@ -239,13 +358,22 @@ button{font-family:inherit}
     <div id="lvbtns" style="display:contents"></div>
     <button class="lvbtn all" data-lv="all" aria-pressed="true">All</button>
   </div>
-  <div class="card" id="filters" hidden aria-label="Show only"></div>
+  <div id="filters" hidden role="group" aria-label="Show only"></div>
   <div class="card" id="tools">
-    <button id="zin" aria-label="Zoom in">+</button>
-    <button id="zout" aria-label="Zoom out">−</button>
-    <button id="north" aria-label="Reset rotation" title="Reset rotation">N</button>
-    <button id="home" aria-label="Whole campus" title="Whole campus">⌂</button>
+    <button id="zin" aria-label="Zoom in" title="Zoom in"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+    <button id="zout" aria-label="Zoom out" title="Zoom out"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+    <button id="north" aria-label="Reset rotation" title="Reset rotation"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l5 18-5-4-5 4z" fill="currentColor" fill-opacity=".25"/></svg></button>
+    <button id="home" aria-label="Whole campus" title="Whole campus"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11l8-7 8 7M6 9.5V20h12V9.5"/></svg></button>
   </div>
+  <dialog class="card" id="sched" aria-labelledby="schedttl">
+    <div class="shead">
+      <div class="itx"><h2 id="schedttl">Weekly schedule</h2><div class="sub" id="schedwho"></div></div>
+      <div class="legend"><span><i class="lg class"></i>Class</span><span><i class="lg office"></i>Office hours</span></div>
+      <button class="ib" id="schedx" aria-label="Close schedule" title="Close"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+    <div class="sbody" id="schedbody" tabindex="0"></div>
+  </dialog>
+  <a id="osmcredit" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" hidden>© OpenStreetMap contributors</a>
   <div class="card" id="toast" role="status"></div>
   <div id="load"><div class="box"><b>UOS Campus Map</b><div id="bar"><i></i></div><span id="loadmsg">Loading the 3D model…</span></div></div>
 </div>
@@ -254,6 +382,26 @@ button{font-family:inherit}
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
+// Inside the Mosaed chatbot (a frame on the same site): follow the chatbot's light/dark theme instead of the
+// system one, drop the map's own brand mark, and hand Esc back to the chatbot once nothing in the map is
+// left to close (search results, suggestions, directions), so Esc returns to the chat.
+(() => {
+  let host = null;
+  try { if (window.parent !== window && window.parent.location.origin === location.origin) host = window.parent; } catch(e){}
+  if (!host) return;
+  const root = document.documentElement, hostRoot = host.document.documentElement;
+  root.classList.add("embedded");
+  const sync = () => root.setAttribute("data-theme", hostRoot.getAttribute("data-theme") === "dark" ? "dark" : "light");
+  sync(); new MutationObserver(sync).observe(hostRoot, {attributes:true, attributeFilter:["data-theme"]});
+  document.addEventListener("keydown", e => {
+    if (e.key !== "Escape" || e.defaultPrevented || document.querySelector("dialog[open]")) return;
+    const shown = id => { const el = document.getElementById(id); return el && !el.hidden; };
+    if (shown("results")){ const q = document.getElementById("q"); q.value = ""; q.dispatchEvent(new Event("input")); return; }
+    if (shown("dsug")) return;                                    // the directions field closes its own suggestions
+    if (shown("dir")){ document.getElementById("dirx").click(); return; }
+    host.postMessage({type:"mosaed:map-escape"}, location.origin);
+  }, true);   // capture: look before the directions field's own Esc handler hides its suggestions
+})();
 (() => {
 const $ = id => document.getElementById(id);
 const HASH0 = location.hash;
@@ -262,9 +410,15 @@ const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;
 const CAT = {
   office:{n:"Offices",one:"Office",c:"#7fa7d9"}, classroom:{n:"Classrooms",one:"Classroom",c:"#f0b35c"}, lab:{n:"Labs",one:"Lab",c:"#9c8ad8"},
   washroom:{n:"Washrooms",one:"Washroom",c:"#5cc0b5"}, stairs:{n:"Stairs",one:"Stairs",c:"#e2a64b"}, elevator:{n:"Elevators",one:"Elevator",c:"#b08ad6"},
-  prayer:{n:"Prayer room",one:"Prayer room",c:"#7cc98f"}, service:{n:"Services",one:"Service room",c:"#b9b3a2"},
+  prayer:{n:"Prayer rooms",one:"Prayer room",c:"#8b5e3c"}, service:{n:"Services",one:"Service room",c:"#b9b3a2"},
   circulation:{n:"Corridors",one:"Lobby / corridor",c:"#ece6d6"}, pending:{n:"Not mapped yet",one:"Not mapped yet",c:"#cfd3cf"},
 };
+// washrooms are split by gender from their names (staff ones included); a washroom with no gender in its name keeps the teal above
+const TONE = {"wc-m":{one:"Men's washroom", c:"#2f6fd1"}, "wc-f":{one:"Women's washroom", c:"#e46aa0"}};
+const washTone = r => r.cat !== "washroom" ? null : /\b(wom[ae]n'?s?|female|ladies)\b/i.test(r.name) ? "wc-f" : /\b(m[ae]n'?s?|male|gents)\b/i.test(r.name) ? "wc-m" : null;
+const matKey = r => r.tone || r.cat, tint = r => (TONE[r.tone] || CAT[r.cat]).c, oneOf = r => (TONE[r.tone] || CAT[r.cat]).one;
+// A9/A11 blocks are drawn as pale versions of these colours; the landmark colours (prayer, gendered washrooms) stay stronger so they read at a glance
+const paleMix = k => k === "prayer" || TONE[k] ? .25 : .55;
 const DAYS = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], WEEK = ["Mon","Tue","Wed","Thu"];   // UOS teaching week
 const GAP = 9, CUT = 2.1;            // metres between spread floors; slice height above each floor (below door heads)
 const P = p => new V3(p[0], p[2] ?? 0, -p[1]);      // Blender (x, y, z-up) -> three (x, y-up, -y)
@@ -281,7 +435,7 @@ controls.enableDamping = true; controls.dampingFactor = .09; controls.maxPolarAn
 scene.add(new THREE.HemisphereLight(0xffffff, 0x8d968f, .62));
 const sun = new THREE.DirectionalLight(0xffffff, .5); sun.position.set(-200,400,300); scene.add(sun);
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const applyTheme = () => { scene.background = new THREE.Color(css("--scene")); accentMats.forEach(m => m.color.set(css("--accent"))); fadeMats.forEach(m => m.color.set(css(m.userData.tok))); };
+const applyTheme = () => { scene.background = new THREE.Color(css("--scene")); if (scene.fog) scene.fog.color.set(css("--scene")); accentMats.forEach(m => m.color.set(css("--accent"))); fadeMats.forEach(m => m.color.set(css(m.userData.tok))); };
 const fadeMats = [];
 // "fade the shell": while inside a faded building, the rest of the campus turns one light grey
 const FADE = new Set(["A11", "A9"]);
@@ -327,37 +481,45 @@ const isShell = o => hasName(o, SHELL);
 
 const accentMats = [];
 
-let BLD = [], ROOMS = [], OFF = {}, byId = {}, bById = {}, A9_DIRECTORY = null;
+let BLD = [], ROOMS = [], OFF = {}, byId = {}, bById = {}, A9_DIRECTORY = null, A11_DIRECTORY = null;
 const state = {mode:"campus", b:null, level:"all", sel:null, selB:null, filter:null, spread:0};
 const DIR = {open:false, from:null, to:null, sf:false, res:null, step:-1, field:"from", hi:new Set()};
 let tween = null;
 
 // ---------- load ----------
-const getJSON = (u, fb) => fetch(u).then(r => r.ok ? r.json() : fb).catch(() => fb);
+const getJSON = (u, fb) => fetch(u, { cache: "no-cache" }).then(r => r.ok ? r.json() : fb).catch(() => fb);
 Promise.all([
   getJSON("data.json", null), getJSON("offices.json", {}),
   loadModel("model.json"), getJSON("nav.json", null),
   getJSON("A9-office-directory.json", null), getJSON("A9-room-mapping.json", {}),
-]).then(([data, off, gltf, navData, directory, roomMapping]) => {
+  getJSON("surroundings.json", null),
+  getJSON("A11-office-directory.json", null), getJSON("A11-room-mapping.json", {}),
+]).then(([data, off, gltf, navData, directory, roomMapping, surroundings, a11Directory, a11Mapping]) => {
+  SURR = surroundings;
   if (!data) throw new Error("data");
   BLD = data.buildings; ROOMS = data.rooms; OFF = off || {};
-  A9_DIRECTORY = directory;
-  applyA9Directory(roomMapping);
+  A9_DIRECTORY = directory; A11_DIRECTORY = a11Directory;
+  applyDirectory("A9", A9_DIRECTORY, roomMapping, [1, 2]);
+  applyDirectory("A11", A11_DIRECTORY, a11Mapping, [0, 1, 2]);
   BLD.forEach(b => bById[b.id] = b); ROOMS.forEach(r => { byId[r.id] = r; r.B = bById[r.b]; });
   navInit(navData);
   init(gltf.scene);
   $("load").classList.add("done");
-}).catch(e => { $("loadmsg").textContent = "The map could not be loaded. Reload the page to try again."; console.error(e); });
+}).catch(e => { console.error(e);
+  // show the reason too, so a failure on someone's phone can be reported and fixed
+  const why = (e && (e.message || e.type || String(e)) || "unknown error").toString().slice(0, 160);
+  $("loadmsg").textContent = "The map could not be loaded. Reload the page to try again. (" + why + ")"; });
 
-function applyA9Directory(mapping){
-  if (!A9_DIRECTORY) return;
+// photographed office directories (A9, A11): mapping[meshId] gives the real room number, the directory gives its occupants and timetables
+function applyDirectory(bid, DIRECTORY, mapping, levels){
+  if (!DIRECTORY || !mapping) return;
   const categories = {
     "Office":"office", "Office Suite":"office", "Lab":"lab", "Classroom":"classroom",
     "Washroom":"washroom", "Prayer Room":"prayer", "Pantry":"service",
     "Mail Room":"service", "Conference Room":"service",
   };
   for (const r of ROOMS){
-    if (r.b !== "A9" || ![1, 2].includes(r.lv) ||
+    if (r.b !== bid || !levels.includes(r.lv) ||
         ["stairs", "elevator", "circulation"].includes(r.cat)) continue;
     // Mesh IDs are provisional. Only an explicit room-position match is valid.
     const match = mapping[r.id];
@@ -369,12 +531,12 @@ function applyA9Directory(mapping){
       if (r.name.startsWith("NOT MAPPED")) r.cat = "pending";
       continue;
     }
-    const entry = A9_DIRECTORY.rooms[number];
+    const entry = DIRECTORY.rooms[number];
     if (!entry || entry.level !== r.lv || entry.roomNumberConflict){
-      console.warn("A9 directory match needs review", r.id, number);
+      console.warn(bid + " directory match needs review", r.id, number);
       continue;
     }
-    const inside = (match.inside || []).map(id => A9_DIRECTORY.rooms[id]).filter(Boolean);
+    const inside = (match.inside || []).map(id => DIRECTORY.rooms[id]).filter(Boolean);
     const people = entry.people || [];
     const occupants = [...people, ...inside.flatMap(room => room.people || [])];
     r.directoryInfo = {
@@ -396,17 +558,12 @@ function nineDigitPhone(value){
 function directoryDetails(people){
   return people.map(person => {
     const schedule = person.schedule;
-    const phone = nineDigitPhone(person.phone);
-    let html = '<div class="sec"><h3>' + esc(person.name || "Office occupant") + '</h3><dl class="kv">' +
-      '<dt>Title</dt>' + val(person.role) + '<dt>Department</dt>' + val(person.department) +
-      '<dt>Email</dt>' + val(person.email, true) + (phone ? '<dt>Phone</dt>' + val(phone, true) : '') + '</dl></div>';
-    if (!schedule) return html + '<p class="free">No schedule was photographed for this person.</p>';
+    let html = personBlock(person.name || "Office occupant", [person.role, person.department], person.email, nineDigitPhone(person.phone));
+    if (!schedule) return html + '<p class="free">No timetable posted.</p>';
     const period = [schedule.term, schedule.academicYear].filter(Boolean).join(" ");
-    if (period) html += '<p class="meta">Posted timetable · ' + esc(period) + '</p>';
-    html += '<div class="sec"><h3>Office hours</h3>' +
-      week(schedule.officeHours, "office", "No office hours are listed in this notice.") + '</div>';
-    html += '<div class="sec"><h3>Weekly schedule</h3>' +
-      week(schedule.activities, null, "No activities are listed in this notice.") + '</div>';
+    html += '<div class="sec"><h3>Office hours' + (period ? ' <span>· ' + esc(period) + '</span>' : '') + '</h3>' +
+      week(schedule.officeHours, "office", "None listed.") + '</div>';
+    html += schedBtn(schedule.activities, person.name, period);
     if (schedule.notes) html += '<p>' + esc(schedule.notes) + '</p>';
     return html;
   }).join("");
@@ -422,7 +579,13 @@ async function loadModel(url){
   const b64 = JSON.parse(text).glb, bin = atob(b64), buf = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
   bar.style.width = "100%";
-  return new Promise((ok, no) => new THREE.GLTFLoader().parse(buf.buffer, "", ok, no));
+  // The GLTF loader picks ImageBitmapLoader when createImageBitmap exists and the browser name lacks "Safari". Inside the Claude
+  // iPhone app (and some sandboxed frames) that path fails for the model's texture, and one failed texture rejects the whole model.
+  // Hiding createImageBitmap while the parser is created makes it use the plain <img> TextureLoader, which works everywhere.
+  const cib = window.createImageBitmap;
+  try { window.createImageBitmap = undefined; } catch(e){}
+  try { return await new Promise((ok, no) => new THREE.GLTFLoader().parse(buf.buffer, "", ok, no)); }
+  finally { try { window.createImageBitmap = cib; } catch(e){} }
 }
 let campus;
 function init(root){
@@ -440,11 +603,13 @@ function init(root){
   for (const r of ROOMS){
     r.info = r.directoryInfo || OFF[r.id] || null;
     const short = r.cat==="pending" && !r.directoryInfo ? "Not mapped" : rName(r);
-    r.label = r.cat === "circulation" ? Object.assign(document.createElement("div"), {_on:false}) : mkLabel(`<i style="background:${CAT[r.cat].c}"></i>${esc(short.length>26?short.slice(0,25)+"…":short)}`, r.cat==="pending"?"pending":"");
-    r.label.onclick = e => { e.stopPropagation(); if (!dirPick(r.id)) selectRoom(r, true); };
+    r.tone = washTone(r);
+    r.label = r.cat === "circulation" ? Object.assign(document.createElement("div"), {_on:false}) : mkLabel(`<i style="background:${tint(r)}"></i>${esc(short.length>26?short.slice(0,25)+"…":short)}`, r.cat==="pending"?"pending":"");
+    if (!unknownRoom(r)) r.label.onclick = e => { e.stopPropagation(); if (!dirPick(r.id)) selectRoom(r, true); };
     r.pos = P(r.p);
     if (roomNumber(r) && r.name !== short) r.label.title = r.name;
   }
+  try { buildSurroundings(SURR); } catch(e){ console.warn("Surroundings skipped:", e); }   // the campus map works without them
   applyTheme(); resize();
   const v = viewCampus(); camera.position.copy(v.p); controls.target.copy(v.t);
   ui(); if (HASH0) try { history.replaceState(null, "", HASH0); } catch(e){}   // the first ui() pass must not wipe a shared link
@@ -467,7 +632,8 @@ function buildSlices(b){
     const lay = (m, f) => { m.polygonOffset = true; m.polygonOffsetFactor = f; m.polygonOffsetUnits = f; return m; };
     const catMat = {}, mk = (c, op, f = 1) => lay(new THREE.MeshLambertMaterial({color:c, clippingPlanes:planes, side:THREE.DoubleSide, transparent:op<1, opacity:op}), f);
     const blk = FADE.has(b.id), white = new THREE.Color("#ffffff");
-    for (const k in CAT) catMat[k] = mk(blk && k !== "circulation" ? new THREE.Color(CAT[k].c).lerp(white, .55) : CAT[k].c, 1, k === "circulation" ? 2 : 1);
+    for (const k of [...Object.keys(CAT), ...Object.keys(TONE)]){ const c = (CAT[k] || TONE[k]).c;
+      catMat[k] = mk(blk && k !== "circulation" ? new THREE.Color(c).lerp(white, paleMix(k)) : c, 1, k === "circulation" ? 2 : 1); }
     const plain = mk("#f4f5f3", 1, 1), edgeMat = new THREE.LineBasicMaterial({color:css("--fade-edge"), clippingPlanes:planes}); edgeMat.userData.tok = "--fade-edge"; fadeMats.push(edgeMat);
     const toBlock = o => { o.geometry = blockGeo(o.geometry, BLOCK_H); o.add(new THREE.LineSegments(new THREE.EdgesGeometry(o.geometry, 30), edgeMat)); };
     const dim = mk("#d9dcd9", .55), sel = mk(css("--accent"), 1); accentMats.push(sel);
@@ -475,7 +641,7 @@ function buildSlices(b){
     const picks = [], stairs = [];
     g.traverse(o => { if (!o.isMesh) return;
       const r = byId[o.userData.room_id];
-      if (r && r.mesh){ o.userData.room = r; o.material = catMat[r.cat]; o.position.y += .02; if (blk && r.cat !== "circulation") toBlock(o); else if (blk) o.geometry = plateGeo(o.geometry); if (r.lv === li && r.cat !== "circulation"){ picks.push(o); (r.objs ||= []).push(o); } }   // corridors: one floor, not clickable
+      if (r && r.mesh){ o.userData.room = r; o.material = catMat[matKey(r)]; o.position.y += .02; if (blk && r.cat !== "circulation") toBlock(o); else if (blk) o.geometry = plateGeo(o.geometry); if (r.lv === li && r.cat !== "circulation"){ if (!unknownRoom(r)) picks.push(o); (r.objs ||= []).push(o); } }   // corridors: one floor, not clickable; unknown rooms: drawn, not clickable
       else if (blk && o.userData.room_id){ o.position.y += .02; if (FLAT.test(o.userData.room_id)){ o.material = catMat.circulation; o.geometry = plateGeo(o.geometry); } else { o.material = plain; toBlock(o); } }
       else if (blk && hasName(o, KEEP)){ if (/Step/i.test((Array.isArray(o.material) ? o.material[0] : o.material).name || "")) stairs.push(o); o.visible = false; }   // block from the steps only, not the stair hall floor
       else if (blk && isShell(o)) o.material = shellMat;
@@ -501,17 +667,20 @@ function buildSlices(b){
         if (r){ m.userData.room = r; picks.push(m); (r.objs ||= []).push(m); r.blocked = true; } } }
     // rooms that exist only as points in the model (A11): a coloured floor marker each
     for (const r of b.rooms) if (!r.mesh && !r.blocked && r.lv === li && r.cat !== "circulation"){
-      const d = new THREE.Mesh(new THREE.CircleGeometry(r.cat==="pending"?.55:.8, 28), catMat[r.cat]); d.rotation.x = -Math.PI/2;
-      d.position.set(r.pos.x, b.floors[li] + .06, r.pos.z); d.userData.room = r; wrap.add(d); picks.push(d); (r.objs ||= []).push(d);
+      const d = new THREE.Mesh(new THREE.CircleGeometry(r.cat==="pending"?.55:.8, 28), catMat[matKey(r)]); d.rotation.x = -Math.PI/2;
+      d.position.set(r.pos.x, b.floors[li] + .06, r.pos.z); d.userData.room = r; wrap.add(d); if (!unknownRoom(r)) picks.push(d); (r.objs ||= []).push(d);
     }
     wrap.visible = false; scene.add(wrap);
     const lab = mkLabel(esc(b.levels[li]), "lvl"); lab.onclick = () => showLevel(li);
-    return {wrap, lo, hi, picks, catMat, dim, sel, lab, fz, low:b.low[li], op:0};
+    // hover: the room's own colour mixed halfway toward the logo green, so it reads as "this one" without losing what kind of room it is
+    // (clone() copies the clipping planes; share the slice's live planes instead, or the copy clips the whole room away)
+    const hov = {}; for (const k in catMat){ hov[k] = catMat[k].clone(); hov[k].clippingPlanes = planes; hov[k].color = catMat[k].color.clone().lerp(new THREE.Color("#61b68f"), .5); }
+    return {wrap, lo, hi, picks, catMat, dim, sel, hov, lab, fz, low:b.low[li], op:0};
   });
 }
 function paint(b){ if (!b || !b.slices) return;
   for (const r of b.rooms) if (r.objs){ const s = b.slices[r.lv];
-    const m = state.sel === r || DIR.hi.has(r) ? s.sel : (state.filter && r.cat !== state.filter ? s.dim : s.catMat[r.cat]);
+    const m = state.sel === r || DIR.hi.has(r) ? s.sel : state.hover === r ? s.hov[matKey(r)] : (state.filter && r.cat !== state.filter ? s.dim : s.catMat[matKey(r)]);
     r.objs.forEach(o => { o.material = m; if (!r.mesh && !r.blocked) o.scale.setScalar(state.sel === r ? 1.5 : 1); }); } }
 
 // ---------- views ----------
@@ -537,7 +706,11 @@ function enterBuilding(b){
   flyTo(viewBuilding(b, true)); ui();
 }
 function showLevel(li){ clearSel(); state.level = li; flyTo(viewLevel(state.b, li)); ui(); }
+// rooms not identified yet ("Not mapped yet": unknown, unmapped or unconfirmed doors) are drawn but never clickable,
+// hoverable, linkable or usable as a Directions start/end
+const unknownRoom = r => r.cat === "pending";
 function selectRoom(r, fly){
+  if (unknownRoom(r)) return;
   if (state.b !== r.B) enterBuilding(r.B);
   const prev = state.sel; state.sel = r; state.level = r.lv; if (prev) prev.label.classList.remove("sel");
   r.label.classList.add("sel"); paint(r.B);
@@ -555,16 +728,24 @@ function setHash(){ const h = DIR.open && (DIR.from || DIR.to) ? [DIR.from && "f
 
 // ---------- UI ----------
 function mkLabel(html, cls){ const d = document.createElement("div"); d.className = "lbl off "+(cls||""); d.innerHTML = html; $("labels").appendChild(d); return d; }
-function toast(t){ const el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove("on"), 2600); }
+function toast(t, ms = 2600){ const el = $("toast"); el.textContent = t; el.classList.add("on"); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove("on"), ms); }
+const ICON = {
+  share:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></svg>',
+  x:'<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  // the same route mark as the search bar's Directions button, in one colour for the black pill
+  nav:'<svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7.2 8.6c0 5.6 9.6 1.2 9.6 6.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-dasharray=".1 3.2"/><circle cx="7" cy="6" r="2.6" fill="currentColor"/><circle cx="17" cy="18" r="2.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+};
 const LVS = ["G","1","2","3","4"];
 function ui(){
   const b = state.b, c = $("crumbs"); c.innerHTML = "";
-  const parts = [["Zone A", (b || state.selB) ? campusView : null]];
+  const zb = b || state.selB;       // the zone is the building code's letter (A9 → A, B1 → B, C13 → C)
+  const parts = [["Zone " + (zb ? zb.id[0] : "A"), zb ? campusView : null]];
   if (state.selB) parts.push([state.selB.id, null]);
-  if (b){ parts.push([b.id+" · "+(b.name.split(" / ")[0]), state.level !== "all" ? () => enterBuilding(b) : null]);
+  if (b){ parts.push([b.id, state.level !== "all" ? () => enterBuilding(b) : null]);
     if (state.level !== "all") parts.push([b.levels[state.level], state.sel ? () => showLevel(state.level) : null]);
     if (state.sel) parts.push([state.sel.name, null]); }
   parts.forEach(([t, fn], i) => { if (i) c.append("›"); const el = document.createElement(fn ? "button" : "span"); el.textContent = t; if (fn) el.onclick = fn; c.append(el); });
+  c.hidden = parts.length < 2;      // "Zone A" alone says nothing: show the trail only once you are inside something
   // levels
   $("levels").hidden = !b;
   if (b){ const box = $("lvbtns"); box.innerHTML = "";
@@ -576,13 +757,16 @@ function ui(){
   if (b) for (const k of Object.keys(CAT)){ if (k === "circulation") continue;
     const n = b.rooms.filter(r => r.cat === k && (state.level === "all" || r.lv === state.level)).length; if (!n) continue;
     const x = document.createElement("button"); x.className = "fchip"; x.setAttribute("aria-pressed", String(state.filter === k));
-    x.innerHTML = `<i class="dot" style="background:${CAT[k].c}"></i>${CAT[k].n} <em>${n}</em>`;
+    const dot = k === "washroom" ? `linear-gradient(90deg,${TONE["wc-m"].c} 50%,${TONE["wc-f"].c} 50%)` : CAT[k].c;   // washrooms: men's blue + women's pink
+    x.innerHTML = `<i class="dot" style="background:${dot}"></i>${CAT[k].n} <em>${n}</em>`;
     x.onclick = () => { state.filter = state.filter === k ? null : k; paint(b); ui(); }; f.append(x); }
-  $("hint").textContent = !b ? (state.selB ? "This building has no floor plans yet. Its interior will be added later." : "Click a building to open it. A9 and A11 have floor plans. Drag to orbit, scroll to zoom.")
-    : state.level === "all" ? "The floors are pulled apart. Pick a level on the right, or click a floor."
-    : "Click a room for its details, or search by room number or instructor.";
+  // tips show once each, as a brief toast, instead of a permanent line in the panel
+  const tip = !b ? (state.selB ? "" : "Tap a building outlined in green to see its floors.")
+    : state.level === "all" ? "Pick a level on the right, or tap a floor." : "";
+  if (tip && !tipsSeen.has(tip)){ tipsSeen.add(tip); setTimeout(() => toast(tip, 4000), 500); }
   info(); renderDir(); setHash();
 }
+const tipsSeen = new Set();
 document.querySelector(".lvbtn.all").onclick = () => state.b && enterBuilding(state.b);
 $("home").onclick = campusView;
 $("north").onclick = () => { const d = camera.position.clone().sub(controls.target), h = Math.hypot(d.x, d.z); flyTo({p:controls.target.clone().add(new V3(0, d.y, h)), t:controls.target.clone()}, .6); };
@@ -592,81 +776,107 @@ $("zin").onclick = () => zoom(.7); $("zout").onclick = () => zoom(1.4);
 function info(){
   const el = $("info"), r = state.sel, b = state.selB;
   if (DIR.open || (!r && !b && !(state.b && state.level === "all"))){ el.hidden = true; return; }
-  el.hidden = false; let h = `<button class="x" aria-label="Close">×</button>`;
+  el.hidden = false; let h = ""; schedStore = [];
+  const head =(title, sub, dot) => `<div class="ihead"><div class="itx"><h2>${esc(title)}</h2><div class="sub">${dot ? `<i class="dot" style="background:${dot};width:8px;height:8px;border-radius:50%"></i>` : ""}${sub.filter(Boolean).map(esc).join('<span class="sep"></span>')}</div></div>
+    <div class="ibtns"><button class="ib" data-share aria-label="Copy link to this place" title="Copy link">${ICON.share}</button><button class="ib x" aria-label="Close" title="Close">${ICON.x}</button></div></div>`;
+  const acts = id => NAV && endpoint(id) ? `<div class="acts"><button class="btn" data-dto="${esc(id)}">${ICON.nav}Directions</button><button class="btn ghost" data-dfrom="${esc(id)}">Start here</button></div>` : "";
   if (r){
     const o = r.info || {}, isOffice = r.cat === "office", num = roomNumber(r);
     const heading = num || (isOffice && o.instructor ? o.instructor : r.name);
-    h += `<h2>${esc(heading)}</h2>
-      <div class="meta"><span class="chip"><i class="dot" style="background:${CAT[r.cat].c}"></i>${CAT[r.cat].one}</span><span class="chip plain">${esc(r.B.id)} · ${esc(r.B.levels[r.lv])}</span></div>`;
-    if (num && r.name !== num && r.name !== CAT[r.cat].one && r.name !== "Office "+num) h += `<p>${esc(r.name)}</p>`;
+    h += head(heading, [oneOf(r), r.B.id+" · "+r.B.levels[r.lv]], tint(r));
+    if (num && r.name !== num && r.name !== CAT[r.cat].one && r.name !== oneOf(r) && r.name !== "Office "+num) h += `<p>${esc(r.name)}</p>`;
+    h += acts(r.id);
     if (o.people){
       h += directoryDetails(o.people);
       for (const child of o.inside || []){
         h += '<div class="sec"><h3>' + esc(child.roomId) + '</h3></div>';
         h += directoryDetails(child.people || []);
-        if (!child.people?.length) h += '<p class="free">Occupant and schedule information has not been recorded for this office.</p>';
+        if (!child.people?.length) h += '<p class="free">No occupant recorded for this office yet.</p>';
       }
-      if (!o.people.length && !o.inside?.length) h += '<p class="free">Occupant and schedule information has not been recorded for this room.</p>';
+      if (!o.people.length && !o.inside?.length) h += '<p class="free">No occupant recorded for this room yet.</p>';
     } else if (isOffice){
-      h += `<div class="sec"><h3>Office</h3><dl class="kv">
-        <dt>Instructor</dt>${val(o.instructor)}${o.title?`<dt>Title</dt>${val(o.title)}`:""}
-        <dt>Department</dt>${val(o.department)}<dt>Email</dt>${val(o.email, true)}${nineDigitPhone(o.phone)?`<dt>Phone</dt>${val(nineDigitPhone(o.phone), true)}`:""}</dl></div>`;
-      h += `<div class="sec"><h3>Office hours</h3>${week(o.officeHours, "office", "Office hours not added yet.")}</div>`;
-      h += `<div class="sec"><h3>Weekly schedule</h3>${week(o.schedule, null, "Schedule not added yet.")}</div>`;
+      h += o.instructor ? personBlock(o.instructor, [o.title, o.department], o.email, nineDigitPhone(o.phone)) : '<p class="free">No occupant recorded for this office yet.</p>';
+      if (o.officeHours?.length) h += `<div class="sec"><h3>Office hours</h3>${week(o.officeHours, "office", "")}</div>`;
+      h += schedBtn(o.schedule, o.instructor, "");
       const kids = ROOMS.filter(x => x.parent === r.id);
-      if (kids.length) h += `<div class="sec"><h3>Offices inside</h3><div class="list">${kids.map(k => `<button data-room="${esc(k.id)}"><i class="dot" style="background:${CAT[k.cat].c}"></i>${esc(k.name)}</button>`).join("")}</div></div>`;
-    } else h += `<p>${r.cat === "pending" ? "This space is reserved. Its rooms will be added from the floor plan." : esc(r.B.name.split(" / ")[0])+", "+esc(r.B.levels[r.lv]).toLowerCase()+"."}</p>`;
-    if (NAV && NAV.rooms[r.id]) h += `<div class="acts"><button class="btn" data-dto="${esc(r.id)}">Directions to here</button><button class="btn ghost" data-dfrom="${esc(r.id)}">Start from here</button></div>`;
+      if (kids.length) h += `<div class="sec"><h3>Offices inside</h3><div class="list">${kids.map(k => `<button data-room="${esc(k.id)}"><i class="dot" style="background:${tint(k)}"></i>${esc(k.name)}</button>`).join("")}</div></div>`;
+    } else if (r.cat === "pending") h += `<p>Reserved space. Its rooms will be added later.</p>`;
   } else if (b){
-    h += `<h2>${esc(b.name || b.id)}</h2><div class="meta"><span class="chip mono">${esc(b.id)}</span><span class="chip plain">Zone A</span></div>
-      <p>Floor plans for this building are not mapped yet. Only A9 and A11 can be opened for now.</p>`;
-    if (NAV && NAV.outdoor.nodes.some(n => n.b === b.id)) h += `<div class="acts"><button class="btn" data-dto="${esc(b.id)}">Directions to here</button><button class="btn ghost" data-dfrom="${esc(b.id)}">Start from here</button></div>`;
+    h += head(b.name || b.id, [b.id, "No indoor map yet"]);
+    h += acts(b.id);
   } else { const B = state.b, cnt = k => B.rooms.filter(x => x.cat === k).length;
-    h += `<h2>${esc(B.name.replace(" / ", " · "))}</h2><div class="meta"><span class="chip mono">${esc(B.id)}</span><span class="chip plain">${B.floors.length} levels</span><span class="chip plain">${cnt("office")} offices</span></div>
-      ${NAV ? `<div class="acts"><button class="btn" data-dto="${esc(B.id)}">Directions to ${esc(B.id)}</button><button class="btn ghost" data-dfrom="${esc(B.id)}">Start from ${esc(B.id)}</button></div>` : ""}
-      <div class="sec"><h3>Levels</h3><div class="list">${B.levels.map((n, i) => `<button data-lv="${i}"><b style="font:600 11px var(--f-mono);width:16px">${LVS[i]}</b>${esc(n)} <span style="color:var(--muted);font-weight:500">· ${B.rooms.filter(x => x.lv === i && x.cat !== "circulation" && x.cat !== "pending").length} rooms</span></button>`).join("")}</div></div>`;
+    const [main, ...more] = B.name.split(" / ");      // A9 houses two colleges: the first is the title, the rest a muted line
+    h += head(main, [B.id, B.floors.length+" levels", cnt("office")+" offices"]);
+    if (more.length) h += `<p>Also ${esc(more.join(", "))}</p>`;
+    h += acts(B.id);
   }
   el.innerHTML = h; el.scrollTop = 0;
   el.querySelector(".x").onclick = () => { if (state.sel){ clearSel(); ui(); } else if (state.selB){ state.selB = null; ui(); } else el.hidden = true; };
+  el.querySelector("[data-share]").onclick = () => { const t = location.href;
+    (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Link copied"), () => toast("Copy the link from the address bar")); };
   el.querySelectorAll("[data-room]").forEach(x => x.onclick = () => selectRoom(byId[x.dataset.room], true));
+  el.querySelectorAll("[data-sched]").forEach(x => x.onclick = () => openSched(schedStore[+x.dataset.sched]));
   el.querySelectorAll("[data-dto]").forEach(x => x.onclick = () => { openDir(); setEnd("to", x.dataset.dto); if (!DIR.from) $("dfrom").focus(); });
   el.querySelectorAll("[data-dfrom]").forEach(x => x.onclick = () => { openDir(); setEnd("from", x.dataset.dfrom); if (!DIR.to) $("dto").focus(); });
   el.querySelectorAll("[data-lv]").forEach(x => x.onclick = () => showLevel(+x.dataset.lv));
   el.querySelectorAll(".copy").forEach(x => x.onclick = () => { const t = x.dataset.v;
     (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => toast("Copied "+t), () => { const s = getSelection(), rg = document.createRange(); rg.selectNodeContents(x.previousElementSibling); s.removeAllRanges(); s.addRange(rg); toast("Selected. Press copy."); }); });
 }
-const val = (v, copy) => v ? `<dd><span>${esc(v)}</span>${copy?`<button class="copy" data-v="${esc(v)}">Copy</button>`:""}</dd>` : `<dd class="empty">Not added yet</dd>`;
+// one person: name, a muted role line, then email/phone each with a Copy button; empty fields are left out
+const contact = (v, href) => v ? `<div class="ct"><a href="${esc(href)}">${esc(v)}</a><button class="copy" data-v="${esc(v)}">Copy</button></div>` : "";
+const personBlock = (name, sub, email, phone) => `<div class="who"><b>${esc(name)}</b>${sub.filter(Boolean).length ? `<span>${esc(sub.filter(Boolean).join(" · "))}</span>` : ""}</div>`
+  + contact(email, "mailto:"+email) + contact(phone, "tel:"+phone);
+// ---- timetable helpers shared by the card list (office hours) and the full weekly grid ----
+const slotNorm = items => (items || []).map(s => ({...s, day:String(s.day || "").slice(0, 3), where:s.location || s.where}));
+const slotTime = s => {
+  if (s.from && s.to) return s.from + "–" + s.to;
+  if (s.from) return "From " + s.from + " · end unspecified";
+  if (s.to) return "Until " + s.to + " · start unspecified";
+  const window = s.postedWindow;
+  if (window?.from && window?.to) return "Within " + window.from + "–" + window.to + " · exact time unspecified";
+  return "Time unspecified";
+};
+const slotStart = s => slotTime(s).match(/\d{2}:\d{2}/)?.[0] || "99:99";
+const slotType = (s, forceType) => forceType || s.type || (/office hours/i.test(s.title || "") ? "office" : "other");
+// compact weekly list: only days that have something, one line per slot (fits the 320 px card, no sideways scrolling)
 function week(items, forceType, empty){
-  if (!items || !items.length) return '<p class="free">' + esc(empty) + '</p>';
-  items = items.map(s => ({
-    ...s, day:String(s.day || "").slice(0, 3), where:s.location || s.where,
-  }));
-  const days = DAYS.filter(d => WEEK.includes(d) || items.some(s => s.day === d));
-  const timeText = s => {
-    if (s.from && s.to) return s.from + "–" + s.to;
-    if (s.from) return "From " + s.from + " · end unspecified";
-    if (s.to) return "Until " + s.to + " · start unspecified";
-    const window = s.postedWindow;
-    if (window?.from && window?.to) return "Within " + window.from + "–" + window.to + " · exact time unspecified";
-    return "Time unspecified";
-  };
-  const rows = [...new Set(items.map(timeText))].sort((a, b) => {
-    const start = label => label.match(/\d{2}:\d{2}/)?.[0] || "99:99";
-    return start(a).localeCompare(start(b)) || a.localeCompare(b);
-  });
-  const label = forceType === "office" ? "Office hours" : "Weekly schedule";
-  return '<div class="timetable-scroll" role="region" aria-label="' + label + ' (scroll horizontally for more days)" tabindex="0">' +
-    '<table class="timetable"><thead><tr><th class="time" scope="col">Time</th>' +
-    days.map(d => '<th scope="col">' + d + '</th>').join('') + '</tr></thead><tbody>' +
-    rows.map(time => '<tr><th class="time" scope="row">' + esc(time) + '</th>' + days.map(day => {
-      const slots = items.filter(s => s.day === day && timeText(s) === time).map(s => {
-      const detail = [s.title, s.where && currentBuildingCode(s.where)].filter(Boolean).join(" · ");
-        const type = forceType || s.type || (/office hours/i.test(s.title || "") ? "office" : "other");
-        return '<div class="slot ' + esc(type) + '">' + (detail ? '<s>' + esc(detail) + '</s>' : '') + '</div>';
-      }).join("");
-      return '<td>' + slots + '</td>';
-    }).join('') + '</tr>').join('') + '</tbody></table></div>';
+  if (!items || !items.length) return empty ? '<p class="free">' + esc(empty) + '</p>' : "";
+  items = slotNorm(items);
+  const days = DAYS.filter(d => items.some(s => s.day === d));
+  return '<div class="wk">' + days.map(d => {
+    const xs = items.filter(s => s.day === d).sort((a, b) => slotStart(a).localeCompare(slotStart(b)));
+    return '<div class="wd"><b>' + d + '</b><div class="ws">' + xs.map(s => {
+      const detail = forceType === "office" ? "" : [s.title, s.where && currentBuildingCode(s.where)].filter(Boolean).join(" · ");
+      return '<div class="wi ' + esc(slotType(s, forceType)) + '"><span class="tm">' + esc(slotTime(s)) + '</span>' + (detail ? '<span class="wt">' + esc(detail) + '</span>' : '') + '</div>';
+    }).join("") + '</div></div>';
+  }).join("") + '</div>';
 }
+// ---- weekly schedule: a button in the card that opens the full timetable (days = columns, time slots = rows) ----
+let schedStore = [];
+function schedBtn(items, who, period){
+  if (!items || !items.length) return "";
+  const i = schedStore.push({items, who, period}) - 1, n = slotNorm(items).filter(s => slotType(s) !== "office").length;
+  return `<button class="sbtn" data-sched="${i}" aria-haspopup="dialog">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+    <span>Weekly schedule${n ? `<small>${n} class${n === 1 ? "" : "es"} a week</small>` : ""}</span>
+    <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`;
+}
+function schedGrid(raw){
+  const items = slotNorm(raw), today = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
+  const days = DAYS.filter(d => WEEK.includes(d) || items.some(s => s.day === d));
+  const rows = [...new Set(items.filter(s => days.includes(s.day)).map(slotTime))].sort((a, b) => (a.match(/\d{2}:\d{2}/)?.[0] || "99:99").localeCompare(b.match(/\d{2}:\d{2}/)?.[0] || "99:99") || a.localeCompare(b));
+  const cell = (d, t) => items.filter(s => s.day === d && slotTime(s) === t).map(s => {
+    const where = s.where && currentBuildingCode(s.where);
+    return `<div class="blk ${esc(slotType(s))}">${esc(s.title || (slotType(s) === "office" ? "Office hours" : "Busy"))}${where ? `<small>${esc(where)}</small>` : ""}</div>`; }).join("");
+  return `<table class="grid"><thead><tr><th class="tc" scope="col">Time</th>${days.map(d => `<th scope="col"${d === today ? ' class="today"' : ""}>${d}${d === today ? " <span>Today</span>" : ""}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map(t => `<tr><th class="tc" scope="row">${esc(t)}</th>${days.map(d => `<td${d === today ? ' class="today"' : ""}>${cell(d, t)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+function openSched(s){ if (!s) return; const dlg = $("sched");
+  $("schedwho").textContent = [s.who, s.period].filter(Boolean).join(" · ");
+  $("schedbody").innerHTML = schedGrid(s.items); $("schedbody").scrollTop = $("schedbody").scrollLeft = 0;
+  if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", ""); }
+$("schedx").onclick = () => $("sched").close();
+$("sched").addEventListener("click", e => { if (e.target === e.currentTarget) e.currentTarget.close(); });   // click on the dimmed backdrop closes it
 // search
 const q = $("q"), res = $("results");
 function findHits(t){ const hits = [];
@@ -674,12 +884,12 @@ function findHits(t){ const hits = [];
   for (const b of BLD) if ((b.id+" "+b.name).toLowerCase().includes(t)) hits.push({id:b.id, t:b.id+" · "+(b.name||"Building"), s:b.floors?"Building · floor plans available":"Building", rank:b.id.toLowerCase()===t?2:0, lv:"", c:"var(--accent)", go:() => pickBuilding(b)});
   for (const r of ROOMS){ if (r.cat === "pending" || r.cat === "circulation") continue; const o = r.info || {};
     const insideNumbers = (o.inside || []).map(child => child.roomId).join(" ");
-    if ((r.name+" "+(r.directoryInfo ? "" : r.id)+" "+CAT[r.cat].one+" "+(o.instructor||"")+" "+roomNumber(r)+" "+insideNumbers+" "+(o.email||"")+" "+(o.department||"")).toLowerCase().includes(t)){
+    if ((r.name+" "+(r.directoryInfo ? "" : r.id)+" "+CAT[r.cat].one+" "+oneOf(r)+" "+(o.instructor||"")+" "+roomNumber(r)+" "+insideNumbers+" "+(o.email||"")+" "+(o.department||"")).toLowerCase().includes(t)){
       const number = String(roomNumber(r)).toLowerCase();
       const title = roomNumber(r) || o.instructor || r.name;
-      const detail = [...new Set([insideNumbers, o.instructor, r.name, r.b, CAT[r.cat].one])].filter(value => value && value !== title).join(" · ");
+      const detail = [...new Set([insideNumbers, o.instructor, r.name, r.b, oneOf(r)])].filter(value => value && value !== title).join(" · ");
       const rank = number === t ? 2 : number.startsWith(t) ? 1 : 0;
-      hits.push({id:r.id, t:title, s:detail, rank, lv:LVS[r.lv], c:CAT[r.cat].c, go:() => selectRoom(r, true)});
+      hits.push({id:r.id, t:title, s:detail, rank, lv:LVS[r.lv], c:tint(r), go:() => selectRoom(r, true)});
     }
   }
   return hits.sort((a,b) => (b.rank || 0) - (a.rank || 0)); }
@@ -697,6 +907,32 @@ q.addEventListener("input", () => {
 // ---------- picking ----------
 const ray = new THREE.Raycaster(), mouse = new THREE.Vector2(); let down = null;
 canvas.addEventListener("pointerdown", e => { down = [e.clientX, e.clientY]; tween = null; });
+// ---------- hover (mouse only): the room under the pointer lifts a little, glows green and shows its label ----------
+const LIFT = .35, lifted = new Set(); let hoverXY = null;
+canvas.addEventListener("pointermove", e => { hoverXY = e.pointerType === "mouse" && !e.buttons ? [e.clientX, e.clientY] : null; });   // no hover while dragging the map
+canvas.addEventListener("pointerleave", e => { if (!(e.relatedTarget && e.relatedTarget.closest && e.relatedTarget.closest("#labels"))) hoverXY = null; });
+// labels float above the canvas: moving onto a room's label keeps hovering whatever lies under the pointer, so the label doesn't flicker
+$("labels").addEventListener("pointermove", e => { hoverXY = e.pointerType === "mouse" && !e.buttons ? [e.clientX, e.clientY] : null; });
+$("labels").addEventListener("pointerleave", e => { if (e.relatedTarget !== canvas) hoverXY = null; });
+function setHover(r){ if (state.hover === r) return; const prev = state.hover; state.hover = r || null;
+  for (const x of [prev, r]) if (x){ lifted.add(x); x.label.classList.toggle("hov", x === r); }
+  canvas.style.cursor = r ? "pointer" : "";
+  new Set([prev && prev.B, r && r.B].filter(Boolean)).forEach(paint); }
+function updateHover(){ const b = state.b;
+  if (!hoverXY || !b || !b.slices || state.level === "all"){ setHover(null); return; }
+  const rc = canvas.getBoundingClientRect(); mouse.set((hoverXY[0]-rc.left)/rc.width*2-1, -(hoverXY[1]-rc.top)/rc.height*2+1);
+  ray.setFromCamera(mouse, camera); const hit = ray.intersectObjects(b.slices[state.level].picks, false)[0];
+  setHover(hit ? hit.object.userData.room : null); }
+// room meshes keep Blender's node transforms, so their local "y" is not always world up: lift along world up converted into each mesh's own space
+const liftW = new V3();
+function liftRooms(dt){ const k = still.matches ? 1 : Math.min(1, dt*14);
+  for (const r of lifted){ const goal = r === state.hover ? 1 : 0; r._lift = (r._lift || 0) + (goal - (r._lift || 0))*k;
+    if (Math.abs(goal - r._lift) < .005) r._lift = goal;
+    for (const o of r.objs || []){
+      if (!o.userData.p0){ o.userData.p0 = o.position.clone(); o.parent.updateMatrixWorld(true);
+        o.getWorldPosition(liftW); liftW.y += LIFT; o.userData.liftV = o.parent.worldToLocal(liftW).sub(o.position); }
+      o.position.copy(o.userData.p0).addScaledVector(o.userData.liftV, r._lift); }
+    if (r._lift === goal && goal === 0) lifted.delete(r); } }
 canvas.addEventListener("pointerup", e => {
   if (!down || Math.hypot(e.clientX-down[0], e.clientY-down[1]) > 6 || !campus) return;
   const rc = canvas.getBoundingClientRect(); mouse.set((e.clientX-rc.left)/rc.width*2-1, -(e.clientY-rc.top)/rc.height*2+1);
@@ -728,17 +964,19 @@ function place(el, p, show, pri){
   if (show){ v.copy(p).project(camera); show = v.z < 1 && Math.abs(v.x) < 1.02 && Math.abs(v.y) < 1.02; }
   if (show){ const W = canvas.clientWidth, H = canvas.clientHeight, x = (v.x+1)*W/2, y = (1-v.y)*H/2, w = (el._w ||= el.offsetWidth || 80)/2+3, h = 12;
     if (!pri) for (const b of boxes) if (Math.abs(b[0]-x) < b[2]+w && Math.abs(b[1]-y) < b[3]+h){ show = false; break; }
-    if (show){ boxes.push([x, y, w, h]); el.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`; } }
+    if (show){ if (pri !== 2) boxes.push([x, y, w, h]); el.style.translate = `${x.toFixed(1)}px ${y.toFixed(1)}px`; } }
   if (el._on !== show){ el._on = show; el.classList.toggle("off", !show); if (show && !el._w) el._w = 0; }
 }
 function frame(now){
   const dt = Math.min(.05, (now-last)/1000); last = now; const k = 1-Math.pow(.002, dt), b = state.b;
+  if (hoverXY || state.hover) updateHover(); if (lifted.size) liftRooms(dt);
   if (b){ state.spread += ((window.__mapAssembled ? 0 : 1)-state.spread)*k;
     b.slices.forEach((s, i) => { const off = state.spread*i*GAP, on = state.level === "all" || state.level === i;
       s.wrap.position.y = off; s.wrap.visible = on; s.lo.constant = -((b.id === "A9" ? Math.max(s.low, s.fz-.1) : s.low)+off); s.hi.constant = s.fz+CUT+off; }); }
   if (tween){ tween.t += dt; const t = ease(Math.min(1, tween.t/tween.dur));
     camera.position.lerpVectors(tween.p0, tween.p1, t); controls.target.lerpVectors(tween.t0, tween.t1, t); if (tween.t >= tween.dur) tween = null; }
   controls.update();
+  if (flows.length) flowArrows(now);
   { // depth precision follows the view: a tight near plane keeps floors, blocks and walls a few cm apart from z-fighting at any zoom
     const d = camera.position.distanceTo(controls.target), nn = Math.min(40, Math.max(.4, d*.04)), ff = Math.min(6000, d*2.5 + 1500);
     if (Math.abs(nn-camera.near) > camera.near*.04 || Math.abs(ff-camera.far) > 50){ camera.near = nn; camera.far = ff; camera.updateProjectionMatrix(); } }
@@ -747,19 +985,90 @@ function frame(now){
   const dist = camera.position.distanceTo(controls.target);
   routeFrame();
   if (state.sel) place(state.sel.label, v2(state.sel), true, true);
+  const hv = state.hover && state.hover !== state.sel && !DIR.hi.has(state.hover) ? state.hover : null;
+  if (hv){ const p = v2(hv); p.y += LIFT; place(hv.label, p, true, 2); }   // the hovered room's label always shows, above the others, and takes no label space, so its neighbours' names stay visible
   for (const B of BLD) place(B.label, tmp.set(B.center.x, B.h+6, B.center.z), B !== b && !fadeOn && (dist < 900), B === state.selB);
+  if (surr.on) placeSurroundings(dist, !b && !fadeOn);
   if (b){ b.slices.forEach((s, i) => place(s.lab, tmp.set(b.center.x-b.s[0]/2-5, s.fz+s.wrap.position.y+1, b.center.z+b.s[1]/2), state.level === "all", true));
-    if (state.level !== "all") for (const pass of [0, 1]) for (const r of b.rooms){ if (r === state.sel) continue; if (DIR.hi.has(r)){ if (!pass) place(r.label, tmp, false); continue; }
+    if (state.level !== "all") for (const pass of [0, 1]) for (const r of b.rooms){ if (r === state.sel || r === hv) continue; if (DIR.hi.has(r)){ if (!pass) place(r.label, tmp, false); continue; }
       if (r.lv !== state.level){ if (!pass) place(r.label, tmp, false); continue; }
       if (r.cat === "circulation"){ place(r.label, tmp, false); continue; }   // corridor labels removed
       const minor = r.cat === "pending"; if (minor !== !!pass) continue;
       place(r.label, v2(r), dist < (minor ? 55 : 130) && (!state.filter || r.cat === state.filter), false); }
     else for (const r of b.rooms) if (r !== state.sel) place(r.label, tmp, false); }
-  for (const B of BLD) if (B !== b && B.slices) for (const r of B.rooms) if (r.label._on) place(r.label, tmp, false);
+  for (const B of BLD) if (B !== b && B.slices){ for (const r of B.rooms) if (r.label._on) place(r.label, tmp, false);
+    for (const s of B.slices) if (s.lab._on) place(s.lab, tmp, false); }   // level tags ("Ground floor", "Level 1") of a building you have left
   requestAnimationFrame(frame);
 }
 const tmp = new V3(), tmp2 = new V3();
 const v2 = r => tmp2.set(r.pos.x, r.B.floors[r.lv] + r.lv*GAP*state.spread + 1.2, r.pos.z);
+
+// =====================================================================================================
+// ---------- surroundings: real streets, buildings, parks and places around the campus, from OpenStreetMap.
+//            web/surroundings.json is made by tools/osm-surroundings.cjs, already in the model's coordinates
+//            (Blender x, y in metres; the script fits our buildings onto their OSM outlines).
+// =====================================================================================================
+let SURR = null;
+const surr = {on:false, streets:[], places:[]};
+const POI_C = {hospital:"#d9534f", clinic:"#d9534f", pharmacy:"#d9534f", university:"#8a6fd1", college:"#8a6fd1", school:"#8a6fd1", library:"#8a6fd1",
+  place_of_worship:"#8b5e3c", mall:"#e0893a", supermarket:"#e0893a", department_store:"#e0893a", convenience:"#e0893a", restaurant:"#e0893a", cafe:"#e0893a", fast_food:"#e0893a",
+  park:"#5aa469", sports_centre:"#5aa469", stadium:"#5aa469", bus_stop:"#2f6fd1", bus_station:"#2f6fd1", museum:"#2a9d8f", hotel:"#2a9d8f", attraction:"#2a9d8f"};
+const MAJOR = new Set(["motorway", "trunk", "primary", "secondary"]);
+function buildSurroundings(S){
+  if (!S || !S.roads) return;
+  const grp = new THREE.Group(); grp.name = "Surroundings";
+  // depth: every OSM layer sits a little below the model and is pushed further back (positive offsets), so wherever the model has
+  // its own ground, roads or grass, the model wins; among themselves: roads over road edges over pitches over parks over ground
+  const mat = (tok, f) => { const m = new THREE.MeshLambertMaterial({color:css(tok), side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:f, polygonOffsetUnits:f*4});
+    m.userData.tok = tok; fadeMats.push(m); return m; };
+  const mesh = (pos, m, order) => { if (!pos.length) return; const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3)); g.computeVertexNormals();
+    const o = new THREE.Mesh(g, m); o.renderOrder = order; o.matrixAutoUpdate = false; grp.add(o); };
+  const hc = S.campusHull.reduce((s, q) => [s[0] + q[0]/S.campusHull.length, s[1] + q[1]/S.campusHull.length], [0, 0]);
+  // ground in the scene's own colour, so the map has a floor beyond the campus model; fog softens the far edge
+  const ground = new THREE.Mesh(new THREE.CircleGeometry(3200, 64), mat("--scene", 6)); ground.rotation.x = -Math.PI/2; ground.position.set(hc[0], -.4, -hc[1]); grp.add(ground);
+  scene.fog = new THREE.Fog(css("--scene"), 1400, 2900);
+  // flat polygons (parks, pitches) and roads (ribbons with round joins), each class merged into one mesh
+  const flat = (polys, y) => { const out = []; for (const p of polys){ const pts = p.map(q => new THREE.Vector2(q[0], q[1])); if (THREE.ShapeUtils.isClockWise(pts)) pts.reverse();
+      for (const [a, b, c] of THREE.ShapeUtils.triangulateShape(pts, [])) for (const i of [a, b, c]) out.push(pts[i].x, y, -pts[i].y); } return out; };
+  mesh(flat(S.areas.filter(a => a.k === "park").map(a => a.p.slice(0, -1)), -.3), mat("--park", 5), 1);
+  mesh(flat(S.areas.filter(a => a.k === "pitch").map(a => a.p.slice(0, -1)), -.28), mat("--pitch", 4), 1);
+  const ribbons = (extra, y) => { const pos = [];
+    for (const r of S.roads){ const h = r.w/2 + extra, P3 = r.p.map(q => [q[0], -q[1]]);
+      for (let k = 0; k < P3.length-1; k++){ const [x1, z1] = P3[k], [x2, z2] = P3[k+1], l = Math.hypot(x2-x1, z2-z1); if (l < 1e-6) continue;
+        const nx = -(z2-z1)/l*h, nz = (x2-x1)/l*h; pos.push(x1+nx,y,z1+nz, x2+nx,y,z2+nz, x2-nx,y,z2-nz, x1+nx,y,z1+nz, x2-nx,y,z2-nz, x1-nx,y,z1-nz); }
+      for (const [x, z] of P3) for (let i = 0; i < 10; i++){ const a1 = i/10*Math.PI*2, a2 = (i+1)/10*Math.PI*2; pos.push(x,y,z, x+Math.cos(a2)*h,y,z+Math.sin(a2)*h, x+Math.cos(a1)*h,y,z+Math.sin(a1)*h); } }
+    return pos; };
+  mesh(ribbons(.7, -.25), mat("--road-edge", 3), 2);
+  mesh(ribbons(0, -.2), mat("--road", 2), 3);
+  // nearby buildings: plain light blocks (walls + flat roof)
+  const bpos = [];
+  for (const B of S.blds){ const ring = B.p.slice(0, -1), pts = ring.map(q => new THREE.Vector2(q[0], q[1])); if (pts.length < 3) continue; const h = B.h;
+    for (let i = 0; i < ring.length; i++){ const [x1, y1] = ring[i], [x2, y2] = ring[(i+1) % ring.length]; bpos.push(x1,0,-y1, x2,0,-y2, x2,h,-y2, x1,0,-y1, x2,h,-y2, x1,h,-y1); }
+    if (THREE.ShapeUtils.isClockWise(pts)) pts.reverse();
+    for (const [a, b, c] of THREE.ShapeUtils.triangulateShape(pts, [])) for (const i of [a, b, c]) bpos.push(pts[i].x, h, -pts[i].y); }
+  mesh(bpos, mat("--osm-bld", 1), 4);
+  scene.add(grp);
+  // street names: a few anchors along each named street, every ~260 m, each lying along its road
+  for (const r of S.roads){ if (!r.n) continue; let acc = 120;
+    for (let k = 0; k < r.p.length-1; k++){ const [x1, y1] = r.p[k], [x2, y2] = r.p[k+1], l = Math.hypot(x2-x1, y2-y1);
+      if (l > 30 && acc >= 260){ const m = [(x1+x2)/2, (y1+y2)/2];
+        if (!surr.streets.some(s => s.n === r.n && Math.hypot(s.m[0]-m[0], s.m[1]-m[1]) < 200)){
+          surr.streets.push({n:r.n, m, d:[(x2-x1)/l, (y2-y1)/l], major:MAJOR.has(r.k), el:mkLabel(esc(r.n), "st"+(MAJOR.has(r.k) ? " major" : ""))}); acc = 0; } }
+      acc += l; } }
+  for (const p of S.pois) surr.places.push({...p, el:mkLabel(`<i style="background:${POI_C[p.k] || "#8a948e"}"></i>${esc(p.n.length > 30 ? p.n.slice(0, 29)+"…" : p.n)}`, "poi")});
+  surr.on = true; $("osmcredit").hidden = false;
+}
+// labels: places first (they matter more), then street names turned to follow their road; only in the campus view
+const sA = new V3(), sB = new V3();
+function placeSurroundings(dist, campusView){
+  for (const p of surr.places) place(p.el, tmp.set(p.p[0], 4, -p.p[1]), campusView && dist > 90 && dist < 1500, false);
+  const W = canvas.clientWidth, H = canvas.clientHeight;
+  for (const s of surr.streets){
+    const show = campusView && dist > 70 && (s.major || dist < 750);
+    if (show){ sA.set(s.m[0], 0, -s.m[1]).project(camera); sB.set(s.m[0] + s.d[0]*10, 0, -s.m[1] - s.d[1]*10).project(camera);
+      let a = Math.atan2(-(sB.y - sA.y)*H, (sB.x - sA.x)*W) * 180/Math.PI; if (a > 90) a -= 180; else if (a < -90) a += 180;   // keep the text upright
+      s.el.style.transform = `translate(-50%,-50%) rotate(${a.toFixed(1)}deg)`; }
+    place(s.el, tmp.set(s.m[0], 0, -s.m[1]), show, false); } }
 
 // =====================================================================================================
 // ---------- routing: indoor walkable grids (0.2 m) per floor + stairs/lifts + building exits, joined
@@ -809,7 +1118,7 @@ function smoothCells(L, path){ const w = L.w, pc = [0];
   const out = [path[0]]; let i = 0;
   while (i < path.length-1){ let j = Math.min(path.length-1, i+300); while (j > i+1 && lineCost(L, path[i], path[j]) > (pc[j]-pc[i])*1.002 + .03) j--; out.push(path[j]); i = j; }
   return out; }
-function currentBuildingCode(value){ return String(value).replace(/\bM5\b/gi, "A9"); }
+function currentBuildingCode(value){ return String(value).replace(/\bM5\b/gi, "A9").replace(/\bM7\b/gi, "A11"); }
 const roomNumber = r => {
   if (r.cat === "elevator" || r.cat === "stairs") return "";
   if (r.directoryInfo) return r.directoryInfo.number || "";
@@ -817,7 +1126,7 @@ const roomNumber = r => {
 };
 const rName = r => roomNumber(r) || r.name;
 const lvName = (bid, lv) => bById[bid].levels[lv];
-function endpoint(id){ if (!NAV || !id) return null; const r = byId[id];
+function endpoint(id){ if (!NAV || !id) return null; const r = byId[id]; if (r && unknownRoom(r)) return null;
   if (r){ const R = NAV.rooms[id]; if (!R) return null; const B = NAV.buildings[R.b], L = B.levels[R.lv];
     return {id, kind:"room", r, b:R.b, lv:R.lv, cell:xyCell(B, L, R.door[0], R.door[1]), door:R.door, c:R.c, threshold:R.threshold, name:rName(r), where:R.b+" · "+lvName(R.b, R.lv)}; }
   const b = bById[id]; if (!b) return null; const nodes = NAV.outdoor.nodes.filter(n => n.b === id); if (!nodes.length) return null;
@@ -871,11 +1180,17 @@ function planBetween(A, Z, sf){
   if (!done.has("T")) return {A, Z, fail:true, legs:[]};
   const hops = []; for (let k = "T"; prev.get(k)[0] !== null; k = prev.get(k)[0]) hops.unshift(prev.get(k)[1]);
   return build(A, Z, hops, sf); }
+// a walk drawn on the campus map rather than inside one building: outdoor paths ("out") and the hallways / covered
+// walkways between buildings ("hall", paths with k:"hall" in nav.json - drawn on top, since they run under roofs)
+const campusLeg = l => l && l.type === "walk" && (l.where === "out" || l.where === "hall");
 function build(A, Z, hops, sf){
   const legs = []; let cur = null; const O = NAV.outdoor;
   const walk = (where, pts, extra) => { if (!(cur && cur.type === "walk" && cur.where === where)){ cur = Object.assign({type:"walk", where, pts:[]}, extra); legs.push(cur); }
     for (const p of pts){ const l = cur.pts[cur.pts.length-1]; if (!l || Math.hypot(l[0]-p[0], l[1]-p[1]) > .05) cur.pts.push(p); } return cur; };
-  for (const h of hops){
+  const pathOf = h => O.paths[h.i < h.j ? h.i+"-"+h.j : h.j+"-"+h.i];
+  // the short pieces joining a door or a start point to the network take the kind of the stretch they join
+  const kindNext = hi => { const nh = hops[hi+1]; return nh && nh.t === "out" && pathOf(nh).k === "hall" ? "hall" : "out"; };
+  for (let hi = 0; hi < hops.length; hi++){ const h = hops[hi];
     if (h.t === "in"){ const B = NAV.buildings[h.bid], L = B.levels[h.lv], F = flood(h.bid, h.lv, h.from), cells = [];
       for (let k = h.to; k !== -1; k = F.par[k]) cells.push(k); cells.reverse();
       walk(h.bid+":"+h.lv, (L.o ? turnCells(L, cells) : smoothCells(L, cells)).map(k => cellXY(B, L, k)), {b:h.bid, lv:h.lv}); }
@@ -890,14 +1205,14 @@ function build(A, Z, hops, sf){
       const indoor = pts => walk(h.bid+":0", pts, {b:h.bid, lv:0});
       if (h.t === "exit"){
         if (p.threshold) indoor([door, threshold]);
-        walk("out", [threshold, p.node.p], {exit:p.node});
+        walk(kindNext(hi), [threshold, p.node.p], {exit:p.node});
       } else {
-        walk("out", [p.node.p, threshold]).enter = p.node;
+        walk(cur && cur.where === "hall" ? "hall" : "out", [p.node.p, threshold]).enter = p.node;
         if (p.threshold) indoor([threshold, door]);
       }
     }
-    else if (h.t === "out"){ const P = O.paths[h.i < h.j ? h.i+"-"+h.j : h.j+"-"+h.i]; walk("out", h.i < h.j ? P.pts : P.pts.slice().reverse()); }
-    else if (h.t === "start"){ walk("out", [h.n.p], {from:h.n}); }
+    else if (h.t === "out"){ const P = pathOf(h); walk(P.k === "hall" ? "hall" : "out", h.i < h.j ? P.pts : P.pts.slice().reverse()); }
+    else if (h.t === "start"){ walk(kindNext(hi), [h.n.p], {from:h.n}); }
     else if (h.t === "end"){ cur && (cur.to = h.n); }
   }
   // into the rooms: from the room to its door, and from the last door into the destination room
@@ -905,10 +1220,11 @@ function build(A, Z, hops, sf){
   // from the room centre to its door by straight moves on floors drawn as straight corridors: the last bit runs along the stub into the door
   const ortho = l => NAV.buildings[l.b].levels[l.lv].o;
   const inward = (l, c, door, next) => { if (!ortho(l) || !next) return [c]; const vert = Math.abs(next[0]-door[0]) < Math.abs(next[1]-door[1]); return [c, vert ? [door[0], c[1]] : [c[0], door[1]]]; };
-  if (A.kind === "room" && w0 && w0.where !== "out"){ const e = A.threshold ? [A.c] : inward(w0, A.c, w0.pts[0], w0.pts[1]); w0.pts.unshift(...e); }
-  if (Z.kind === "room" && w1 && w1.where !== "out"){ const n = w1.pts.length, e = Z.threshold ? [Z.c] : inward(w1, Z.c, w1.pts[n-1], w1.pts[n-2]); w1.pts.push(...e.reverse()); }
+  if (A.kind === "room" && w0 && !campusLeg(w0)){ const e = A.threshold ? [A.c] : inward(w0, A.c, w0.pts[0], w0.pts[1]); w0.pts.unshift(...e); }
+  if (Z.kind === "room" && w1 && !campusLeg(w1)){ const n = w1.pts.length, e = Z.threshold ? [Z.c] : inward(w1, Z.c, w1.pts[n-1], w1.pts[n-2]); w1.pts.push(...e.reverse()); }
   if (A.kind === "building" && hops[0]?.t === "start") A = {...A, selectedNode:hops[0].n};
-  if (Z.kind === "building" && hops.at(-1)?.t === "end") Z = {...Z, selectedNode:hops.at(-1).n};
+  const lastHop = hops[hops.length-1];   // (not hops.at(-1): iOS before 15.4 lacks Array.at)
+  if (Z.kind === "building" && lastHop?.t === "end") Z = {...Z, selectedNode:lastHop.n};
   let len = 0, time = 0;
   for (const l of legs){ if (l.type === "walk"){ l.len = 0; for (let k = 1; k < l.pts.length; k++) l.len += Math.hypot(l.pts[k][0]-l.pts[k-1][0], l.pts[k][1]-l.pts[k-1][1]); len += l.len; time += l.len/WALK; }
     else { const dl = Math.abs(l.to - l.from); time += l.type === "stairs" ? STAIR_S*dl : LIFT_S + LIFT_PER*dl; } }
@@ -920,21 +1236,24 @@ const pName = l => l.type === "stairs" ? (/^Staircase/.test(l.name) ? l.name : "
 function describe(R){ const out = [], L = R.legs;
   out.push({ic:"A", cls:"go", t:`Start at ${R.A.name}`, s:R.A.where, leg:-1});
   L.forEach((l, i) => { const nx = L[i+1], pv = L[i-1];
-    if (l.type === "walk" && l.where !== "out"){
+    if (l.type === "walk" && !campusLeg(l)){
       const to = !nx ? R.Z.name : nx.type !== "walk" ? pName(nx) : nx.exit ? "the "+nodeName(nx.exit) : "the exit";
       out.push({ic:"→", t:`Walk ${metres(l.len)} to ${to}`, s:`${l.b} · ${lvName(l.b, l.lv)}`, leg:i}); }
     else if (l.type === "walk"){
-      const to = l.enter ? `the ${l.enter.b} ${nodeName(l.enter)}` : R.Z.name;
-      out.push({ic:"↗", t:(l.exit ? `Leave ${l.exit.b} by the ${nodeName(l.exit)} and walk` : "Walk")+` ${metres(l.len)} outside to ${to}`, s:"Outdoors", leg:i}); }
+      // where this stretch ends: a building door, the hallway / outdoor path that follows, or the destination
+      const to = l.enter ? `the ${l.enter.b} ${nodeName(l.enter)}` : !nx ? R.Z.name
+        : nx.where === "hall" ? "the covered hallway" : nx.where === "out" ? "the outdoor path" : nx.b ? nx.b : R.Z.name;
+      if (l.where === "hall") out.push({ic:"⇢", t:(l.exit ? `Leave ${l.exit.b} by the ${nodeName(l.exit)} and walk` : "Walk")+` ${metres(l.len)} through the covered hallway to ${to}`, s:"Covered hallway", leg:i});
+      else out.push({ic:"↗", t:(l.exit ? `Leave ${l.exit.b} by the ${nodeName(l.exit)} and walk` : "Walk")+` ${metres(l.len)} outside to ${to}`, s:"Outdoors", leg:i}); }
     else { const up = l.to > l.from, nm = pName(l);
       out.push({ic:l.type === "stairs" ? "⇅" : "▣", t:`Take ${nm} ${up ? "up" : "down"} to ${lvName(l.b, l.to)}`, s:`${l.b} · ${Math.abs(l.to - l.from)} floor${Math.abs(l.to - l.from) > 1 ? "s" : ""} ${up ? "up" : "down"}`, leg:i}); } });
   out.push({ic:"B", cls:"fin", t:`Arrive at ${R.Z.name}`, s:R.Z.where, leg:-2});
   return out; }
 
 // ---------- drawing the route ----------
-const routeMat = new THREE.MeshBasicMaterial({color:css("--route") || "#1f6feb", side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:-6, polygonOffsetUnits:-6});
+const routeMat = new THREE.MeshBasicMaterial({color:css("--route") || "#2e8a61", side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:-6, polygonOffsetUnits:-6});
 routeMat.userData.tok = "--route"; fadeMats.push(routeMat);
-const routeOutMat = new THREE.MeshBasicMaterial({color:css("--route") || "#1f6feb", side:THREE.DoubleSide, depthTest:false, transparent:true, opacity:.92});
+const routeOutMat = new THREE.MeshBasicMaterial({color:css("--route") || "#2e8a61", side:THREE.DoubleSide, depthTest:false, transparent:true, opacity:.92});
 routeOutMat.userData.tok = "--route"; fadeMats.push(routeOutMat);
 const arrowMat = new THREE.MeshBasicMaterial({color:0xffffff, side:THREE.DoubleSide, polygonOffset:true, polygonOffsetFactor:-8, polygonOffsetUnits:-8});
 const arrowOutMat = new THREE.MeshBasicMaterial({color:0xffffff, side:THREE.DoubleSide, depthTest:false, transparent:true});
@@ -944,23 +1263,44 @@ function ribbon(pts, y, w, gap, out){
   for (let k = 0; k < P3.length-1; k++){ const [x1, z1] = P3[k], [x2, z2] = P3[k+1], dx = x2-x1, dz = z2-z1, l = Math.hypot(dx, dz); if (l < 1e-6) continue;
     const nx = -dz/l*h, nz = dx/l*h; pos.push(x1+nx,y,z1+nz, x2+nx,y,z2+nz, x2-nx,y,z2-nz, x1+nx,y,z1+nz, x2-nx,y,z2-nz, x1-nx,y,z1-nz); }
   for (const [x, z] of P3) for (let i = 0; i < 12; i++){ const a1 = i/12*Math.PI*2, a2 = (i+1)/12*Math.PI*2; pos.push(x,y,z, x+Math.cos(a2)*h,y,z+Math.sin(a2)*h, x+Math.cos(a1)*h,y,z+Math.sin(a1)*h); }
-  let acc = gap*.6, a = w*.42;
-  for (let k = 0; k < P3.length-1; k++){ const [x1, z1] = P3[k], [x2, z2] = P3[k+1], l = Math.hypot(x2-x1, z2-z1); if (l < 1e-6) continue; const ux = (x2-x1)/l, uz = (z2-z1)/l;
-    while (acc < l){ const cx = x1+ux*acc, cz = z1+uz*acc, yy = y+.005;
-      ar.push(cx+ux*a, yy, cz+uz*a, cx-ux*a*.5-uz*a*.8, yy, cz-uz*a*.5+ux*a*.8, cx-ux*a*.15, yy, cz-uz*a*.15,
-              cx+ux*a, yy, cz+uz*a, cx-ux*a*.15, yy, cz-uz*a*.15, cx-ux*a*.5+uz*a*.8, yy, cz-uz*a*.5-ux*a*.8); acc += gap; }
-    acc -= l; }
   const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
   const grp = new THREE.Group(), m = new THREE.Mesh(g, out ? routeOutMat : routeMat); m.renderOrder = out ? 20 : 2; grp.add(m);
-  if (ar.length){ const ga = new THREE.BufferGeometry(); ga.setAttribute("position", new THREE.Float32BufferAttribute(ar, 3)); const ma = new THREE.Mesh(ga, out ? arrowOutMat : arrowMat); ma.renderOrder = out ? 21 : 3; grp.add(ma); }
+  // moving arrows: one chevron shape (pointing +x) drawn many times; flowArrows() slides them forward every frame
+  const cum = [0]; for (let k = 1; k < P3.length; k++) cum.push(cum[k-1] + Math.hypot(P3[k][0]-P3[k-1][0], P3[k][1]-P3[k-1][1]));
+  const total = cum[cum.length-1];
+  if (total > .5){ const a = w*.42, ga = new THREE.BufferGeometry();
+    ga.setAttribute("position", new THREE.Float32BufferAttribute([a,0,0, -.5*a,0,.8*a, -.15*a,0,0,  a,0,0, -.15*a,0,0, -.5*a,0,-.8*a], 3));
+    const n = Math.floor(total/gap) + 1, ma = new THREE.InstancedMesh(ga, out ? arrowOutMat : arrowMat, n);
+    ma.renderOrder = out ? 21 : 3; ma.frustumCulled = false; grp.add(ma);
+    flows.push({mesh:ma, P3, cum, total, gap, y:y+.005, n}); }
   return grp; }
-function clearRouteDraw(){ routeObjs.forEach(o => { o.parent && o.parent.remove(o); o.traverse(x => x.geometry && x.geometry.dispose()); }); routeObjs = [];
+// ---------- animated arrows: every arrow moves forward along the route and re-enters at the start (a seamless loop) ----------
+let flows = [];
+const flowObj = new THREE.Object3D(), still = matchMedia("(prefers-reduced-motion: reduce)");
+function flowArrows(now){
+  for (const f of flows){
+    const speed = f.gap*.55, phase = still.matches ? f.gap*.6 : (now/1000*speed) % f.gap;   // ~half a gap per second; reduced motion: arrows stay put
+    let k = 0;
+    for (let i = 0; i < f.n; i++){
+      const s = phase + i*f.gap;
+      if (s > f.total - .05){ flowObj.scale.setScalar(0); flowObj.updateMatrix(); f.mesh.setMatrixAt(i, flowObj.matrix); continue; }
+      while (k < f.cum.length-2 && f.cum[k+1] < s) k++;      // arrows are in order along the path, so the segment index only moves forward
+      const [x1, z1] = f.P3[k], [x2, z2] = f.P3[k+1], l = f.cum[k+1]-f.cum[k] || 1e-6, t = (s - f.cum[k])/l;
+      const ux = (x2-x1)/l, uz = (z2-z1)/l;
+      // fade in at the start and out at the end by size, so arrows don't pop in or out
+      const edge = Math.min(1, s/(f.gap*.5), (f.total - s)/(f.gap*.5));
+      flowObj.position.set(x1 + (x2-x1)*t, f.y, z1 + (z2-z1)*t); flowObj.rotation.set(0, Math.atan2(-uz, ux), 0); flowObj.scale.setScalar(Math.max(0, edge));
+      flowObj.updateMatrix(); f.mesh.setMatrixAt(i, flowObj.matrix); }
+    f.mesh.instanceMatrix.needsUpdate = true; } }
+function clearRouteDraw(){ routeObjs.forEach(o => { o.parent && o.parent.remove(o); o.traverse(x => x.geometry && x.geometry.dispose()); }); routeObjs = []; flows = [];
   routePins.forEach(p => p.el.remove()); routePins = [];
   routeTransfers.forEach(p => p.el.remove()); routeTransfers = [];
   const old = [...DIR.hi]; DIR.hi.clear(); new Set(old.map(r => r.B)).forEach(paint); }
 function drawRoute(R){ clearRouteDraw(); if (!R || !R.legs) return;
   for (const l of R.legs){
-    if (l.type === "walk" && l.where === "out"){ const g = ribbon(l.pts, .35, 1.5, 7, true); scene.add(g); routeObjs.push(g); }
+    // hallway legs are drawn at roof height (the zigzag canopies peak at 4.9 m): at ground level a tilted camera shifts the line sideways
+    // against the roof it is under, so it no longer looks centred in the hallway. Outdoor legs stay on the ground.
+    if (campusLeg(l)){ const g = ribbon(l.pts, l.where === "hall" ? 4.7 : .35, l.where === "hall" ? 1.2 : 1.5, 7, true); scene.add(g); routeObjs.push(g); }
     else if (l.type === "walk"){ const b = bById[l.b]; buildSlices(b); const g = ribbon(l.pts, b.floors[l.lv] + .1, l.b === "A11" ? .30 : .55, 2.6, false); b.slices[l.lv].wrap.add(g); routeObjs.push(g); }
     else {
       const b = bById[l.b];
@@ -997,8 +1337,8 @@ function routeFrame(){
 }
 
 // ---------- directions panel ----------
-function openDir(){ if (!DIR.open){ DIR.open = true; $("dir").hidden = false; if (state.sel){ clearSel(); } } ui(); }
-function closeDir(){ DIR.open = false; DIR.res = null; DIR.step = -1; DIR.from = DIR.to = null; $("dfrom").value = $("dto").value = ""; $("dsug").hidden = true; $("dir").hidden = true; clearRouteDraw(); ui(); }
+function openDir(){ if (!DIR.open){ DIR.open = true; $("dir").hidden = false; $("opendir").setAttribute("aria-pressed", "true"); if (state.sel){ clearSel(); } } ui(); }
+function closeDir(){ DIR.open = false; $("opendir").setAttribute("aria-pressed", "false"); DIR.res = null; DIR.step = -1; DIR.from = DIR.to = null; $("dfrom").value = $("dto").value = ""; $("dsug").hidden = true; $("dir").hidden = true; clearRouteDraw(); ui(); }
 const epLabel = id => { const r = byId[id]; if (r) return rName(r)+" · "+r.b+" "+lvName(r.b, r.lv); const b = bById[id]; return b ? b.id+" · "+(b.name||"").split(" / ")[0] : ""; };
 function setEnd(which, id, quiet){ DIR[which] = id || null; $(which === "from" ? "dfrom" : "dto").value = id ? epLabel(id) : ""; $("dsug").hidden = true;
   DIR.field = !DIR.from ? "from" : !DIR.to ? "to" : DIR.field; if (!quiet) recompute(); }
@@ -1039,16 +1379,23 @@ function fitView(pts, y){ let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 =
     const halfW = Math.tan(fitCam.fov*Math.PI/360)*d*fitCam.aspect, halfH = Math.tan(fitCam.fov*Math.PI/360)*d;
     c.addScaledVector(right, ox*halfW).addScaledVector(up, oy*halfH); c.y = y; }
   return {p:c.clone().addScaledVector(dir, d), t:c}; }
-function legView(l){ if (l.type === "walk" && l.where === "out"){ if (state.b) campusView(); return fitView(l.pts, 0); }
+function legView(l){ if (campusLeg(l)){ if (state.b) campusView(); return fitView(l.pts, 0); }
   const b = bById[l.b]; if (l.type !== "walk"){ if (state.b !== b) enterBuilding(b); else { state.level = "all"; } return viewBuilding(b, true); }
   if (state.b !== b) enterBuilding(b); state.level = l.lv; return fitView(l.pts, b.floors[l.lv] + l.lv*GAP); }
 function focusStep(i){ const R = DIR.res; if (!R || !R.legs.length) return; DIR.step = i; clearSel(); $("dir").classList.toggle("compact", i >= 0);
   let v;
   if (i < 0 || i >= R.steps.length){ DIR.step = -1;      // overview
-    const outs = R.legs.filter(l => l.type === "walk" && l.where === "out"), bs = [...new Set(R.legs.filter(l => l.b).map(l => l.b))];
+    const outs = R.legs.filter(campusLeg), bs = [...new Set(R.legs.filter(l => l.b).map(l => l.b))];
     if (outs.length || bs.length !== 1){ if (state.b) campusView(); const ends = [R.A, R.Z].map(ep => ep.kind === "room" ? [ep.r.B.c[0], ep.r.B.c[1], ep.r.B.h + 10] : [ep.nodes[0].p[0], ep.nodes[0].p[1], 5]);
       v = fitView(outs.flatMap(l => l.pts).concat(bs.map(id => [bById[id].c[0], bById[id].c[1]]), ends), 0); }
-    else { const b = bById[bs[0]]; if (state.b !== b) enterBuilding(b); else state.level = "all"; v = viewBuilding(b, true); } }
+    else { const b = bById[bs[0]], lvs = [...new Set(R.legs.map(l => l.lv))];
+      if (state.b !== b) enterBuilding(b);
+      if (lvs.length === 1 && R.legs.every(l => l.type === "walk")){      // one building, one floor: open that floor and frame the route
+        const li = lvs[0], pts = R.legs.flatMap(l => l.pts);
+        const cx = pts.reduce((s, p) => s + p[0], 0)/pts.length, cy = pts.reduce((s, p) => s + p[1], 0)/pts.length;
+        pts.push([cx-15, cy-15], [cx+15, cy+15]);                          // at least ~30 m of floor in view, so a short route keeps its surroundings
+        state.level = li; v = fitView(pts, b.floors[li] + li*GAP); }
+      else { state.level = "all"; v = viewBuilding(b, true); } } }
   else { const s = R.steps[i], li = s.leg === -1 ? 0 : s.leg === -2 ? R.legs.length-1 : s.leg; v = legView(R.legs[li]);
     if (s.leg < 0){ const ep = s.leg === -1 ? R.A : R.Z; if (ep.kind === "room") v = viewRoom(ep.r); } }
   flyTo(v); ui(); }

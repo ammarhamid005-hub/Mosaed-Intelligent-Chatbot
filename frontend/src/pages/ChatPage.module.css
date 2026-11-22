@@ -1,8 +1,9 @@
 .layout {
+  position: relative; /* anchor for the background glow behind the glass panels */
   display: flex;
   height: 100vh;
   overflow: hidden;
-  background: var(--bg);
+  background: var(--canvas);
 }
 
 .main {
@@ -12,6 +13,56 @@
   min-width: 0;
   overflow: hidden;
   position: relative; /* anchor for absolute inputWrap */
+  z-index: 1;
+}
+
+/* The chat column (the input bar and starters are placed inside it) */
+.chatArea {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.chatHidden {
+  display: none;
+}
+
+/* ── Side panel (instructor schedule) ──
+   The wrapper's width grows from 0, so the chat column narrows smoothly while the card
+   inside slides in from the right edge. */
+.sidePanel {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 0;
+  height: 100%;
+  overflow: hidden;
+  transition: width 0.55s cubic-bezier(.22, 1, .36, 1);
+}
+
+.sidePanelOpen {
+  width: clamp(380px, 46vw, 660px);
+}
+
+.sidePanelInner {
+  width: clamp(380px, 46vw, 660px);
+  height: 100%;
+  padding: 12px 12px 12px 0;
+  transform: translateX(48px);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(.22, 1, .36, 1), opacity 0.3s ease;
+}
+
+.sidePanelOpen .sidePanelInner {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidePanel,
+  .sidePanelInner { transition: none; }
 }
 
 /* ── Input wrapper — always absolute so it can animate ── */
@@ -20,13 +71,10 @@
   left: 0;
   right: 0;
   z-index: 10;
-  border-top: 1px solid transparent;
   background: transparent;
   transition:
     bottom 0.55s cubic-bezier(.4, 0, .2, 1),
-    transform 0.55s cubic-bezier(.4, 0, .2, 1),
-    border-top-color 0.35s ease,
-    background-color 0.35s ease;
+    transform 0.55s cubic-bezier(.4, 0, .2, 1);
 }
 
 /* Empty state: centered in the main area */
@@ -35,22 +83,95 @@
   transform: translateY(50%);
 }
 
-/* Has messages: pinned to the bottom */
+/* Has messages: floats at the bottom; the glass bar blurs messages scrolling under it */
 .inputBottom {
   bottom: 0;
   transform: translateY(0);
-  border-top-color: transparent;
-  background: transparent;
+  padding-top: 24px;
 }
 
-/* ── Animated ambient background ── */
+/* ── Starter questions (empty state, under the centred chat bar) ── */
+/* A row of compact chips; hover shows the full question as a tooltip */
+.starters {
+  position: absolute;
+  top: calc(50% + 70px); /* just under the centred chat bar */
+  left: 0;
+  right: 0;
+  z-index: 5;
+  width: calc(100% - 3rem);
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.startersHidden {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+.starter {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 13px 0 11px;
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  background: var(--glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  color: var(--ink-2);
+  font-size: 0.8rem;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 160ms var(--ease-out),
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.starter:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.starter:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+.starter:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.starterIcon {
+  display: flex;
+  color: var(--green);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .starter:hover:not(:disabled) {
+    background: var(--glass-strong);
+    border-color: color-mix(in srgb, var(--brand) 45%, transparent);
+    color: var(--ink);
+  }
+}
+
+/* ── Ambient glow: gives the glass panels something to blur ── */
 .bgCanvas {
   position: absolute;
   inset: 0;
   overflow: hidden;
   pointer-events: none;
   z-index: 0;
-  filter: blur(80px);
+  filter: blur(70px);
 }
 
 .blob {
@@ -62,44 +183,30 @@
 }
 
 .blob1 {
-  width: 90vw;
-  height: 90vw;
-  background: radial-gradient(circle, rgba(46,139,107,0.22) 0%, transparent 65%);
-  top: -40%;
-  left: -30%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(96,182,143,0.30) 0%, transparent 62%);
+  top: -35%;
+  left: -20%;
   animation: drift1 20s ease-in-out infinite;
 }
 
 .blob2 {
-  width: 80vw;
-  height: 80vw;
-  background: radial-gradient(circle, rgba(95,184,151,0.15) 0%, transparent 65%);
-  bottom: -35%;
-  right: -25%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(96,182,143,0.22) 0%, transparent 62%);
+  bottom: -30%;
+  right: -15%;
   animation: drift2 16s ease-in-out infinite;
   animation-delay: -6s;
 }
 
-.blob3 {
-  width: 60vw;
-  height: 60vw;
-  background: radial-gradient(circle, rgba(200,235,215,0.2) 0%, transparent 65%);
-  top: 20%;
-  right: 0%;
-  animation: drift3 24s ease-in-out infinite;
-  animation-delay: -11s;
-}
-
 [data-theme="dark"] .blob1 {
-  background: radial-gradient(circle, rgba(46,139,107,0.12) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(96,182,143,0.20) 0%, transparent 60%);
 }
 
 [data-theme="dark"] .blob2 {
-  background: radial-gradient(circle, rgba(31,107,81,0.1) 0%, transparent 60%);
-}
-
-[data-theme="dark"] .blob3 {
-  background: radial-gradient(circle, rgba(95,184,151,0.07) 0%, transparent 60%);
+  background: radial-gradient(circle, rgba(96,182,143,0.13) 0%, transparent 60%);
 }
 
 @keyframes drift1 {
@@ -116,16 +223,67 @@
   100% { transform: translate(0,   0)    scale(1);    }
 }
 
-@keyframes drift3 {
-  0%   { transform: translate(0,   0)   scale(1);    }
-  25%  { transform: translate(-5%, 6%)  scale(1.05); }
-  55%  { transform: translate(6%,  -4%) scale(0.97); }
-  80%  { transform: translate(-3%, 5%)  scale(1.04); }
-  100% { transform: translate(0,   0)   scale(1);    }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .blob { animation: none; }
+}
+
+/* ── Welcome animation, once, right after sign-in ──
+   The page assembles itself in one sequence (about 1.3 s, a rare moment, so it may take its time):
+     0 ms    the green glow fades up
+     60 ms   the sidebar slides in from the left edge, like a drawer
+     260 ms  its sections follow it in, one after another
+     280 ms  the Mosaed logo turns and springs into place
+     380 ms  the greeting rises word by word, coming into focus
+     480 ms  the chat bar slides up from below
+     640 ms  the starter questions pop in, left to right
+   Pieces are found by data-enter (set in Sidebar, ChatWindow, ChatInput and here), and --i is
+   each piece's place in its row. Only opacity, transform and a short blur move. */
+.entrance [data-enter] { animation-fill-mode: both; }
+
+.entrance [data-enter="glow"] { animation: enterFade 900ms var(--ease-out); }
+
+.entrance [data-enter="sidebar"] {
+  animation: enterDrawer 620ms cubic-bezier(0.32, 0.72, 0, 1) 60ms both;
+}
+
+.entrance [data-enter="side-item"] {
+  animation: enterFromLeft 420ms var(--ease-out) both;
+  animation-delay: calc(260ms + var(--i) * 55ms);
+}
+
+.entrance [data-enter="logo"] {
+  animation: enterLogo 640ms cubic-bezier(0.34, 1.5, 0.64, 1) 280ms both;
+}
+
+.entrance [data-enter="word"] {
+  display: inline-block; /* so each word can move on its own */
+  animation: enterWord 520ms var(--ease-out) both;
+  animation-delay: calc(380ms + var(--i) * 45ms);
+}
+
+.entrance [data-enter="composer"] {
+  animation: enterRise 680ms cubic-bezier(0.32, 0.72, 0, 1) 480ms both;
+}
+
+.entrance [data-enter="chip"] {
+  animation: enterChip 440ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+  animation-delay: calc(640ms + var(--i) * 50ms);
+}
+
+@keyframes enterFade { from { opacity: 0; } }
+@keyframes enterDrawer { from { opacity: 0; transform: translateX(-110%); } }
+@keyframes enterFromLeft { from { opacity: 0; transform: translateX(-14px); } }
+@keyframes enterLogo { from { opacity: 0; transform: scale(0.55) rotate(-18deg); filter: blur(6px); } }
+@keyframes enterWord { from { opacity: 0; transform: translateY(0.45em); filter: blur(6px); } }
+@keyframes enterRise { from { opacity: 0; transform: translateY(72px) scale(0.98); } }
+@keyframes enterChip { from { opacity: 0; transform: translateY(12px) scale(0.92); } }
+
+/* reduced motion: everything simply fades in together */
+@media (prefers-reduced-motion: reduce) {
+  .entrance [data-enter] {
+    animation: enterFade 300ms ease both;
+    animation-delay: 0ms;
+  }
 }
 
 .error {

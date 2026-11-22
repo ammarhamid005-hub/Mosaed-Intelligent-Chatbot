@@ -24,6 +24,11 @@ export const api = {
   signup: (name, email, password) =>
     request("/auth/signup", { method: "POST", body: JSON.stringify({ name, email, password }) }),
 
+  authConfig: () => request("/auth/config"),
+
+  microsoftLogin: (id_token) =>
+    request("/auth/microsoft", { method: "POST", body: JSON.stringify({ id_token }) }),
+
   login: (email, password) =>
     request("/auth/login", { method: "POST", body: JSON.stringify({ email, password }) }),
 
@@ -60,6 +65,8 @@ export const api = {
   getThesisProgress: () => request("/study-plans/thesis/progress"),
   // Simulated student record (demo accounts made by backend/seed_students.py)
   getMyRecord: () => request("/students/me"),
+  // The student's study plan filled in from that record (404 for accounts without one)
+  getMyPlan: () => request("/students/me/plan"),
   saveThesisProgress: (completed) =>
     request("/study-plans/thesis/progress", { method: "PUT", body: JSON.stringify({ completed }) }),
 

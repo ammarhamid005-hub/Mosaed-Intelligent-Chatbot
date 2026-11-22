@@ -4,7 +4,7 @@
   "program": "Science in Computer Science",
   "catalog_year": "2021-22",
   "source_file": "cci/bachelors/bsc-computer-science/cci_bsc-computer-science_2021-22_study-plan_v1.pdf",
-  "total_credit_hours": null,
+  "total_credit_hours": 123,
   "tracks": [
     "new-students-from-fall-2021-22",
     "old-students-before-fall-2021-22"
@@ -28,7 +28,9 @@
       "type": null,
       "year": 1,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1430110 (P/Co)"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 1
     },
@@ -105,7 +107,9 @@
       "type": null,
       "year": 1,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1420101 (P/Co)"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 2
     },
@@ -116,7 +120,9 @@
       "type": null,
       "year": 1,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1440131"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 2
     },
@@ -149,7 +155,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501116"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 3
     },
@@ -160,7 +168,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501116"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 3
     },
@@ -182,7 +192,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1440131"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 3
     },
@@ -193,7 +205,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1440131"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 3
     },
@@ -215,7 +229,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501211"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 4
     },
@@ -226,7 +242,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501211"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 4
     },
@@ -237,7 +255,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1502201"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 4
     },
@@ -248,7 +268,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1502201"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 4
     },
@@ -259,7 +281,9 @@
       "type": null,
       "year": 2,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1440131"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 4
     },
@@ -281,7 +305,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 5
     },
@@ -292,7 +318,10 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215",
+        "1501279"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 5
     },
@@ -303,7 +332,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 5
     },
@@ -314,7 +345,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 5
     },
@@ -325,7 +358,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "0202112"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 5
     },
@@ -336,7 +371,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 6
     },
@@ -347,7 +384,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 6
     },
@@ -358,7 +397,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 6
     },
@@ -369,7 +410,10 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215",
+        "1501279"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 6
     },
@@ -380,7 +424,9 @@
       "type": null,
       "year": 3,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 6
     },
@@ -413,7 +459,9 @@
       "type": null,
       "year": 4,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 7
     },
@@ -424,7 +472,9 @@
       "type": null,
       "year": 4,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501215"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 7
     },
@@ -435,7 +485,9 @@
       "type": null,
       "year": 4,
       "semester": null,
-      "prerequisites": null,
+      "prerequisites": [
+        "1501394"
+      ],
       "track": "new-students-from-fall-2021-22",
       "term": 7
     },
@@ -961,8 +1013,8 @@
     "Flowchart-style plan (Department of Computer Science). Page 1 is the plan 'For New Students from Fall 2021/2022'; page 2 is the plan 'For Old Students before Fall 2021/2022'. Both are included, tagged in 'track'.",
     "The PDF numbers terms 1st-8th and does not name them fall/spring, so 'semester' is null and 'term' (1-8) holds the printed term number.",
     "Credits are printed per year (Crd Hrs) not per term; no overall total is printed. New-student year totals 33+35+32+23 = 123; old-student year totals 30+32+35+26 = 123.",
-    "Prerequisites are drawn only as arrows in the flowchart and are not stated as text, so they are null.",
     "Course titles are as printed, including truncations/typos (e.g. 'Intro. to Artificial Inte', 'Intro to Databse Mang. Sys').",
-    "'College Requirement' (old plan, 5th term) is typed 'other'."
+    "'College Requirement' (old plan, 5th term) is typed 'other'.",
+    "Prerequisites for the new-student plan (page 1) were read from the flowchart arrows (dashed arrow = prerequisite; lab courses taken with or after the lecture). The old-student plan (page 2) has no prerequisites filled in. Total 123 credit hours = the printed year totals."
   ]
 }

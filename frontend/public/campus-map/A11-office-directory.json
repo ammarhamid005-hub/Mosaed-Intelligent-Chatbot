@@ -1,0 +1,7591 @@
+{
+ "schemaVersion": 1,
+ "university": "University of Sharjah",
+ "college": "College of Sciences",
+ "buildingCode": "A11",
+ "timezone": "Asia/Dubai",
+ "readingNotes": [
+  "Room numbers and occupants come from the user-confirmed A11-room-assignment.txt. Schedules were read from the photographed door timetables (A11-office-directory-photos).",
+  "A schedule value of null means no timetable was photographed for that person.",
+  "Timetables keep the term printed on them; some are from earlier semesters.",
+  "M7 is the previous code of building A11."
+ ],
+ "stats": {
+  "rooms": 82,
+  "people": 73,
+  "schedules": 58
+ },
+ "unmatchedSchedules": [],
+ "rooms": {
+  "A11-002": {
+   "roomId": "A11-002",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7955.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Amine Ahriche",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7955.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7955.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics 1 (sec 02)",
+        "location": "C12-110M"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics 1 (sec 02)",
+        "location": "C12-110M"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 1 (sec 63)",
+        "location": "A12-109"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 1 (sec 63)",
+        "location": "A12-109"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics 1 (sec 62)",
+        "location": "W6-002"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics 1 (sec 62)",
+        "location": "W6-002"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Nuclear Physics (sec 61)",
+        "location": "C12-105"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Nuclear Physics (sec 61)",
+        "location": "C12-105"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-003A": {
+   "roomId": "A11-003A",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7958.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Bassam R. Khader",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7958.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7958.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "General Physics for HS (sec 31)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "General Physics for HS (sec 31)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics for MS (sec 62)",
+        "location": "E3-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics for MS (sec 62)",
+        "location": "E3-103"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics for MS (sec 66)",
+        "location": "E3-110"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics for MS (sec 66)",
+        "location": "E3-110"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:45",
+        "title": "Physics 2 Lab (sec 03L)",
+        "location": "B4-213"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:45",
+        "title": "Physics 2 Lab (sec 63L)",
+        "location": "B4-213"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-003B": {
+   "roomId": "A11-003B",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7957.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Omar M. Adwan",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7957.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7957.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Astronomy & Space Sciences (sec 31A)",
+        "location": "C12-106"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Astronomy & Space Sciences (sec 31A)",
+        "location": "C12-106"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "18:15",
+        "title": "Astronomy & Space Sciences (sec 61A)",
+        "location": "C12-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "17:00",
+        "to": "18:15",
+        "title": "Astronomy & Space Sciences (sec 61A)",
+        "location": "C12-007"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics for Health Sci Lab (sec 68L)",
+        "location": "B4-218"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics for Health Sci Lab (sec 65L)",
+        "location": "B4-218"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics for Health Sci Lab (sec 31L)",
+        "location": "B4-218"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics for Health Sci Lab (sec 61L)",
+        "location": "B4-218"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Section 61A is printed as 17:00-16:15; the end time is assumed to be 18:15."
+     }
+    }
+   ]
+  },
+  "A11-004A": {
+   "roomId": "A11-004A",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7951.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Antonios Manousakis",
+     "role": "Assistant Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": "amanousakis@sharjah.ac.ae",
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7951.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7951.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:15",
+        "to": "16:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Astronomy and Space Science",
+        "location": "C12-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Astronomy and Space Science",
+        "location": "C12-007"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "20:00",
+        "title": "Solar and Space Physics (MSc)",
+        "location": "A6-112"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "17:00",
+        "title": "All day at SSAH",
+        "location": "SSAH"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "17:00",
+        "title": "All day at SSAH",
+        "location": "SSAH"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "12:00",
+        "title": "Morning at SSAH",
+        "location": "SSAH"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "12:00",
+        "title": "Morning at SSAH",
+        "location": "SSAH"
+       },
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:15",
+        "to": "16:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours or appointment by email. All day Tuesday and Thursday, and Monday and Wednesday mornings, at the Sharjah Space and Astronomy Hub (SSAH). The timetable lists the office as A11-004B."
+     }
+    }
+   ]
+  },
+  "A11-004B": {
+   "roomId": "A11-004B",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7952.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Albert Much",
+     "role": "Assistant Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7952.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7952.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Math Methods of Physics I (sec 61)",
+        "location": "A8-105"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Math Methods of Physics I (sec 61)",
+        "location": "A8-105"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics I (sec 35)",
+        "location": "C12-002"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics I (sec 35)",
+        "location": "C12-002"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics I (sec 05)",
+        "location": "C13-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics I (sec 05)",
+        "location": "C13-007"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Physics I (sec 65)",
+        "location": "A12-102"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Physics I (sec 65)",
+        "location": "A12-102"
+       },
+       {
+        "day": "Monday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-005A": {
+   "roomId": "A11-005A",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7948.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Abdul Raheem Khudada Al Zubaidy",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7948.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall (year cut off)",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7948.HEIC"
+      ],
+      "officeHours": [],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 62L)",
+        "location": "B4-210"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 10L)",
+        "location": "B3-106"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 11L)",
+        "location": "B3-106"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 31L)",
+        "location": "B3-106"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 014L)",
+        "location": "B3-106"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 2 Lab (sec 01L)",
+        "location": "B4-213"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 2 Lab (sec 31L)",
+        "location": "B4-213"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 2 Lab (sec 32L)",
+        "location": "B4-213"
+       }
+      ],
+      "notes": "The photographed sheet is partly hidden by its frame; office hours and some rooms are not readable."
+     },
+     "notes": "Timetable name: AbdulRaheem Khudada."
+    }
+   ]
+  },
+  "A11-005B": {
+   "roomId": "A11-005B",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7949.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Daniel Moraetis",
+     "role": "Associate Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7949.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-27",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7949.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Sedimentary Rocks and Sedimentology (sec 11)"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Sedimentary Rocks and Sedimentology (sec 11)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Introduction to Geology (sec 11)"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Introduction to Geology (sec 11)"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Stratigraphy and Structural Geology (sec 11)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Stratigraphy and Structural Geology (sec 11)"
+       },
+       {
+        "day": "Monday",
+        "from": "16:00",
+        "to": "18:00",
+        "title": "Graduation Project Coordination (sec 11)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "16:00",
+        "to": "18:00",
+        "title": "Graduation Project Coordination (sec 11)"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-006A": {
+   "roomId": "A11-006A",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7945.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Mejd Almheiri",
+     "role": "Assistant Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7945.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7945.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics 2 (sec 68)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics 2 (sec 68)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 2 (sec 65)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 2 (sec 65)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-006B": {
+   "roomId": "A11-006B",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7946.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Moh'd A. Hamza",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": "mansour@sharjah.ac.ae",
+     "phone": null,
+     "extension": "2375",
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7946.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7946.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:30",
+        "to": "16:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:14",
+        "title": "Physics 1 (sec 03)",
+        "location": "C12-109D / W10-109D"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:14",
+        "title": "Physics 1 (sec 03)",
+        "location": "C12-109D / W10-109D"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:14",
+        "title": "Physics 1 (sec 32)",
+        "location": "A12-007 / M10-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:14",
+        "title": "Physics 1 (sec 32)",
+        "location": "A12-007 / M10-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 04L)",
+        "location": "B3-105 / M12-105"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 45L)",
+        "location": "B3-105 / M12-105"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 61L)",
+        "location": "B3-102 / M12-102"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Electronics for Exp. Phys. Lab (sec 61L)"
+       },
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:30",
+        "to": "16:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Monday office hours are by appointment via email. Female-campus rooms are shown after the slash."
+     },
+     "notes": "Timetable name: Moh'd Mansour."
+    }
+   ]
+  },
+  "A11-007": {
+   "roomId": "A11-007",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7943.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Gehad Sadiek",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7943.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-27",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7943.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Quantum Mechanics 1 (sec 61)",
+        "location": "C12-105 / M10-105"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Quantum Mechanics 1 (sec 61)",
+        "location": "C12-105 / M10-105"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 2 (sec 63)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 2 (sec 63)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics 2 (sec 64)",
+        "location": "C10-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics 2 (sec 64)",
+        "location": "C10-101"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics 2 (sec 66)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics 2 (sec 66)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Quantum Mechanics 1 meets in C12-105 for male students and M10-105 for female students."
+     }
+    }
+   ]
+  },
+  "A11-010A": {
+   "roomId": "A11-010A",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7933.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Ms. Nouf S. Alteneiji",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy (Petroleum Geosciences and Remote Sensing)",
+     "email": "NAlteneiji@sharjah.ac.ae",
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [
+      "IMG_7933.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7933.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours are drawn as blocks starting at 13:00; the end time is read from the grid."
+     },
+     "notes": "door plate reads \"Ms. Nouf Sultan\""
+    }
+   ]
+  },
+  "A11-010B": {
+   "roomId": "A11-010B",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Ms. Asma Alnaqbi",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-010C": {
+   "roomId": "A11-010C",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Dr. Hussein M Elmehdi",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-010D": {
+   "roomId": "A11-010D",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Dr. Baskar Malathi",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [],
+     "schedule": null,
+     "notes": "name handwritten on the glass; the printed plate reads \"Dr. Hussein M Elmehdi\""
+    }
+   ]
+  },
+  "A11-010E": {
+   "roomId": "A11-010E",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7931.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Mohamed I. Abdel-Fattah",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [
+      "IMG_7931.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7931.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:30",
+        "to": "09:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:30",
+        "to": "09:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "14:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "14:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Petrophysics (sec 11)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Petrophysics (sec 11)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Well Logging (sec 11)",
+        "location": "W12-221"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Well Logging (sec 11)",
+        "location": "W12-221"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Reservoir Characterization (sec 11)",
+        "location": "W12-221"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Reservoir Characterization (sec 11)",
+        "location": "W12-221"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Basin Analysis (sec 11)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Basin Analysis (sec 11)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Monday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:30",
+        "to": "09:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:30",
+        "to": "09:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "14:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "14:30",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-010F": {
+   "roomId": "A11-010F",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7929.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Kais Daoudi",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [
+      "IMG_7929.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7929.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 1 (sec 04)",
+        "location": "C12-004"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 1 (sec 04)",
+        "location": "C12-004"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 1 (sec 33)",
+        "location": "C12-105"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 1 (sec 33)",
+        "location": "C12-105"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 1 (sec 36)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 1 (sec 36)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Electricity and Magnetism (sec 61)",
+        "location": "A12-109"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Electricity and Magnetism (sec 61)",
+        "location": "A12-109"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Tuesday and Thursday office hours were corrected by hand to 11:00-12:00."
+     }
+    }
+   ]
+  },
+  "A11-010G": {
+   "roomId": "A11-010G",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Dr. Badreyya Ali AlShehhi",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-010I": {
+   "roomId": "A11-010I",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7926.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Maitha Alshamsi",
+     "role": null,
+     "department": "Applied Physics & Astronomy",
+     "email": "maitha.alshamsi@sharjah.ac.ae",
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [
+      "IMG_7926.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7926.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:45",
+        "to": "10:45",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 33L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 35L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 42L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 36L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 32L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 12L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 46L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 40L)",
+        "location": "B4-214"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Physics 1 Lab (sec 40L?)"
+       },
+       {
+        "day": "Monday",
+        "from": "09:45",
+        "to": "10:45",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours also by appointment using email."
+     }
+    }
+   ]
+  },
+  "A11-010J": {
+   "roomId": "A11-010J",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7924.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Nezar Atalla Hammouri",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_photo",
+     "sourcePhotos": [
+      "IMG_7924.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7924.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Geologic Remote Sensing (sec 1)",
+        "location": "C12-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Geologic Remote Sensing (sec 1)",
+        "location": "C12-103"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "GIS Digital Cartography and Visualization (sec 1)",
+        "location": "A12-105"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Introduction to GIS (sec 1)",
+        "location": "C9-010"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Introduction to GIS (sec 1)",
+        "location": "C9-010"
+       },
+       {
+        "day": "Monday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-016": {
+   "roomId": "A11-016",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7919.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Hussein Al Awadi",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7919.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": null,
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7919.HEIC"
+      ],
+      "officeHours": [],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:45",
+        "title": "Advanced Physics Lab (sec 61L)",
+        "location": "B3-102"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:45",
+        "title": "Advanced Physics Lab (sec 61L)",
+        "location": "B3-102"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:45",
+        "title": "Advanced Physics Lab (sec 62L)",
+        "location": "B3-102"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:45",
+        "title": "Advanced Physics Lab (sec 62L)",
+        "location": "B3-102"
+       }
+      ]
+     },
+     "notes": "Timetable name: Hussain Alawadhi."
+    }
+   ]
+  },
+  "A11-017": {
+   "roomId": "A11-017",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7917.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Attaelmanan Gaffar",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7917.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": null,
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7917.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics for Sciences (sec 61)",
+        "location": "A20-003"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics for Sciences (sec 61)",
+        "location": "A20-003"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Remedial Physics (sec 61)",
+        "location": "A10-006"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Remedial Physics (sec 61)",
+        "location": "A10-006"
+       },
+       {
+        "day": "Tuesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Remedial Physics (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Thursday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Remedial Physics (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-018": {
+   "roomId": "A11-018",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Fatima Alyassi",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-019": {
+   "roomId": "A11-019",
+   "level": 0,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7912.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Mounir Kaidi",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7912.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": null,
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7912.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 2 (sec 61)",
+        "location": "A12-108"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics 2 (sec 61)",
+        "location": "A12-108"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 2 (sec 67)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics 2 (sec 67)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Physics 2 (sec 62)",
+        "location": "A12-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Physics 2 (sec 62)",
+        "location": "A12-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics 3 (sec 61)",
+        "location": "A12-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics 3 (sec 61)",
+        "location": "A12-103"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "The timetable lists the office as M7-19."
+     }
+    }
+   ]
+  },
+  "A11-101A": {
+   "roomId": "A11-101A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7969.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Ms. Randa Al-Teraifi",
+     "role": "Lecturer",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7969.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7969.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus I for Engineering (sec 01)",
+        "location": "C12-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus I for Engineering (sec 01)",
+        "location": "C12-103"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 04)",
+        "location": "C12-109"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 04)",
+        "location": "C12-109"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 02)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 02)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I (sec 01)",
+        "location": "C12-109"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I (sec 01)",
+        "location": "C12-109"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I (sec 02)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I (sec 02)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-101B": {
+   "roomId": "A11-101B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7968.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Fatema Alawadhi",
+     "role": "Lecturer",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7968.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7968.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 05, male)",
+        "location": "C13-TH006"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 05, male)",
+        "location": "C13-TH006"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Mathematics for Business (sec 31, female)",
+        "location": "A12-108"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Mathematics for Business (sec 31, female)",
+        "location": "A12-108"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Calculus I for Engineering (sec 34, female)",
+        "location": "A12-TH005"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Calculus I for Engineering (sec 34, female)",
+        "location": "A12-TH005"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 40, female)",
+        "location": "A13-TH006"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 40, female)",
+        "location": "A13-TH006"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I (sec 61, mixed)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I (sec 61, mixed)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-102A": {
+   "roomId": "A11-102A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Ms. Fatima Alshaali",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-102B": {
+   "roomId": "A11-102B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7971.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Muhammad Islam",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7971.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7971.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Operations Research I (sec 61)",
+        "location": "C12-111"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Operations Research I (sec 61)",
+        "location": "C12-111"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Differential Equations for Engineers (sec 03)",
+        "location": "C13-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Differential Equations for Engineers (sec 03)",
+        "location": "C13-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Calculus II for Engineering (sec 37)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Calculus II for Engineering (sec 37)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Calculus II for Engineering (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Calculus II for Engineering (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-103A": {
+   "roomId": "A11-103A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7975.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Aziz Takhirov",
+     "role": "Associate Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7975.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7975.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Math for Engineers (sec 62)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Math for Engineers (sec 62)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Differential Equations for Engineers (sec 33)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Differential Equations for Engineers (sec 33)"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Differential Equations for Engineers (sec 61)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Differential Equations for Engineers (sec 61)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Differential Equations for Engineers (sec 04)",
+        "location": "C12-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Differential Equations for Engineers (sec 04)",
+        "location": "C12-007"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-103B": {
+   "roomId": "A11-103B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7976.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Mohammad Alakhrass",
+     "role": "Associate Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7976.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7976.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "12:20",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:20",
+        "to": "13:50",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 33)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 33)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 61)",
+        "location": "C12-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 61)",
+        "location": "C12-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I for Engineering (sec 64)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I for Engineering (sec 64)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus II for Engineering (sec 11)",
+        "location": "A12-109"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus II for Engineering (sec 11)",
+        "location": "A12-109"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:20",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:20",
+        "to": "13:50",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "The office-hours row lists room A20-103A."
+     }
+    }
+   ]
+  },
+  "A11-104": {
+   "roomId": "A11-104",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-105": {
+   "roomId": "A11-105",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7981.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Firas Ghanim",
+     "role": "Professor, Head of Mathematics Department",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7981.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7981.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:20",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:20",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Differential Equations for Engineers (sec 69)",
+        "location": "A13-009"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Differential Equations for Engineers (sec 69)",
+        "location": "A13-009"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Differential Equations for Engineers (sec 64)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Differential Equations for Engineers (sec 64)",
+        "location": "A12-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Mathematics for Engineers (sec 61)",
+        "location": "A13-006"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Mathematics for Engineers (sec 61)",
+        "location": "A13-006"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:20",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:20",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Complex Analysis (sec 61) is held during office hours in the office."
+     }
+    }
+   ]
+  },
+  "A11-106": {
+   "roomId": "A11-106",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Amina Jasim Alali",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-107A": {
+   "roomId": "A11-107A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7984.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Nawal Nayfeh",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7984.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7984.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 2 Lab (sec 02L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 2 Lab (sec 61L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 2 Lab (sec 62L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 2 Lab (sec 64L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 2 Lab (sec 65L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics for Health Sciences Lab (sec 32L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics for Health Sciences Lab (sec 63L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics for Health Sciences Lab (sec 64L)",
+        "location": "B3-103"
+       },
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-107B": {
+   "roomId": "A11-107B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7986.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Zahid Raza",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7986.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Spring 2025-2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7986.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus II for Engineering (sec 09, male)",
+        "location": "M6-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus II for Engineering (sec 09, male)",
+        "location": "M6-101"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus II for Engineering (sec 32, female)",
+        "location": "W6-003"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus II for Engineering (sec 32, female)",
+        "location": "W6-003"
+       },
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Tuesday and Thursday office hours are by appointment. The timetable lists the office as M7-107A."
+     }
+    }
+   ]
+  },
+  "A11-108A": {
+   "roomId": "A11-108A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7988.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Mrs. Kholoud Mustafa",
+     "role": "Lecturer",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7988.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7988.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "15:15",
+        "to": "16:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:15",
+        "to": "16:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Math for Business (sec 31, female)",
+        "location": "A20-001"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Math for Business (sec 31, female)",
+        "location": "A20-001"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Remedial Math (sec 01)",
+        "location": "A13-006"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Remedial Math (sec 01)",
+        "location": "A13-006"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Math for Business (sec 01)",
+        "location": "A8-008"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Math for Business (sec 01)",
+        "location": "A8-008"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Remedial Math (sec 61)",
+        "location": "A13-006"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Remedial Math (sec 61)",
+        "location": "A13-006"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Remedial Math (sec 62)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Remedial Math (sec 62)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "15:15",
+        "to": "16:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:15",
+        "to": "16:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-108B": {
+   "roomId": "A11-108B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7989.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Nida Siddiqui",
+     "role": "Lecturer",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7989.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7989.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Math for Business (sec 62)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Math for Business (sec 62)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus for H.S. (sec 64)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus for H.S. (sec 64)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus for H.S. (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus for H.S. (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus for H.S. (sec 62)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus for H.S. (sec 62)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Math for Business (sec 63)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Math for Business (sec 63)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Monday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:30",
+        "to": "12:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:45",
+        "to": "15:15",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours are by appointment."
+     }
+    }
+   ]
+  },
+  "A11-109A": {
+   "roomId": "A11-109A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7991.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Mohammad Bataineh",
+     "role": null,
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7991.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7991.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:30",
+        "title": "Calculus I for Engineering (sec 33, male)"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:30",
+        "title": "Calculus I for Engineering (sec 33, male)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:30",
+        "title": "Calculus I for Engineering (sec 6, male)"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:30",
+        "title": "Calculus I for Engineering (sec 6, male)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Calculus III (male)"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Calculus III (male)"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Calculus I (sec 31, female)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Calculus I (sec 31, female)"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:30",
+        "title": "Calculus I (female)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:30",
+        "title": "Calculus I (female)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Sunday office hours are by appointment. Times are as printed on the sheet, which lists some office hours overlapping classes."
+     }
+    }
+   ]
+  },
+  "A11-109B": {
+   "roomId": "A11-109B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7992.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Tahani Al Sarayreh",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7992.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7992.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 08L)",
+        "location": "A12"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 34L)",
+        "location": "A12"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 37L)",
+        "location": "A12"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 38L)",
+        "location": "A12"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics for MI Lab (sec 61L)",
+        "location": "A12"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics for MI Lab (sec 65L)",
+        "location": "C4"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics for MI Lab (sec 62L)",
+        "location": "A12"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics for MI Lab (sec 63L)",
+        "location": "A12"
+       },
+       {
+        "day": "Monday",
+        "from": "12:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-110A": {
+   "roomId": "A11-110A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7995.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Tahir Abbas",
+     "role": "Associate Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7995.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7995.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Intro to Probability & Statistics (sec 62)",
+        "location": "A12-102"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Intro to Probability & Statistics (sec 62)",
+        "location": "A12-102"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Business Statistics (sec 31)",
+        "location": "A12-TH005"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Business Statistics (sec 31)",
+        "location": "A12-TH005"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Business Statistics (sec 63)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Business Statistics (sec 63)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Statistics for Science (sec 61)",
+        "location": "A12-101D"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Statistics for Science (sec 61)",
+        "location": "A12-101D"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Intro to Probability & Statistics (sec 61)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Intro to Probability & Statistics (sec 61)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:30",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-110B": {
+   "roomId": "A11-110B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7994.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Mostafa Zahri",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7994.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7994.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 38)"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Calculus I for Engineering (sec 38)"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I for Engineering (sec 03)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I for Engineering (sec 03)"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 65)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 65)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Analytic Geometry (sec 61)"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Analytic Geometry (sec 61)"
+       },
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours or by appointment."
+     }
+    }
+   ]
+  },
+  "A11-111A": {
+   "roomId": "A11-111A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7997.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Mrs. Saja Abdul-Hadi",
+     "role": "Lecturer",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7997.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall (year cut off)",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7997.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 02L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 03L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 07L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 09L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 39L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:40",
+        "title": "Physics 1 Lab (sec 44L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "10:40",
+        "title": "Physics 1 Lab (sec 69L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:40",
+        "title": "Physics 1 Lab (sec 70L)",
+        "location": "W12-214-216"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Monday and Wednesday office hours are by appointment via email. The sheet lists the office as A11 (M7) 111B. The timetable lists the office as A11-111B."
+     }
+    }
+   ]
+  },
+  "A11-111B": {
+   "roomId": "A11-111B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7998.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Belkacem Said-Houari",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7998.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2025/2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7998.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Differential Equations for Engineering (sec 01, male)",
+        "location": "M6-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Differential Equations for Engineering (sec 01, male)",
+        "location": "M6-101"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:15",
+        "title": "Differential Equations for Engineering (sec 04, male)",
+        "location": "M6-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:15",
+        "title": "Differential Equations for Engineering (sec 04, male)",
+        "location": "M6-101"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:00",
+        "to": "13:15",
+        "title": "Differential Equations for Engineering (sec 34, female)",
+        "location": "W6-102"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:00",
+        "to": "13:15",
+        "title": "Differential Equations for Engineering (sec 34, female)",
+        "location": "W6-102"
+       },
+       {
+        "day": "Tuesday",
+        "from": "15:30",
+        "to": "16:15",
+        "title": "Calculus II for Engineering (sec 62, female)",
+        "location": "W10-101"
+       },
+       {
+        "day": "Thursday",
+        "from": "15:30",
+        "to": "16:15",
+        "title": "Calculus II for Engineering (sec 62, female)",
+        "location": "W10-101"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours 11:00-12:00 or by appointment."
+     }
+    }
+   ]
+  },
+  "A11-112A": {
+   "roomId": "A11-112A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8004.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Marwan Al-Momani",
+     "role": "Associate Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8004.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8004.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "11:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "11:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:10",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:10",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Business Statistics (sec 62)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Business Statistics (sec 62)"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Business Statistics (sec 61)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Business Statistics (sec 61)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Business Statistics (sec 03)"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Business Statistics (sec 03)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Introduction to Bayesian Data Analysis (sec 61)"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "11:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "11:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:10",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:10",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Or by appointment."
+     }
+    }
+   ]
+  },
+  "A11-112B": {
+   "roomId": "A11-112B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8003.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Mahmoud Benkhelifa",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8003.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8003.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus II for Engineering (sec 31)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus II for Engineering (sec 31)",
+        "location": "A12-110"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus for HS (sec 63)",
+        "location": "A11-101"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus for HS (sec 63)",
+        "location": "A11-101"
+       },
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Calculus II (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Calculus II (sec 61)",
+        "location": "A12-107"
+       },
+       {
+        "day": "Tuesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Foundations of Mathematics (sec 61)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Thursday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Foundations of Mathematics (sec 61)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-112C": {
+   "roomId": "A11-112C",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8002.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Ali Jaballah",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8002.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/27",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8002.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus II for Engineering (sec 01)",
+        "location": "C13-010"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Calculus II for Engineering (sec 01)",
+        "location": "C13-010"
+       },
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Calculus II for Engineering (sec 62)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Calculus II for Engineering (sec 62)",
+        "location": "A12-101"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "20:00",
+        "title": "Applied Linear Algebra",
+        "location": "A3-013"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Linear Algebra I (sec 61)",
+        "location": "A12-005"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Linear Algebra I (sec 61)",
+        "location": "A12-005"
+       },
+       {
+        "day": "Tuesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Linear Algebra I (sec 62)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Thursday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Linear Algebra I (sec 62)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "13:00",
+        "to": "13:50",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Office hours as shown and by appointment. The sheet prints the office as A10-112C."
+     }
+    }
+   ]
+  },
+  "A11-117": {
+   "roomId": "A11-117",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Mustafa A. Snoubra",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-118": {
+   "roomId": "A11-118",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-119": {
+   "roomId": "A11-119",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": "College of Sciences Dean's Office",
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-120": {
+   "roomId": "A11-120",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Batoul Karzoun",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-121": {
+   "roomId": "A11-121",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-122": {
+   "roomId": "A11-122",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8014.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Abdelaziz Soufyane",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8014.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026/2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8014.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "16:00",
+        "to": "17:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:30",
+        "to": "11:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I for Engineering (sec 37)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Calculus I for Engineering (sec 37)"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Business Math (sec 61)"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Ordinary Differential Equations (sec 62)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Ordinary Differential Equations (sec 62)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 63)"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Calculus I for Engineering (sec 63)"
+       },
+       {
+        "day": "Monday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "16:00",
+        "to": "17:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:30",
+        "to": "11:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:45",
+        "to": "13:45",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-123A": {
+   "roomId": "A11-123A",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7966.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Mahmoud Abdel-Hafez",
+     "role": "Associate Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7966.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Spring 2025/2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7966.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics for MS (sec 61)",
+        "location": "M31-007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physics for MS (sec 61)",
+        "location": "M31-007"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics for MS (sec 62)",
+        "location": "M10-104"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Physics for MS (sec 62)",
+        "location": "M10-104"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "18:15",
+        "title": "Instrumentation and Control (sec 61)",
+        "location": "M7A"
+       },
+       {
+        "day": "Wednesday",
+        "from": "17:00",
+        "to": "18:15",
+        "title": "Instrumentation and Control (sec 61)",
+        "location": "M7A"
+       },
+       {
+        "day": "Tuesday",
+        "from": "17:00",
+        "to": "18:15",
+        "title": "Condensed Matter Physics (sec 61)",
+        "location": "M7A"
+       },
+       {
+        "day": "Thursday",
+        "from": "17:00",
+        "to": "18:15",
+        "title": "Condensed Matter Physics (sec 61)",
+        "location": "M7A"
+       },
+       {
+        "day": "Tuesday",
+        "from": "15:00",
+        "to": "16:15",
+        "title": "Physics of Materials (sec 61)",
+        "location": "M7A"
+       },
+       {
+        "day": "Thursday",
+        "from": "15:00",
+        "to": "16:15",
+        "title": "Physics of Materials (sec 61)",
+        "location": "M7A"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-123B": {
+   "roomId": "A11-123B",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-124": {
+   "roomId": "A11-124",
+   "level": 1,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_7964.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Salim Messaoudi",
+     "role": "Professor",
+     "department": "Mathematics",
+     "email": "smessaoudi@sharjah.ac.ae",
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_7964.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_7964.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Differential Equations for Engineers (sec 63)",
+        "location": "C14 (W8) TH005M"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Differential Equations for Engineers (sec 63)",
+        "location": "C14 (W8) TH005M"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Differential Equations for Engineers (sec 62)",
+        "location": "C14 (W8) TH005M"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Differential Equations for Engineers (sec 62)",
+        "location": "C14 (W8) TH005M"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Selected Topics (sec 61)",
+        "location": "A12-008"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Selected Topics (sec 61)",
+        "location": "A12-008"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "PDEs (sec 61)",
+        "location": "C12-002"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "PDEs (sec 61)",
+        "location": "C12-002"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-201A": {
+   "roomId": "A11-201A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8023.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Abdelaziz Elgamouz",
+     "role": "Associate Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8023.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-27",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8023.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Environmental Chemistry (sec 61)",
+        "location": "M10-102"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Environmental Chemistry (sec 61)",
+        "location": "M10-102"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry I (sec 04)",
+        "location": "M6-110"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry I (sec 04)",
+        "location": "M6-110"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Instrumental Analysis Lab (sec 61L)",
+        "location": "W12-239"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Master's Thesis Supervision",
+        "location": "W12-232"
+       },
+       {
+        "day": "Tuesday",
+        "from": "16:30",
+        "to": "17:30",
+        "title": "Master's Thesis Supervision",
+        "location": "W12-232"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Environmental Toxicology (sec 61)",
+        "location": "W7A-105"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "The timetable lists the office as M7-225."
+     }
+    }
+   ]
+  },
+  "A11-201B": {
+   "roomId": "A11-201B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Ms. Muna Abdulaziz Alshams",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-203A": {
+   "roomId": "A11-203A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8025.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Mohamed Shaban Nafie",
+     "role": "Assistant Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8025.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8025.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:00",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:00",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Biochemistry 1 (sec 65)",
+        "location": "E3-013"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Biochemistry 1 (sec 65)",
+        "location": "Med. 013"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Biochemistry 1 (sec 68)",
+        "location": "E7-020"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Biochemistry 1 (sec 68)",
+        "location": "Med. 015"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Biochemistry 1 (sec 63)",
+        "location": "E3-013"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Biochemistry 1 (sec 63)",
+        "location": "Med. 013"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Advanced Biochemistry (sec 61)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:45",
+        "title": "General Chem HS Lab (sec 68L)"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "10:45",
+        "title": "General Chem HS Lab (sec 70L)"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:00",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:00",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       }
+      ],
+      "notes": "Office hours listed are at M27-103 (Medical campus). A second, partly hidden row lists office hours at M7-203 (Sciences), roughly Mon/Wed 14:30-15:30 and Tue/Thu 10:30-11:30. Advanced Biochemistry is held during office hours."
+     }
+    }
+   ]
+  },
+  "A11-203B": {
+   "roomId": "A11-203B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8026.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Ihab Obaidat",
+     "role": "Professor",
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8026.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8026.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics for Health Sciences (sec 61)",
+        "location": "Medical M31-008"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Physics for Health Sciences (sec 61)",
+        "location": "Medical M31-008"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Physics for Health Sciences (sec 64)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "Physics for Health Sciences (sec 64)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Electromagnetic Theory (sec 61)",
+        "location": "A1-125"
+       },
+       {
+        "day": "Wednesday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Electromagnetic Theory (sec 61)",
+        "location": "A1-125"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics for Health Sciences (sec 63)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Physics for Health Sciences (sec 63)",
+        "location": "A12-103D"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-203C": {
+   "roomId": "A11-203C",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Dr. Aiham Rostom",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-204": {
+   "roomId": "A11-204",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-205": {
+   "roomId": "A11-205",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8029.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Ihsan Shehadi",
+     "role": "Professor, Vice Dean of the College of Sciences",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8029.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8029.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS (sec 68)",
+        "location": "Med. Admin. Bldg-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS (sec 68)",
+        "location": "Med. Admin. Bldg-103"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physical Chemistry 2 (sec 11)",
+        "location": "A12-010"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Physical Chemistry 2 (sec 11)",
+        "location": "A12-010"
+       },
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Zoom and MS Teams are available upon prior request."
+     }
+    }
+   ]
+  },
+  "A11-206": {
+   "roomId": "A11-206",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8031.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Raed A. Al Qawasmeh",
+     "role": "Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8031.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8031.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:15",
+        "to": "12:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:15",
+        "to": "12:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:45",
+        "title": "General Chemistry HS Lab (sec 77L)",
+        "location": "M12-030"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "17:00",
+        "title": "General Chemistry HS Lab (sec 80L)"
+       },
+       {
+        "day": "Monday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Organic Chemistry HS (sec 32)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Wednesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Organic Chemistry HS (sec 32)",
+        "location": "A12-104"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Organic Chemistry HS (sec 63)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Organic Chemistry HS (sec 63)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Organic Chemistry HS (sec 64)"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Organic Chemistry HS (sec 64)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "17:00",
+        "to": "20:00",
+        "title": "Advanced Organic Chemistry (sec 11)",
+        "location": "A12-105"
+       },
+       {
+        "day": "Monday",
+        "from": "12:15",
+        "to": "12:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:15",
+        "to": "12:45",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "Some room numbers on the sheet are cut off (sections 63 and 64 show \"A12-10…\")."
+     }
+    }
+   ]
+  },
+  "A11-207": {
+   "roomId": "A11-207",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-208A": {
+   "roomId": "A11-208A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8034.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Samar Damiati",
+     "role": "Associate Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8034.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Spring 2024-2025",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8034.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Office Hours",
+        "location": "M27-103"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Biochemistry 1 (sec 61)",
+        "location": "M31-003"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Biochemistry 1 (sec 61)",
+        "location": "M31-003"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Biochemistry 1 (sec 62)",
+        "location": "M31-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Biochemistry 1 (sec 62)",
+        "location": "M31-007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Biochemistry 2 (sec 61)",
+        "location": "M31-003"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Biochemistry 2 (sec 61)",
+        "location": "M31-003"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Biochemistry 2 (sec 62)",
+        "location": "M31-017"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Biochemistry 2 (sec 62)",
+        "location": "M31-017"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Office Hours",
+        "location": "M27-103"
+       }
+      ],
+      "notes": "The only photographed timetable is from Spring 2024-2025. Office hours were held at M27-103."
+     }
+    }
+   ]
+  },
+  "A11-208B": {
+   "roomId": "A11-208B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8034.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Tahira Amir",
+     "role": "Lecturer",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8034.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8034.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:50",
+        "title": "Analytical Chemistry Lab (sec 61L)",
+        "location": "B4-239"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:50",
+        "title": "General Chemistry-1 Lab (sec 32L)",
+        "location": "B4-236"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:45",
+        "title": "General Chemistry-1 Lab (sec 35L)",
+        "location": "B4-236"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "10:45",
+        "title": "General Chemistry-1 Lab (sec 02L)",
+        "location": "B3-025"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "General Chemistry-1 Lab (sec 37L)",
+        "location": "B4-236"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "Organic Chemistry for HS (sec 63L)",
+        "location": "B3-029"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:50",
+        "title": "Organic Chemistry for HS (sec 65L)",
+        "location": "B3-029"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "Organic Chemistry for HS (sec 71L)",
+        "location": "B3-029"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "The timetable lists the office as M7-208A."
+     }
+    }
+   ]
+  },
+  "A11-209A": {
+   "roomId": "A11-209A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8037.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Azeera Abdul Rahim",
+     "role": "Lecturer",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8037.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8037.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "10:45",
+        "title": "General Chemistry for HS (sec 75L)",
+        "location": "B3-031"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "Organic Chemistry for Eng. Lab (sec 61L)",
+        "location": "B4-235"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "Organic Chemistry for Eng. Lab (sec 62L)",
+        "location": "B4-235"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:50",
+        "title": "Organic Chemistry (1) Lab (sec 61L)",
+        "location": "B4-235"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "Organic Chemistry Lab for HS (sec 61L)",
+        "location": "B4-235"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:50",
+        "title": "Organic Chemistry for HS (sec 62L)",
+        "location": "B4-235"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:50",
+        "title": "Organic Chemistry for HS (sec 66L)",
+        "location": "B3-029"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:50",
+        "title": "Organic Chemistry for HS (sec 72L)",
+        "location": "B3-029"
+       },
+       {
+        "day": "Monday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:30",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "The timetable lists the office as A11-209B."
+     }
+    }
+   ]
+  },
+  "A11-209B": {
+   "roomId": "A11-209B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Mona K. Harakeh",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-210A": {
+   "roomId": "A11-210A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8041.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Zouhair Benkhaldoun",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": "zbenkhaldoun@sharjah.ac.ae",
+     "phone": null,
+     "extension": "1773",
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8041.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Spring 2025-2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8041.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "08:30",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M7-210"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:30",
+        "to": "15:00",
+        "title": "Office Hours",
+        "location": "SAASST"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:30",
+        "to": "15:00",
+        "title": "Office Hours",
+        "location": "SAASST"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:30",
+        "to": "15:00",
+        "title": "Office Hours",
+        "location": "SAASST"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Space Weather (sec 61)",
+        "location": "Smart room, SAASST"
+       },
+       {
+        "day": "Wednesday",
+        "from": "16:00",
+        "to": "18:30",
+        "title": "Exoplanetology (sec 61)",
+        "location": "Smart room, SAASST"
+       },
+       {
+        "day": "Monday",
+        "from": "08:30",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M7-210"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:30",
+        "to": "15:00",
+        "title": "Office Hours",
+        "location": "SAASST"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:30",
+        "to": "15:00",
+        "title": "Office Hours",
+        "location": "SAASST"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:30",
+        "to": "15:00",
+        "title": "Office Hours",
+        "location": "SAASST"
+       }
+      ],
+      "notes": "Office hours or anytime on Teams. Monday office hours are in M7-210; Tuesday to Thursday are at SAASST."
+     }
+    }
+   ]
+  },
+  "A11-210B": {
+   "roomId": "A11-210B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8042.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Mashhoor Ahmed Alwardat",
+     "role": "Professor",
+     "department": "Applied Physics & Astronomy",
+     "email": "malwardat@sharjah.ac.ae",
+     "phone": null,
+     "extension": "2530",
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8042.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8042.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "11:00",
+        "title": "Office Hours",
+        "location": "A11-M7-210"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "11:00",
+        "title": "Office Hours",
+        "location": "A11-M7-210"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "SSAH"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Wednesday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Stellar Astrophysics (Master, sec 61)",
+        "location": "A12-M10-103"
+       },
+       {
+        "day": "Tuesday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Astrophysics 1: Stars (sec 61)",
+        "location": "A12-M10-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "15:30",
+        "to": "16:45",
+        "title": "Astrophysics 1: Stars (sec 61)",
+        "location": "A12-M10-103"
+       },
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Fundamentals of Astronomy and Space Sciences (sec 61)",
+        "location": "A12-M10-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Fundamentals of Astronomy and Space Sciences (sec 61)",
+        "location": "A12-M10-103"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "12:00",
+        "title": "Master Thesis Supervision (sec 62, 63)",
+        "location": "SSAH"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "11:00",
+        "title": "Office Hours",
+        "location": "A11-M7-210"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "11:00",
+        "title": "Office Hours",
+        "location": "A11-M7-210"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "SSAH"
+       }
+      ],
+      "notes": "Office hours or anytime on Teams. Thursday office hours are at SSAH."
+     }
+    }
+   ]
+  },
+  "A11-211A": {
+   "roomId": "A11-211A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Dr. Pavel Starovoitov",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-211B": {
+   "roomId": "A11-211B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8044.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Ayssar Nahle",
+     "role": "Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8044.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8044.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Analytical Chemistry (sec 61)",
+        "location": "A12-108 (M10)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Analytical Chemistry (sec 61)",
+        "location": "A12-108 (M10)"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1) (sec 62)",
+        "location": "C12-TH007 (W10)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1) (sec 62)",
+        "location": "C12-TH007 (W10)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1) (sec 03, male)",
+        "location": "C13-TH007 (W9)"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1) (sec 03, male)",
+        "location": "C13-TH007 (W9)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "10:45",
+        "title": "General Chemistry (HS) Lab (sec 72L)",
+        "location": "B3-031 (M12)"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:45",
+        "title": "General Chemistry (HS) Lab (sec 73L)",
+        "location": "B3-031 (M12)"
+       },
+       {
+        "day": "Monday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "15:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-212": {
+   "roomId": "A11-212",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8051.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Monther Khanfar",
+     "role": "Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8051.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8051.HEIC"
+      ],
+      "officeHours": [],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS (sec 64)",
+        "location": "E7-013"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS (sec 64)",
+        "location": "E7-013"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS (sec 65)",
+        "location": "E7-007"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS (sec 65)",
+        "location": "E7-007"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:45",
+        "title": "General Chemistry Lab for HS (sec 61L)",
+        "location": "B3-031"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:45",
+        "title": "General Chemistry Lab for HS (sec 62L, 63L)",
+        "location": "B3-031"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Inorganic Chemistry (1) (sec 61)"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Inorganic Chemistry (1) (sec 61)"
+       }
+      ],
+      "notes": "Office hours are cut off at the bottom of the photographed sheet."
+     }
+    }
+   ]
+  },
+  "A11-213": {
+   "roomId": "A11-213",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8049.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Mohamed El-Naggar",
+     "role": "Associate Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8049.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall (year cut off)",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8049.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "General Chemistry for HS (sec 70)",
+        "location": "M10-101"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "General Chemistry for HS (sec 70)",
+        "location": "M10-101"
+       },
+       {
+        "day": "Tuesday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Organic Chemistry for HS (sec 34)",
+        "location": "W6-001"
+       },
+       {
+        "day": "Thursday",
+        "from": "08:00",
+        "to": "09:15",
+        "title": "Organic Chemistry for HS (sec 34)",
+        "location": "W6-001"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Organic Chemistry for HS (sec 62)",
+        "location": "M10-102"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Organic Chemistry for HS (sec 62)",
+        "location": "M10-102"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "14:50",
+        "title": "Identification of Organic Compounds (sec 61)",
+        "location": "M10-102"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:00",
+        "title": "Office Hours",
+        "location": "M7-213"
+       }
+      ],
+      "notes": "The sheet is photographed at an angle; the Identification of Organic Compounds lab (sec 61L) times could not be read reliably."
+     }
+    }
+   ]
+  },
+  "A11-218": {
+   "roomId": "A11-218",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8054.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Ahmed Almehdi",
+     "role": null,
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8054.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2025/2026",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8054.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M7-218"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:30",
+        "to": "15:30",
+        "title": "Office Hours",
+        "location": "M7-218"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Biochemistry-1 (sec 65)",
+        "location": "W10-103D"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Biochemistry-1 (sec 65)",
+        "location": "W10-103D"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:45",
+        "title": "Biochemistry-1 (sec 66)",
+        "location": "M10-004D"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:45",
+        "title": "Biochemistry-1 (sec 66)",
+        "location": "M10-004D"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Biochemistry (sec 61)",
+        "location": "M10-002"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "Biochemistry (sec 61)",
+        "location": "M10-002"
+       },
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours",
+        "location": "M27-103"
+       },
+       {
+        "day": "Wednesday",
+        "from": "13:00",
+        "to": "14:00",
+        "title": "Office Hours",
+        "location": "M7-218"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:30",
+        "to": "15:30",
+        "title": "Office Hours",
+        "location": "M7-218"
+       }
+      ],
+      "notes": "Office hours could also be arranged by appointment. Monday office hours are at M27-103."
+     }
+    }
+   ]
+  },
+  "A11-219": {
+   "roomId": "A11-219",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8057.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Kamrul Hasan",
+     "role": "Associate Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8057.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-27",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8057.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry-1 (sec 32)",
+        "location": "C12-TH007"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry-1 (sec 32)",
+        "location": "C12-TH007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "General Chemistry for HS (sec 70)",
+        "location": "A12-010"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "General Chemistry for HS (sec 70)",
+        "location": "A12-010"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry-1 (sec 64)",
+        "location": "C10-003"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry-1 (sec 64)",
+        "location": "C10-003"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:00",
+        "title": "Senior Project (sec 14)"
+       },
+       {
+        "day": "Monday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "16:00",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-220A": {
+   "roomId": "A11-220A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Muna Hassan",
+     "role": "Administrative Assistant",
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-220B": {
+   "roomId": "A11-220B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": "Chairman of Chemistry Department",
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-223A": {
+   "roomId": "A11-223A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8061.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Montaha Anjass Almasri",
+     "role": "Assistant Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8061.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8061.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry for HS",
+        "location": "M7-013"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry for HS",
+        "location": "M7-013"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS",
+        "location": "M7-011"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry for HS",
+        "location": "M7-011"
+       },
+       {
+        "day": "Monday",
+        "from": "12:00",
+        "to": "13:45",
+        "title": "General Chemistry 2",
+        "location": "A12-010"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:00",
+        "to": "13:45",
+        "title": "General Chemistry 2",
+        "location": "A12-010"
+       },
+       {
+        "day": "Monday",
+        "from": "17:00",
+        "to": "19:30",
+        "title": "Advanced Analytical Chemistry",
+        "location": "C16-002"
+       },
+       {
+        "day": "Monday",
+        "from": "10:00",
+        "to": "11:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "10:00",
+        "to": "11:30",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "09:30",
+        "to": "10:30",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "A11-223B": {
+   "roomId": "A11-223B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": []
+  },
+  "A11-224A": {
+   "roomId": "A11-224A",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8020.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Dr. Mahreen Arooj",
+     "role": "Associate Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8020.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-2027",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8020.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:00",
+        "to": "10:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Computer Applications in Chemistry (sec 61)"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "Computer Applications in Chemistry (sec 61)"
+       },
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "General Chemistry I (sec 34)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "General Chemistry I (sec 34)"
+       },
+       {
+        "day": "Tuesday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "General Chemistry I (sec 3534)"
+       },
+       {
+        "day": "Thursday",
+        "from": "14:00",
+        "to": "15:15",
+        "title": "General Chemistry I (sec 3534)"
+       },
+       {
+        "day": "Monday",
+        "from": "14:00",
+        "to": "16:45",
+        "title": "General Chemistry (1) Lab (sec 34L)"
+       },
+       {
+        "day": "Wednesday",
+        "from": "14:00",
+        "to": "16:45",
+        "title": "General Chemistry for HS Lab (sec 79L)"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "13:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Tuesday",
+        "from": "09:00",
+        "to": "10:00",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Thursday",
+        "from": "10:00",
+        "to": "11:00",
+        "title": "Office Hours"
+       }
+      ],
+      "notes": "The sheet also lists Advanced Spectroscopy (sec 61) on Thursday at 9:00 and Chemistry Senior Project (sec 61) on Tuesday at 12:30, without end times."
+     }
+    }
+   ]
+  },
+  "A11-224B": {
+   "roomId": "A11-224B",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [],
+   "people": [
+    {
+     "name": "Dr. Tanveer Ul Haq",
+     "role": null,
+     "department": null,
+     "email": null,
+     "phone": null,
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [],
+     "schedule": null
+    }
+   ]
+  },
+  "A11-225": {
+   "roomId": "A11-225",
+   "level": 2,
+   "roomType": "Office",
+   "roomName": null,
+   "sourcePhotos": [
+    "IMG_8018.HEIC"
+   ],
+   "people": [
+    {
+     "name": "Prof. Abdelnasser Kawde",
+     "role": "Professor",
+     "department": "Chemistry",
+     "email": null,
+     "phone": "065166707",
+     "extension": null,
+     "roomAssociation": "door_plate_confirmed_by_user",
+     "sourcePhotos": [
+      "IMG_8018.HEIC"
+     ],
+     "schedule": {
+      "kind": "weekly_timetable",
+      "term": "Fall 2026-27",
+      "academicYear": null,
+      "sourcePhotos": [
+       "IMG_8018.HEIC"
+      ],
+      "officeHours": [
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:40",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:40",
+        "title": "Office Hours"
+       }
+      ],
+      "activities": [
+       {
+        "day": "Monday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Electrochemistry",
+        "location": "A12-010"
+       },
+       {
+        "day": "Wednesday",
+        "from": "09:30",
+        "to": "10:45",
+        "title": "Electrochemistry",
+        "location": "A12-010"
+       },
+       {
+        "day": "Monday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1)",
+        "location": "A12-TH005"
+       },
+       {
+        "day": "Wednesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1)",
+        "location": "A12-TH005"
+       },
+       {
+        "day": "Tuesday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1)",
+        "location": "C12-TH007"
+       },
+       {
+        "day": "Thursday",
+        "from": "11:00",
+        "to": "12:15",
+        "title": "General Chemistry (1)",
+        "location": "C12-TH007"
+       },
+       {
+        "day": "Tuesday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry (1)",
+        "location": "C13-TH006"
+       },
+       {
+        "day": "Thursday",
+        "from": "12:30",
+        "to": "13:45",
+        "title": "General Chemistry (1)",
+        "location": "C13-TH006"
+       },
+       {
+        "day": "Monday",
+        "from": "12:30",
+        "to": "14:40",
+        "title": "Office Hours"
+       },
+       {
+        "day": "Wednesday",
+        "from": "12:30",
+        "to": "14:40",
+        "title": "Office Hours"
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}

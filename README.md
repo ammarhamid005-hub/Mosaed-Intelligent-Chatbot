@@ -51,7 +51,7 @@ The tables are created automatically the first time the backend starts.
 
 ## 3. Environment Setup (.env)
 
-Create a file named `.env` in the project root:
+Create a file named `.env` in the project root and fill in your own values:
 
 ```
 DATABASE_URL=postgresql+asyncpg://postgres:YOUR_POSTGRES_PASSWORD@localhost:5432/chatbot_db
@@ -59,6 +59,23 @@ JWT_SECRET_KEY=any-long-random-text
 GEMINI_API_KEY=your_gemini_api_key_here
 GEMINI_LLM_MODEL=gemini-3.6-flash
 GEMINI_EMBEDDING_MODEL=models/gemini-embedding-001
+
+# Which model answers the questions: deepseek (the code default), gemini or groq
+LLM_PROVIDER=deepseek
+DEEPSEEK_API_KEY=your_deepseek_api_key_here
+DEEPSEEK_MODEL=deepseek-flash
+# Optional, only for LLM_PROVIDER=groq
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+**Answering model.** `LLM_PROVIDER` picks the model that writes the answers; if it is not set, **DeepSeek** is used, so either add a `DEEPSEEK_API_KEY` (https://platform.deepseek.com, paid) or set `LLM_PROVIDER=gemini` to use the Gemini key for answers too. Groq (https://console.groq.com) is the third option. Embeddings (document search) always use Gemini, so `GEMINI_API_KEY` is needed in every case.
+
+**Sign-in mode.** The app uses the email/password login (`AUTH_MODE=password`, the default). `AUTH_MODE=microsoft` would show a single "Continue with Microsoft" button for `@sharjah.ac.ae` emails (`ALLOWED_EMAIL_DOMAIN`), but the real Microsoft app registration (`MS_TENANT_ID`, `MS_CLIENT_ID`) is not wired up yet, so that button cannot sign anyone in. `AUTH_DEV_LOGIN=true` keeps the email/password login reachable in that mode. Restart the backend after changing these:
+
+```
+AUTH_MODE=password
+ALLOWED_EMAIL_DOMAIN=sharjah.ac.ae
+AUTH_DEV_LOGIN=true
 ```
 
 > Never commit `.env` (it is already in `.gitignore`). Avoid `@ : / #` in the PostgreSQL password, as they break the connection URL.

@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { api } from "../services/api";
+import NavItem, { sidePanelPosition } from "./NavItem";
+import { IconThesis } from "./icons";
 import styles from "./ThesisRoadmap.module.css";
 
 // Thesis Roadmap for thesis-based Master's students.
@@ -120,14 +122,6 @@ const STEPS = [
   },
 ];
 
-const RouteIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
-    strokeLinecap="round" strokeLinejoin="round" width="17" height="17">
-    <path d="M22 10 12 5 2 10l10 5 10-5z" />
-    <path d="M6 12v5c3 2 9 2 12 0v-5" />
-  </svg>
-);
-
 export default function ThesisRoadmap({ onAsk, disabled }) {
   const [open, setOpen] = useState(false);
   const [openStep, setOpenStep] = useState(0);
@@ -136,7 +130,7 @@ export default function ThesisRoadmap({ onAsk, disabled }) {
   const loaded = useRef(false);
   const wrapperRef = useRef(null);
   const panelRef = useRef(null);
-  const [pos, setPos] = useState({ top: 64, right: 16 });
+  const [pos, setPos] = useState({ top: 64, left: 280 });
 
   // Load the student's saved progress the first time the panel opens.
   useEffect(() => {
@@ -190,24 +184,21 @@ export default function ThesisRoadmap({ onAsk, disabled }) {
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
-      <button
-        className={`${styles.trigger} ${open ? styles.triggerActive : ""}`}
+      <NavItem
+        icon={<IconThesis />}
+        label="Thesis roadmap"
+        active={open}
         onClick={(e) => {
-          // place the panel under the button; it is drawn in <body> so the chat box cannot cover it
-          const r = e.currentTarget.getBoundingClientRect();
-          setPos({ top: r.bottom + 10, right: Math.max(16, window.innerWidth - r.right) });
+          // open beside the sidebar; drawn in <body> so the sidebar cannot clip it
+          setPos(sidePanelPosition(e.currentTarget));
           setOpen((v) => !v);
         }}
-        title="Thesis Roadmap (Master's)"
-        aria-label="Open thesis roadmap"
         aria-expanded={open}
-      >
-        <RouteIcon />
-      </button>
+      />
 
       {open && createPortal(
         <div className={styles.panel} role="dialog" aria-label="Thesis Roadmap" ref={panelRef}
-          style={{ top: pos.top, right: pos.right, maxHeight: `calc(100vh - ${pos.top + 16}px)` }}>
+          style={{ top: pos.top, left: pos.left, maxHeight: `calc(100vh - ${pos.top + 12}px)` }}>
           <div className={styles.panelHeader}>
             <span className={styles.panelTitle}>Thesis Roadmap · Master's</span>
             <span className={styles.panelSub}>

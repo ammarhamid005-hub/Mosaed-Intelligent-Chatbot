@@ -1,0 +1,227 @@
+.card {
+  padding: 18px 20px 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  container-type: inline-size;
+}
+
+/* Wide panel (plan map view): progress on the left, the three stats beside it */
+@container (min-width: 820px) {
+  .inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+  .top { flex: 0 1 auto; }
+  .inner .stats {
+    flex: 1;
+    max-width: 640px;
+    margin: 0 0 0 auto;
+    padding: 4px 0 4px 24px;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+    gap: 20px;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── Progress ring ── */
+.ring {
+  width: 84px;
+  height: 84px;
+  flex-shrink: 0;
+}
+
+.track,
+.arc,
+.arcNow {
+  fill: none;
+  stroke-width: 7;
+}
+
+.track {
+  stroke: var(--line);
+}
+
+.arc,
+.arcNow {
+  stroke-linecap: round;
+  stroke-dasharray: var(--len) var(--c);
+  transform: rotate(var(--rot));
+  transform-origin: 40px 40px;
+  animation: fill 900ms var(--ease-out) both;
+}
+
+.arc {
+  stroke: var(--brand);
+}
+
+/* this term's courses: the same green, lighter, right after the passed part */
+.arcNow {
+  stroke: color-mix(in srgb, var(--brand) 35%, transparent);
+  stroke-linecap: butt;
+  animation-delay: 250ms;
+}
+
+@keyframes fill {
+  from { stroke-dasharray: 0 var(--c); }
+}
+
+.pct {
+  text-anchor: middle;
+  font-size: 17px;
+  font-weight: 700;
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.pctSub {
+  text-anchor: middle;
+  font-size: 9px;
+  fill: var(--muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ── Headline ── */
+.headline {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.credits {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--ink-2);
+}
+
+.credits b {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.now {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.nowDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--brand) 35%, transparent);
+}
+
+.pace {
+  margin: 2px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  font-size: 0.74rem;
+  color: var(--ink-2);
+}
+
+.paceLabel {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.paceDetail {
+  color: var(--muted);
+}
+
+.good .paceLabel {
+  background: var(--green-soft);
+  color: var(--green-deep);
+}
+
+.warn .paceLabel {
+  background: rgba(214, 137, 16, 0.14);
+  color: #A5650A;
+}
+
+.neutral .paceLabel {
+  background: var(--hover);
+  color: var(--ink-2);
+}
+
+/* ── Stats ── */
+.stats {
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.stat {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stat dt {
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stat dd {
+  margin: 0;
+  font-size: 0.92rem;
+  font-weight: 650;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stat dd.bad {
+  color: #C0392B;
+}
+
+.statSub {
+  font-size: 0.68rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Narrow (phone): two stats per row, the third below */
+@container (max-width: 400px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 12px; }
+  .ring { width: 72px; height: 72px; }
+}
+
+.still .arc,
+.still .arcNow { animation: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .arc,
+  .arcNow { animation: none; }
+}

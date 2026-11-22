@@ -5,7 +5,15 @@
   background: transparent;
   /* not "relative": the greeting below is placed against the chat page area (ChatPage .main),
      the same box the question box is centred in */
-  overflow: hidden;
+  /* The whole chat area scrolls (not just the centred text column), so the scrollbar sits
+     on the far right edge instead of beside the text. */
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ink) 18%, transparent) transparent;
+  /* Messages fade out before they reach the floating chat bar and the note under it */
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 150px), transparent calc(100% - 40px));
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 150px), transparent calc(100% - 40px));
 }
 
 /* ── Landing hero (absolutely overlaid, fades out when messages arrive) ── */
@@ -16,7 +24,7 @@
   left: 0;
   right: 0;
   bottom: 50%;
-  padding: 0 1.5rem 56px; /* half the question box + a gap */
+  padding: 0 1.5rem 92px; /* half the question box + a gap */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,17 +42,18 @@
 }
 
 .emptyLogo {
-  width: 78px;
-  height: 78px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
 .emptyHeading {
   margin: 0;
-  font-size: 1.35rem;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.9rem;
   font-weight: 600;
   color: var(--ink);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 /* ── Scrollable messages column ── */
@@ -52,66 +61,54 @@
   width: 100%;
   max-width: 760px;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem 110px; /* bottom pad clears the pinned input */
-  flex: 1;
+  padding: 2.5rem 1.5rem 170px; /* bottom pad clears the pinned input */
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(46,139,107,.2) transparent;
 }
 
-/* ── Typing indicator ── */
+/* ── Thinking indicator ──
+   One word in the answer's own type, with a brand-green highlight sweeping across it.
+   It waits 300ms before appearing, so quick answers never flash it. */
 .thinking {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.6rem;
+  font-size: 0.93rem;
+  line-height: 1.7;
+  animation: thinkIn 220ms var(--ease-out) 300ms both;
 }
 
-.thinkingAvatar {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--green-soft);
-  border: 1.5px solid rgba(46,139,107,.3);
-  overflow: hidden;
-  padding: 5px;
+.thinkingText {
+  font-weight: 500;
+  color: transparent;
+  background: linear-gradient(
+    90deg,
+    var(--muted) 0%,
+    var(--muted) 38%,
+    var(--brand) 50%,
+    var(--muted) 62%,
+    var(--muted) 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: shimmer 1.5s linear infinite;
 }
 
-.thinkingLogo {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+@keyframes thinkIn {
+  from { opacity: 0; transform: translateY(4px); }
 }
 
-.thinkingDots {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0.65rem 0.9rem;
-  background: var(--bg-tint);
-  border: 1px solid var(--line);
-  border-radius: 4px 16px 16px 16px;
+/* constant motion: linear */
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to   { background-position: -150% 0; }
 }
 
-.thinkingDots span {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--muted);
-  display: inline-block;
-  animation: bounce 1.2s ease-in-out infinite;
+@media (prefers-reduced-motion: reduce) {
+  .thinking { animation: thinkFade 200ms ease 300ms both; }
+  .thinkingText { animation: none; background: none; color: var(--muted); }
 }
 
-.dot2 { animation-delay: 0.2s !important; }
-.dot3 { animation-delay: 0.4s !important; }
-
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(0.65); opacity: 0.3; }
-  40%            { transform: scale(1);    opacity: 0.9; }
+@keyframes thinkFade {
+  from { opacity: 0; }
 }
